@@ -77,7 +77,7 @@ function login({ email, password, req }) {
       if (!user) { reject('Invalid credentials.') }
 
       req.login(user, () => resolve(user));
-    })({ body: { email, password, name } });
+    })({ body: { email, password } });
   });
 }
 
