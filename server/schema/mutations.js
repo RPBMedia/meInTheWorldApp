@@ -6,7 +6,7 @@ const {
   GraphQLString
 } = graphql;
 
-const UserType = require('../types/user_type');
+const UserType = require('./types/user_type');
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
