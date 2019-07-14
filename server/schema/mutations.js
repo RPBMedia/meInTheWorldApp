@@ -15,6 +15,7 @@ const LocationType = require('./types/location_type');
 
 const User = mongoose.model('user');
 const Continent = mongoose.model('continent');
+const Country = mongoose.model('country');
 
 
 
@@ -77,13 +78,28 @@ const mutation = new GraphQLObjectType({
       type: ContinentType,
       args: {
         name: { type: GraphQLString },
+        userId: { type: GraphQLID },
         continentId: { type: GraphQLID },
       },
-      resolve(parentValue, { name, continentId }) {
-        return Continent.addCountry(name, continentId);
+      resolve(parentValue, { name, userId, continentId }) {
+        return Continent.addCountry(name, userId, continentId);
       }
     },
     // Location mutations
+    addLocation: {
+      type: CountryType,
+      args: {
+        name: { type: GraphQLString },
+        userId: { type: GraphQLID },
+        continentId: { type: GraphQLID },
+        countryId: { type: GraphQLID },
+        yearVisited: { type: GraphQLString },
+        pictureUrl: { type: GraphQLString },
+      },
+      resolve(parentValue, { name, userId, continentId, countryId, yearVisited, pictureUrl}) {
+        return Country.addLocation(name, userId, continentId, countryId, yearVisited, pictureUrl);
+      }
+    },
   }
 });
 

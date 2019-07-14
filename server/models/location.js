@@ -3,12 +3,7 @@ const Schema = mongoose.Schema;
 
 const LocationSchema = new Schema({
   name: { type: String },
-  yearVisited: { type: String },
-  pictureUrl: { type: String },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'user'
-  },
+  userId: { type: String },
   continent: {
     type: Schema.Types.ObjectId,
     ref: 'continent'
@@ -17,6 +12,8 @@ const LocationSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'country'
   },
+  yearVisited: { type: String },
+  pictureUrl: { type: String },
 }, {
     usePushEach: true
   });

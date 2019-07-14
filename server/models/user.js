@@ -12,6 +12,10 @@ const UserSchema = new Schema({
   continents: [{
     type: Schema.Types.ObjectId,
     ref: 'continent'
+  }],
+  countries: [{
+    type: Schema.Types.ObjectId,
+    ref: 'country'
   }]
 }, {
     usePushEach: true
@@ -62,6 +66,12 @@ UserSchema.statics.findContinents = function (id) {
   return this.findById(id)
     .populate('continents')
     .then(user => user.continents);
+}
+
+UserSchema.statics.findCountries = function (id) {
+  return this.findById(id)
+    .populate('countries')
+    .then(user => user.countries);
 }
 
 mongoose.model('user', UserSchema);

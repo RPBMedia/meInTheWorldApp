@@ -17,6 +17,15 @@ const CountryType = new GraphQLObjectType({
     id: { type: GraphQLID },
     userId: { type: GraphQLID },
     name: { type: GraphQLString },
+    user: {
+      type: require('./user_type'),
+      resolve(parentValue) {
+        return Country.findById(parentValue).populate('user')
+          .then(country => {
+            return country.user
+          });
+      }
+    },
     continent: {
       type: require('./continent_type'),
       resolve(parentValue) {

@@ -10,17 +10,21 @@ const ContinentSchema = new Schema({
   countries: [{
     type: Schema.Types.ObjectId,
     ref: 'country'
+  }],
+  locations: [{
+    type: Schema.Types.ObjectId,
+    ref: 'location'
   }]
 }, {
     usePushEach: true
 });
 
-ContinentSchema.statics.addCountry = function (name, continentId) {
+ContinentSchema.statics.addCountry = function (name, userId, continentId) {
   const Country = mongoose.model('country');
 
   return this.findById(continentId)
     .then(continent => {
-      const country = new Country({ name, continent })
+      const country = new Country({ name, continent, userId })
       continent.countries.push(country)
       return Promise.all([country.save(), continent.save()])
         .then(([country, continent]) => continent);

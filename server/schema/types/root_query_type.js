@@ -14,6 +14,8 @@ const LocationType = require('./location_type');
 
 const User = mongoose.model('user');
 const Continent = mongoose.model('continent');
+const Country = mongoose.model('country');
+const Location = mongoose.model('location');
 
 
 const RootQueryType = new GraphQLObjectType({
@@ -33,12 +35,6 @@ const RootQueryType = new GraphQLObjectType({
         return User.findById(id);
       }
     },
-    continents: {
-      type: new GraphQLList(ContinentType),
-      resolve() {
-        return Continent.find({})
-      }
-    },
     continentsByUser: {
       type: new GraphQLList(ContinentType),
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
@@ -48,6 +44,20 @@ const RootQueryType = new GraphQLObjectType({
           .then(user => {
             return user.continents
           });
+      }
+    },
+    countriesByUser: {
+      type: new GraphQLList(CountryType),
+      args: { userId: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(parentValue, { userId }) {
+        return Country.find({ userId });
+      }
+    },
+    locationsByUser: {
+      type: new GraphQLList(LocationType),
+      args: { userId: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(parentValue, { userId }) {
+        return Location.find({ userId });
       }
     }
     // songs: {

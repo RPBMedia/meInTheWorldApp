@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const graphql = require('graphql');
 const ContinentType = require('./continent_type');
+const CountryType = require('./country_type');
 
 const {
   GraphQLObjectType,
@@ -17,6 +18,12 @@ const UserType = new GraphQLObjectType({
     id: { type: GraphQLID },
     email: { type: GraphQLString },
     name: { type: GraphQLString },
+    countries: {
+      type: new GraphQLList(CountryType),
+      resolve(parentValue) {
+        return User.findCountries(parentValue.id);
+      }
+    },
     continents: {
       type: new GraphQLList(ContinentType),
       resolve(parentValue) {
