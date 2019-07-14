@@ -70,27 +70,18 @@ const RootQueryType = new GraphQLObjectType({
             return continent.locations;
           });
       }
+    },
+    locationsByCountry: {
+      type: new GraphQLList(LocationType),
+      args: { countryId: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(parentValue, { countryId }) {
+        return Country.findById(countryId)
+          .populate('locations')
+          .then(country => {
+            return country.locations;
+          });
+      }
     }
-    // songs: {
-    //   type: new GraphQLList(SongType),
-    //   resolve() {
-    //     return Song.find({});
-    //   }
-    // },
-    // song: {
-    //   type: SongType,
-    //   args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-    //   resolve(parentValue, { id }) {
-    //     return Song.findById(id);
-    //   }
-    // },
-    // lyric: {
-    //   type: LyricType,
-    //   args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-    //   resolve(parnetValue, { id }) {
-    //     return Lyric.findById(id);
-    //   }
-    // }
   },
 });
 
