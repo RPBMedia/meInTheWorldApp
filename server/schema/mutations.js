@@ -1,16 +1,27 @@
+const mongoose = require('mongoose');
 const graphql = require('graphql');
 const AuthService = require('../services/auth');
 
 const {
   GraphQLObjectType,
-  GraphQLString
+  GraphQLString,
+  GraphQLID,
 } = graphql;
 
 const UserType = require('./types/user_type');
+const ContinentType = require('./types/continent_type');
+const CountryType = require('./types/country_type');
+const LocationType = require('./types/location_type');
+
+const User = mongoose.model('user');
+const Continent = mongoose.model('continent');
+
+
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
+    // User mutations
     signup: {
       type: UserType,
       args: {
@@ -49,7 +60,20 @@ const mutation = new GraphQLObjectType({
       resolve(parentValue, { email, password }, req) {
         return AuthService.login({ email, password, req })
       }
-    }
+    },
+    // Continent mutations
+    addContinent: {
+      type: ContinentType,
+      args: {
+        name: { type: GraphQLString },
+        userId: { type: GraphQLID },
+      },
+      resolve(parentValue, { name }) {
+        return (new Continent({ name })).save()
+      }
+    },
+    // Country mutations
+    // Location mutations
   }
 });
 
