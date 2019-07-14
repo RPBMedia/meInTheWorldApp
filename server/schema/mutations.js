@@ -73,6 +73,16 @@ const mutation = new GraphQLObjectType({
       }
     },
     // Country mutations
+    addCountry: {
+      type: ContinentType,
+      args: {
+        name: { type: GraphQLString },
+        continentId: { type: GraphQLID },
+      },
+      resolve(parentValue, { name, continentId }) {
+        return Continent.addCountry(name, continentId);
+      }
+    },
     // Location mutations
   }
 });

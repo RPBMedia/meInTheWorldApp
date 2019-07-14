@@ -15,12 +15,12 @@ const ContinentSchema = new Schema({
     usePushEach: true
 });
 
-ContinentSchema.statics.addCountry = function (id, name, userId) {
+ContinentSchema.statics.addCountry = function (name, continentId) {
   const Country = mongoose.model('country');
 
-  return this.findById(id)
+  return this.findById(continentId)
     .then(continent => {
-      const country = new Country({ id, name, userId })
+      const country = new Country({ name, continent })
       continent.countries.push(country)
       return Promise.all([country.save(), continent.save()])
         .then(([country, continent]) => continent);

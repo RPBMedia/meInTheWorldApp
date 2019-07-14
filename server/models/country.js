@@ -3,10 +3,6 @@ const Schema = mongoose.Schema;
 
 const CountrySchema = new Schema({
   name: { type: String },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'user'
-  },
   continent: {
     type: Schema.Types.ObjectId,
     ref: 'continent'
