@@ -11,7 +11,7 @@ const {
 const UserType = require('./types/user_type');
 const ContinentType = require('./types/continent_type');
 const CountryType = require('./types/country_type');
-const LocationType = require('./types/location_type');
+// const LocationType = require('./types/location_type');
 
 const User = mongoose.model('user');
 const Continent = mongoose.model('continent');

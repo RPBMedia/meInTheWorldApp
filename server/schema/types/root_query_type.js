@@ -59,6 +59,17 @@ const RootQueryType = new GraphQLObjectType({
       resolve(parentValue, { userId }) {
         return Location.find({ userId });
       }
+    },
+    locationsByContinent: {
+      type: new GraphQLList(LocationType),
+      args: { continentId: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(parentValue, { continentId }) {
+        return Continent.findById(continentId)
+          .populate('locations')
+          .then(continent => {
+            return continent.locations;
+          });
+      }
     }
     // songs: {
     //   type: new GraphQLList(SongType),
