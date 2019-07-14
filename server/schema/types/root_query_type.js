@@ -38,6 +38,17 @@ const RootQueryType = new GraphQLObjectType({
       resolve() {
         return Continent.find({})
       }
+    },
+    continentsByUser: {
+      type: new GraphQLList(ContinentType),
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(parentValue, { id }) {
+        return User.findById(id)
+          .populate('continents')
+          .then(user => {
+            return user.continents
+          });
+      }
     }
     // songs: {
     //   type: new GraphQLList(SongType),
