@@ -11,7 +11,7 @@ const Location = mongoose.model('location');
 
 const UserType = new GraphQLObjectType({
   name: 'LocationType',
-  fields: {
+  fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     yearVisited: { type: GraphQLString },
@@ -35,7 +35,7 @@ const UserType = new GraphQLObjectType({
           });
       }
     },
-  }
+  })
 });
 
 module.exports = UserType;

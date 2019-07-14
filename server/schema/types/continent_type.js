@@ -13,16 +13,15 @@ const Continent = mongoose.model('continent');
 
 const ContinentType = new GraphQLObjectType({
   name: 'ContinentType',
-  fields: {
+  fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     user: {
       type: require('./user_type'),
       resolve(parentValue) {
         return Continent.findById(parentValue).populate('user')
-          .then(user => {
-            console.log('Continent user: ', user.name);
-            return user
+          .then(continent => {
+            return continent.user
           });
       }
     },
@@ -32,7 +31,7 @@ const ContinentType = new GraphQLObjectType({
         return Continent.findCountries(parentValue.id);
       }
     }
-  }
+  })
 });
 
 module.exports = ContinentType;

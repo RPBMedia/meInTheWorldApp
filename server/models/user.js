@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt-nodejs');
-const crypto = require('crypto');
+// const crypto = require('crypto');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -9,6 +9,12 @@ const UserSchema = new Schema({
   email: String,
   password: String,
   name: String,
+  continents: [{
+    type: Schema.Types.ObjectId,
+    ref: 'continent'
+  }]
+}, {
+    usePushEach: true
 });
 
 // The user's password is never saved in plain text.  Prior to saving the
@@ -39,5 +45,23 @@ UserSchema.methods.comparePassword = function comparePassword(candidatePassword,
     cb(err, isMatch);
   });
 };
+
+UserSchema.statics.addContinent = function (name, userId) {
+  const Continent = mongoose.model('continent');
+
+  return this.findById(userId)
+    .then(user => {
+      const continent = new Continent({ name, user })
+      user.continents.push(continent)
+      return Promise.all([continent.save(), user.save()])
+        .then(([continent, user]) => user);
+    });
+}
+
+UserSchema.statics.findContinents = function (id) {
+  return this.findById(id)
+    .populate('continents')
+    .then(user => user.continents);
+}
 
 mongoose.model('user', UserSchema);

@@ -63,13 +63,13 @@ const mutation = new GraphQLObjectType({
     },
     // Continent mutations
     addContinent: {
-      type: ContinentType,
+      type: UserType,
       args: {
         name: { type: GraphQLString },
         userId: { type: GraphQLID },
       },
-      resolve(parentValue, { name }) {
-        return (new Continent({ name })).save()
+      resolve(parentValue, { name, userId }) {
+        return User.addContinent(name, userId);
       }
     },
     // Country mutations

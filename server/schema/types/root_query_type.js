@@ -21,7 +21,7 @@ const RootQueryType = new GraphQLObjectType({
   fields: {
     dummyField: { type: GraphQLID},
     users: {
-      type: new GraphQLList(ContinentType),
+      type: new GraphQLList(UserType),
       resolve() {
         return User.find({})
       }
