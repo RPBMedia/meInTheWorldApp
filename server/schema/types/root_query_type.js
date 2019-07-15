@@ -21,7 +21,6 @@ const Location = mongoose.model('location');
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
-    dummyField: { type: GraphQLID},
     users: {
       type: new GraphQLList(UserType),
       resolve() {
@@ -29,6 +28,12 @@ const RootQueryType = new GraphQLObjectType({
       }
     },
     user: {
+      type: UserType,
+      resolve(parentValue, args, req) {
+        return req.user;
+      }
+    },
+    userById: {
       type: UserType,
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(parentValue, { id }) {
