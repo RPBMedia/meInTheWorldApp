@@ -2,3 +2,12 @@
   background-color: white;
   color: black;
 } */
+
+.margin-top-large {
+  margin-top: 60px;
+}
+
+.center-s4 {
+  margin-left: calc(100% / 3) !important;
+  margin-right: calc(100% / 3) !important;
+}
