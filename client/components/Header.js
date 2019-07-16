@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import CurrentUserQuery from '../queries/CurrentUser';
 
 class Header extends Component {
-    render() {
-        return (
-            <div>
-                Header  
-            </div>
-        );
+  renderButtons() {
+    if (this.props.data.loading) {
+      return <div/>;
     }
+  }
+
+  render() {
+    return (
+            <nav>
+                <div className="nav-wrapper">
+                    {this.renderButtons()}
+                </div>
+            </nav>
+    );
+  }
 }
 
-export default Header;
+export default graphql(CurrentUserQuery)(Header);
