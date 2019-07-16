@@ -14,10 +14,20 @@ class AuthForm extends Component {
 
   onSubmit(event){
     event.preventDefault();
-    this.props.onSubmit({
-      email: this.state.email,
-      password: this.state.password,
-    })
+    if(this.props.register) {
+      this.props.onSubmit({
+        email: this.state.email,
+        password: this.state.password,
+        confirmPassword: this.state.confirmPassword,
+        name: this.state.name,
+
+      });
+    } else {
+      this.props.onSubmit({
+        email: this.state.email,
+        password: this.state.password,
+      });
+    }
   }
   
 
@@ -61,6 +71,12 @@ class AuthForm extends Component {
                 onChange={e => this.setState({ confirmPassword: e.target.value })}
               />
             </div>
+          }
+          {this.props.errors && this.props.errors.length > 0 &&
+            <div className="errors padding-bottom-sides-small">
+              {this.props.errors.map(error => <div key={error}>{error}</div> )}
+            </div>
+            
           }
           <button
             onClick={this.onSubmit.bind(this)} className="btn">

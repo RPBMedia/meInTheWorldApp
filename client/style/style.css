@@ -7,7 +7,24 @@
   margin-top: 60px;
 }
 
+.margin-bottom-small {
+  margin-top: 20px;
+}
+
 .center-s4 {
   margin-left: calc(100% / 3) !important;
   margin-right: calc(100% / 3) !important;
+}
+
+.errors {
+  color: ee6e73;
+  font-weight: bold;
+}
+
+.padding-small {
+  padding: 10px 10px 10px 10px;
+}
+
+.padding-bottom-sides-small {
+  padding: 0 10px 10px 10px;
 }
