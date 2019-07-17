@@ -3,12 +3,20 @@ import AuthForm from './AuthForm';
 import { graphql } from 'react-apollo';
 import CurrentUserQuery from '../queries/CurrentUser';
 import RegisterMutation from '../mutations/Register';
+import { hashHistory } from 'react-router';
 
 class RegisterForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       errors: [],
+    };
+  }
+
+  componentWillUpdate(nextProps) {
+    console.log(this.props, nextProps)
+    if(!this.props.data.user && nextProps.data.user) {
+      hashHistory.push('/dashboard')
     }
   }
 
