@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
-import { Router, hashHistory, Route, IndexRoute } from 'react-router';
+import { Router, Redirect, hashHistory, Route, IndexRoute } from 'react-router';
 
 import App from './components/App';
 import Home from './components/Home';
@@ -24,10 +24,14 @@ const client = new ApolloClient({
   dataIdFromObject: o => o.id
 });
 
+
+console.log(hashHistory.location);
+
 const Root = () => {
   return (
     <ApolloProvider client={client}>
       <Router history={hashHistory}>
+        <Redirect exact from="/" to="/home" />
         <Route path="/" component={App}>
           <Route path="home" component={Home} initialState/>
           <Route path="login" component={LoginForm} />
