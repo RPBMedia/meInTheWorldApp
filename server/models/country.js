@@ -3,7 +3,10 @@ const Schema = mongoose.Schema;
 
 const CountrySchema = new Schema({
   name: { type: String },
-  userId: { type: String },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'user'
+  },
   continent: {
     type: Schema.Types.ObjectId,
     ref: 'continent'
@@ -25,27 +28,31 @@ CountrySchema.statics.addLocation = function (
   pictureUrl) {
   const Location = mongoose.model('location');
   const Continent = mongoose.model('continent');
+  const User = mongoose.model('user');
 
-  const countryPromise = this.findById(countryId)
-    .then(country => {
+
+  return User.findById(userId)
+    .then(user => {
       Continent.findById(continentId)
         .then(continent => {
-          const location = new Location({
-            name,
-            userId,
-            continent,
-            country,
-            yearVisited,
-            pictureUrl,
+          this.findById(countryId)
+          .then(country => {
+            const location = new Location({
+              name,
+              user,
+              continent,
+              country,
+              yearVisited,
+              pictureUrl,
+            });
+            user.locations.push(location);
+            country.locations.push(location);
+            continent.locations.push(location);
+            return Promise.all([user.save(), continent.save(), country.save(), location.save()])
+              .then(([user, continent, country, location]) => country);
           });
-          country.locations.push(location)
-          continent.locations.push(location)
-          return Promise.all([continent.save(), country.save(), location.save()])
-            .then(([continent, country, location]) => country);
-        });
-    });
-
-  return countryPromise;
+        })
+    }); 
 }
 
 CountrySchema.statics.findLocations = function (id) {

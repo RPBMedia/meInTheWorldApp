@@ -16,6 +16,10 @@ const UserSchema = new Schema({
   countries: [{
     type: Schema.Types.ObjectId,
     ref: 'country'
+  }],
+  locations: [{
+    type: Schema.Types.ObjectId,
+    ref: 'location'
   }]
 }, {
     usePushEach: true

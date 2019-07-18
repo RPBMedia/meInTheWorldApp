@@ -21,14 +21,19 @@ const ContinentSchema = new Schema({
 
 ContinentSchema.statics.addCountry = function (name, userId, continentId) {
   const Country = mongoose.model('country');
+  const User = mongoose.model('user');
 
-  return this.findById(continentId)
-    .then(continent => {
-      const country = new Country({ name, continent, userId })
-      continent.countries.push(country)
-      return Promise.all([country.save(), continent.save()])
-        .then(([country, continent]) => continent);
-    });
+  return User.findById(userId)
+  .then(user => {
+    this.findById(continentId)
+      .then(continent => {
+        const country = new Country({ name, continent, user })
+        continent.countries.push(country);
+        user.countries.push(country);
+        return Promise.all([user.save(), country.save(), continent.save()])
+          .then(([user, country, continent]) => continent);
+      })
+  }); 
 }
 
 ContinentSchema.statics.findCountries = function (id) {
