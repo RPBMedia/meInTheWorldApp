@@ -14,6 +14,11 @@ export default gql`
                 name
                 id
             }
+            locations {
+                name
+                yearVisited
+                id
+            }
         }
     }
 `;

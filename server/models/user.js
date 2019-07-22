@@ -78,4 +78,10 @@ UserSchema.statics.findCountries = function (id) {
     .then(user => user.countries);
 }
 
+UserSchema.statics.findLocations = function (id) {
+  return this.findById(id)
+    .populate('locations')
+    .then(user => user.locations);
+}
+
 mongoose.model('user', UserSchema);

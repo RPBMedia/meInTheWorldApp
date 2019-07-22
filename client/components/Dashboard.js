@@ -9,7 +9,6 @@ import UnitsByUserTable from '../components/UnitsByUserTable';
 class Dashboard extends Component {
 
   goToAddContinent() {
-    console.log("Add continent clicked");
     hashHistory.push({
       pathname: '/continents/add',
       state: { user: this.props.data.user }
@@ -17,8 +16,6 @@ class Dashboard extends Component {
   }
 
   goToAddCountry() {
-    console.log("Add country clicked");
-    console.log("Add continent clicked");
     hashHistory.push({
       pathname: '/countries/add',
       state: { user: this.props.data.user }
@@ -26,7 +23,10 @@ class Dashboard extends Component {
   }
 
   goToAddLocation() {
-    console.log("Add locations clicked");
+    hashHistory.push({
+      pathname: '/locations/add',
+      state: { user: this.props.data.user }
+    });
   }
 
   renderButtonClasses(setOfData) {
@@ -41,19 +41,19 @@ class Dashboard extends Component {
     return (
       <div className="flex">
         <button className="btn cell" onClick={() => this.goToAddContinent()}>
-          Add Continent
+          Create Continent
         </button>
         <button
           className={this.renderButtonClasses(continents)}
           disabled={!continents || (continents && continents.length === 0)}
           onClick={() => this.goToAddCountry()}
         >
-          Add Country
+          Create Country
         </button>
         <button
           className={this.renderButtonClasses(countries)}
           disabled={!countries || (countries && countries.length === 0)}
-          onClick={() => this.goToAddContinent()}
+          onClick={() => this.goToAddLocation()}
         >
           Create Location
         </button>
@@ -64,8 +64,6 @@ class Dashboard extends Component {
     if(this.props.data.loading) {
       return null
     }
-    debugger;
-    this.props
     return (
       <div>
         <h4 className="center margin-bottom-large">
@@ -74,7 +72,7 @@ class Dashboard extends Component {
         <div className="container nav-wrapper button-nav">
           {this.renderAddButtons()}
         </div>
-        <p>
+        <p className="section-header">
           Your continents
         </p>
         <UnitsByUserTable
@@ -82,7 +80,7 @@ class Dashboard extends Component {
           emptyLabel="You have no continents yet"
           units={this.props.data.user.continents}
         />
-        <p>
+        <p className="section-header">
           Your countries
         </p>
         <UnitsByUserTable
@@ -90,10 +88,14 @@ class Dashboard extends Component {
           emptyLabel="You have no countries yet"
           units={this.props.data.user.countries}
         />
-        <p>
+        <p className="section-header">
           Your locations
         </p>
-        {/* <LocationsByUser userId={this.props.data.user.id} /> */}
+        <UnitsByUserTable
+          label="Total locations: "
+          emptyLabel="You have no locations yet"
+          units={this.props.data.user.locations}
+        />
       </div>
     );
   }

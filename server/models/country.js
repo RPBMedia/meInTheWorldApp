@@ -18,7 +18,6 @@ const CountrySchema = new Schema({
 }, {
     usePushEach: true
 });
-
 CountrySchema.statics.addLocation = function (
   name,
   userId,

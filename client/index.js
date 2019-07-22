@@ -12,6 +12,7 @@ import RegisterForm from './components/RegisterForm';
 import Dashboard from './components/Dashboard';
 import AddContinent from './components/AddContinent';
 import AddCountry from './components/AddCountry';
+import AddLocation from './components/AddLocation';
 import RequireAuth from './components/RequireAuth';
 
 const networkInterface = createNetworkInterface({
@@ -41,6 +42,7 @@ const Root = () => {
           <Route path="dashboard" component={RequireAuth(Dashboard)} />
           <Route path="continents/add" component={RequireAuth(AddContinent)} />
           <Route path="countries/add" component={RequireAuth(AddCountry)} />
+          <Route path="locations/add" component={RequireAuth(AddLocation)} />
         </Route>
       </Router>
     </ApolloProvider>

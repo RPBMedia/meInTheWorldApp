@@ -59,3 +59,8 @@
 .select {
   height: 30px;
 }
+
+.section-header {
+  font-size: 18;
+  font-weight: bold;
+}

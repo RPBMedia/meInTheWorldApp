@@ -101,6 +101,7 @@ const mutation = new GraphQLObjectType({
         pictureUrl: { type: GraphQLString },
       },
       resolve(parentValue, { name, userId, continentId, countryId, yearVisited, pictureUrl}) {
+        console.log("Calling addLocation with params: ", name, userId, continentId, countryId, yearVisited, pictureUrl);
         return Country.addLocation(name, userId, continentId, countryId, yearVisited, pictureUrl);
       }
     },
