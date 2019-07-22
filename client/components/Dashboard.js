@@ -18,23 +18,36 @@ class Dashboard extends Component {
 
   goToAddCountry() {
     console.log("Add country clicked");
+    console.log("Add continent clicked");
+    hashHistory.push({
+      pathname: '/countries/add',
+      state: { user: this.props.data.user }
+    });
   }
 
   goToAddLocation() {
     console.log("Add locations clicked");
   }
 
+  renderButtonClasses(setOfData) {
+    if(!setOfData || (setOfData && setOfData.length === 0)) {
+      return 'btn cell disabled';
+    }
+    return 'btn cell';
+  }
+
   renderAddButtons() {
+    const { continents, countries } = this.props.data.user;
     return (
       <div className="flex">
         <button className="btn cell" onClick={() => this.goToAddContinent()}>
           Add Continent
         </button>
-        <button className="btn cell" onClick={() => this.goToAddContinent()}>
-          Add Continent
+        <button className={this.renderButtonClasses(continents)} disabled={!continents || (continents && continents.length === 0)} onClick={() => this.goToAddContinent()}>
+          Add Country
         </button>
-        <button className="btn cell" onClick={() => this.goToAddContinent()}>
-          Add Continent
+        <button className={this.renderButtonClasses(countries)} disabled={!countries || (countries && countries.length === 0)} onClick={() => this.goToAddContinent()}>
+          Create Location
         </button>
       </div>
     )
@@ -43,6 +56,8 @@ class Dashboard extends Component {
     if(this.props.data.loading) {
       return null
     }
+    debugger;
+    this.props
     return (
       <div>
         <h4 className="center margin-bottom-large">

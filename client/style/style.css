@@ -50,3 +50,8 @@
   display: flex;
   justify-content: space-around;
 }
+
+.disabled {
+  opacity: 0.6;
+  background-color: grey;
+}

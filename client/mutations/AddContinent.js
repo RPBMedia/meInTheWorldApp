@@ -7,7 +7,7 @@ mutation AddContinent($name: String, $userId: ID){
     userId: $userId) {
     id
     name
-    user {
+    continents {
       id
       name
     }

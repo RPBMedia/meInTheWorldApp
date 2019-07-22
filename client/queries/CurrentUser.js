@@ -6,6 +6,10 @@ export default gql`
             id
             email
             name
+            continents {
+                name
+                id
+            }
         }
     }
 `;

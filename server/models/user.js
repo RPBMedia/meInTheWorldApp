@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt-nodejs');
-// const crypto = require('crypto');
+const crypto = require('crypto');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -56,9 +56,10 @@ UserSchema.methods.comparePassword = function comparePassword(candidatePassword,
 
 UserSchema.statics.addContinent = function (name, userId) {
   const Continent = mongoose.model('continent');
-
+  console.log('Add continent triggered. Params: ', name, userId);
   return this.findById(userId)
     .then(user => {
+      debugger;
       const continent = new Continent({ name, user })
       user.continents.push(continent)
       return Promise.all([continent.save(), user.save()])

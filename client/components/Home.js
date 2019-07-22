@@ -5,25 +5,16 @@ import CountriesByUser from '../queries/CountriesByUser';
 import LocationsByUser from '../queries/LocationsByUser';
 
 import LocationsByUserCell from './LocationsByUserCell';
+import { compareByName } from '../utils';
 
 class Home extends Component {
-
-  compare(a, b) {
-    if ( a.name < b.name ){
-      return -1;
-    }
-    if ( a.name > b.name ){
-      return 1;
-    }
-    return 0;
-  }
 
   renderUserList() {
     const users = null;
     if(this.props.data.loading || !this.props.data.users) {
       return null
     }
-    const sortedUsers = this.props.data.users.slice().sort(this.compare);
+    const sortedUsers = this.props.data.users.slice().sort(compareByName);
     return sortedUsers.map(user => {
       return (
         <li key={user.id} className="collection-item row flex">

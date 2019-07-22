@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import CurrentUserQuery from '../queries/CurrentUser';
-import AddContinentMutation from '../mutations/AddContinent';
+import AddCountryMutation from '../mutations/AddCountry';
 import { hashHistory } from 'react-router';
 
-class AddContinent extends Component {
+class AddCountry extends Component {
   constructor(props) {
     super(props);
     
@@ -64,4 +64,4 @@ class AddContinent extends Component {
   }
 }
 
-export default graphql(AddContinentMutation)(AddContinent);
+export default graphql(AddCountryMutation)(AddCountry);
