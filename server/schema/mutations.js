@@ -85,6 +85,7 @@ const mutation = new GraphQLObjectType({
         continentId: { type: GraphQLID },
       },
       resolve(parentValue, { name, userId, continentId }) {
+        console.log("Calling addCountry with params: ", name, userId, continentId);
         return Continent.addCountry(name, userId, continentId);
       }
     },

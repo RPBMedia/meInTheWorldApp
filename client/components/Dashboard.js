@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo';
 import { hashHistory } from 'react-router';
 // import LocationsByUser from '../components/LocationsByUser';
 import CurrentUserQuery from '../queries/CurrentUser';
-import ContinentsByUserTable from '../components/ContinentsByUserTable';
+import UnitsByUserTable from '../components/UnitsByUserTable';
 
 
 class Dashboard extends Component {
@@ -43,10 +43,18 @@ class Dashboard extends Component {
         <button className="btn cell" onClick={() => this.goToAddContinent()}>
           Add Continent
         </button>
-        <button className={this.renderButtonClasses(continents)} disabled={!continents || (continents && continents.length === 0)} onClick={() => this.goToAddContinent()}>
+        <button
+          className={this.renderButtonClasses(continents)}
+          disabled={!continents || (continents && continents.length === 0)}
+          onClick={() => this.goToAddCountry()}
+        >
           Add Country
         </button>
-        <button className={this.renderButtonClasses(countries)} disabled={!countries || (countries && countries.length === 0)} onClick={() => this.goToAddContinent()}>
+        <button
+          className={this.renderButtonClasses(countries)}
+          disabled={!countries || (countries && countries.length === 0)}
+          onClick={() => this.goToAddContinent()}
+        >
           Create Location
         </button>
       </div>
@@ -69,10 +77,19 @@ class Dashboard extends Component {
         <p>
           Your continents
         </p>
-        <ContinentsByUserTable continents={this.props.data.user.continents} />
+        <UnitsByUserTable
+          label="Total continents: "
+          emptyLabel="You have no continents yet"
+          units={this.props.data.user.continents}
+        />
         <p>
           Your countries
         </p>
+        <UnitsByUserTable
+          label="Total countries: "
+          emptyLabel="You have no countries yet"
+          units={this.props.data.user.countries}
+        />
         <p>
           Your locations
         </p>

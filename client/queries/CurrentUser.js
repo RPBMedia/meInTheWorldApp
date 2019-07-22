@@ -10,6 +10,10 @@ export default gql`
                 name
                 id
             }
+            countries {
+                name
+                id
+            }
         }
     }
 `;

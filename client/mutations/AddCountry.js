@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export default gql`
 mutation AddCountry($name: String, $userId: ID, $continentId: ID){
-  addContinent(
+  addCountry(
     name: $name,
     userId: $userId,
     continentId: $continentId) {

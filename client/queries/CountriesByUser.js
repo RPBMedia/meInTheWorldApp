@@ -5,9 +5,6 @@ export default gql`
     countriesByUser(userId: $id) {
       id
       name
-      continent {
-        name
-      }
     }
   }
 `;

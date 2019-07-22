@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import Users from '../queries/Users';
-import CountriesByUser from '../queries/CountriesByUser';
-import LocationsByUser from '../queries/LocationsByUser';
 
+import ContinentsByUserCell from './ContinentsByUserCell';
+import CountriesByUserCell from './CountriesByUserCell';
 import LocationsByUserCell from './LocationsByUserCell';
 import { compareByName } from '../utils';
 
@@ -18,7 +18,7 @@ class Home extends Component {
     return sortedUsers.map(user => {
       return (
         <li key={user.id} className="collection-item row flex">
-          <div className="col s4 flex">
+          <div className="col s3 flex">
             <div className="cell bold">
               Name:
             </div>
@@ -26,7 +26,7 @@ class Home extends Component {
               {user.name}
             </div>
           </div>
-          <div className="col s4 flex">
+          <div className="col s3 flex">
             <div className="cell bold">
               Email:
             </div>
@@ -34,7 +34,23 @@ class Home extends Component {
               {user.email}
             </div>
           </div>
-          <div className="col s4 flex">
+          <div className="col s2 flex">
+            <div className="cell bold">
+              Continents:
+            </div>
+            <div className="cell">
+              <ContinentsByUserCell userId={user.id} />
+            </div>
+          </div>
+          <div className="col s2 flex">
+            <div className="cell bold">
+              Countries:
+            </div>
+            <div className="cell">
+              <CountriesByUserCell userId={user.id} />
+            </div>
+          </div>
+          <div className="col s2 flex">
             <div className="cell bold">
               Locations:
             </div>

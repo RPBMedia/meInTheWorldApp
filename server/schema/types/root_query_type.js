@@ -42,27 +42,31 @@ const RootQueryType = new GraphQLObjectType({
     },
     continentsByUser: {
       type: new GraphQLList(ContinentType),
-      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve(parentValue, { id }) {
-        return User.findById(id)
-          .populate('continents')
-          .then(user => {
-            return user.continents
-          });
+      args: { userId: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(parentValue, { userId }) {
+        
       }
     },
     countriesByUser: {
       type: new GraphQLList(CountryType),
       args: { userId: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(parentValue, { userId }) {
-        return Country.find({ userId });
+        return User.findById(userId)
+          .populate('countries')
+          .then(user => {
+            return user.countries
+          });
       }
     },
     locationsByUser: {
       type: new GraphQLList(LocationType),
       args: { userId: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(parentValue, { userId }) {
-        return Location.find({ userId });
+        return User.findById(userId)
+          .populate('locations')
+          .then(user => {
+            return user.locations
+          });
       }
     },
     locationsByContinent: {

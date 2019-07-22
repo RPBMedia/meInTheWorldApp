@@ -59,7 +59,6 @@ UserSchema.statics.addContinent = function (name, userId) {
   console.log('Add continent triggered. Params: ', name, userId);
   return this.findById(userId)
     .then(user => {
-      debugger;
       const continent = new Continent({ name, user })
       user.continents.push(continent)
       return Promise.all([continent.save(), user.save()])
