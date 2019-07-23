@@ -122,7 +122,7 @@ const mutation = new GraphQLObjectType({
             .populate('locations')
             .then(country => {
               const indexContinent = continent.locations.map(loc => loc.id).indexOf(id);
-              continent.locations = country.locations.splice(indexContinent, 1)
+              continent.locations = continent.locations.splice(indexContinent, 1)
 
               const indexCountry = country.locations.map(loc => loc.id).indexOf(id);
               country.locations = country.locations.splice(indexCountry, 1)
@@ -130,6 +130,34 @@ const mutation = new GraphQLObjectType({
                 .then(([country, continent, location]) => location);
             });
           });
+      }
+    },
+    deleteCountry: {
+      type: LocationType,
+      args: {
+        id: { type: GraphQLID },
+        continentId: { type: GraphQLID },
+      },
+      resolve(parentValue, { id, continentId }){
+        console.log("Calling DeleteCountry with params: ", id, continentId);
+        return Continent.findById(continentId)
+          .populate('countries')
+          .then(continent => {
+            const indexContinent = continent.countries.map(country => country.id).indexOf(id);
+            continent.countries = continent.countries.splice(indexContinent, 1)
+
+            return Promise.all([continent.save(), Country.remove({ _id: id})])
+              .then(([continent, country]) => country);
+          });
+      }
+    },
+    deleteContinent: {
+      type: LocationType,
+      args: {
+        id: { type: GraphQLID },
+      },
+      resolve(parentValue, { id }) {
+        return Continent.remove({ _id: id });
       }
     }
   }
