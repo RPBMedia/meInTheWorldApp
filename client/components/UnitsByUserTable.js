@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import ContinentsByUser from '../queries/ContinentsByUser';
 import { compareByName } from '../utils';
+import DeleteContinentMutation from '../mutations/DeleteContinent';
+import DeleteCountryMutation from '../mutations/DeleteCountry';
 import DeleteLocationMutation from '../mutations/DeleteLocation';
 
 class UnitsByUserTable extends Component {
@@ -12,22 +14,40 @@ class UnitsByUserTable extends Component {
     const unitId = unit.id;
     let continentId = null;
     let countryId = null;
-
     //If the unit is a country, check it's continent
-    if(unit.continent && !unit.country) {
-      continentId = unit.continent.id
-    } else if(unit.continent && unit.country){
-      continentId = unit.continent.id
-      countryId = unit.country.id
+    if(unit.__typename === 'CountryType') {
+      continentId = unit.continent && unit.continent.id
+
+      console.log('Calling deleteCountry with params: ', unitId);
+      this.props.deleteCountryMutation({
+        variables: {
+          id: unitId,
+          continentId
+        }
+      }).then( () => this.props.onUpdate());
+    }
+    //If it is a location, check both continent and country
+    else if(unit.__typename === 'LocationType'){
+      continentId = unit.continent && unit.continent.id
+      countryId = unit.country && unit.country.id
+
+      console.log('Calling deleteLocation with params: ', unitId, continentId, countryId);
+      this.props.deleteLocationMutation({
+        variables: {
+          id: unitId,
+          countryId,
+          continentId
+        }
+      }).then( () => this.props.onUpdate());
+    } else {
+      console.log('Calling deleteContinent with params: ', unitId);
+      this.props.deleteContinentMutation({
+        variables: {
+          id: unitId
+        }
+      }).then( () => this.props.onUpdate());
     }
     
-    this.props.mutate({
-      variables: {
-        id: unitId,
-        countryId,
-        continentId
-      }
-    }).then( () => this.props.onUpdate());
   }
 
   renderUnitList() {
@@ -75,4 +95,15 @@ class UnitsByUserTable extends Component {
   }
 }
 
-export default graphql(DeleteLocationMutation)(UnitsByUserTable);
+export default graphql(DeleteLocationMutation, {name: 'deleteLocationMutation'})(
+  graphql(DeleteCountryMutation, {name: 'deleteCountryMutation'})(
+    graphql(DeleteContinentMutation, {name: 'deleteContinentMutation'})(UnitsByUserTable)
+  )
+);
+
+
+// export default graphql(DeleteEntity1Mutation)(
+//   graphql(DeleteEntity2Mutation)(
+//     graphql(DeleteEntity3Mutation)(UnitsByUserTable)
+//   )
+// );

@@ -115,21 +115,45 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, { id, countryId, continentId }){
         console.log("Calling DeleteLocation with params: ", id, countryId, continentId);
-        return Continent.findById(continentId)
-          .populate('locations')
-          .then(continent => {
-            Country.findById(countryId)
+        if(countryId === null && continentId === null) {
+          return Location.remove({ _id: id });
+        } else if(countryId === null && continentId !== null) {
+          return Continent.findById(continentId)
             .populate('locations')
-            .then(country => {
+            .then(continent => {
               const indexContinent = continent.locations.map(loc => loc.id).indexOf(id);
               continent.locations = continent.locations.splice(indexContinent, 1)
 
-              const indexCountry = country.locations.map(loc => loc.id).indexOf(id);
-              country.locations = country.locations.splice(indexCountry, 1)
-              return Promise.all([country.save(), continent.save(), Location.remove({ _id: id})])
-                .then(([country, continent, location]) => location);
+              return Promise.all([continent.save(), Location.remove({ _id: id})])
+                .then(([continent, location]) => location);
             });
+        } else if (countryId !== null && continentId === null) {
+          return Country.findById(countryId)
+          .populate('locations')
+          .then(country => {
+            const indexCountry = country.locations.map(loc => loc.id).indexOf(id);
+            country.locations = country.locations.splice(indexCountry, 1)
+
+            return Promise.all([country.save(), Location.remove({ _id: id})])
+              .then(([country, location]) => location);
           });
+        } else {
+          return Continent.findById(continentId)
+            .populate('locations')
+            .then(continent => {
+              Country.findById(countryId)
+              .populate('locations')
+              .then(country => {
+                const indexContinent = continent.locations.map(loc => loc.id).indexOf(id);
+                continent.locations = continent.locations.splice(indexContinent, 1)
+  
+                const indexCountry = country.locations.map(loc => loc.id).indexOf(id);
+                country.locations = country.locations.splice(indexCountry, 1)
+                return Promise.all([country.save(), continent.save(), Location.remove({ _id: id})])
+                  .then(([country, continent, location]) => location);
+              });
+            });
+        }
       }
     },
     deleteCountry: {
@@ -140,15 +164,19 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, { id, continentId }){
         console.log("Calling DeleteCountry with params: ", id, continentId);
-        return Continent.findById(continentId)
-          .populate('countries')
-          .then(continent => {
-            const indexContinent = continent.countries.map(country => country.id).indexOf(id);
-            continent.countries = continent.countries.splice(indexContinent, 1)
-
-            return Promise.all([continent.save(), Country.remove({ _id: id})])
-              .then(([continent, country]) => country);
-          });
+        if(continentId === null){
+          return Country.remove({ _id: id });
+        } else {
+          return Continent.findById(continentId)
+            .populate('countries')
+            .then(continent => {
+              const indexContinent = continent.countries.map(country => country.id).indexOf(id);
+              continent.countries = continent.countries.splice(indexContinent, 1)
+  
+              return Promise.all([continent.save(), Country.remove({ _id: id})])
+                .then(([continent, country]) => country);
+            });
+        }
       }
     },
     deleteContinent: {
