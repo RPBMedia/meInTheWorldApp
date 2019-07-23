@@ -18,6 +18,12 @@ export default gql`
                 name
                 yearVisited
                 id
+                continent {
+                    name
+                }
+                country {
+                    name
+                }
             }
         }
     }

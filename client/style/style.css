@@ -89,3 +89,38 @@
   opacity: 0.6;
   background-color: lightgray
 }
+
+.space-around {
+  justify-content: space-around;
+}
+
+.table-header {
+  font-weight: bold;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.no-border {
+  border: none;
+  background: white;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover {
+  opacity: 0.6;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.quarter-width {
+  width: 25%;
+}
+
+.center-text {
+  text-align: center;
+}
