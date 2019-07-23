@@ -4,7 +4,12 @@ class SearchBar extends Component {
   render() {
     return (
       <div>
-        Search
+        <input
+          type="text"
+          className="input"
+          placeholder="Filter locations by any criteria"
+          onChange={this.props.onUpdate}
+        />
       </div>
     );
   }

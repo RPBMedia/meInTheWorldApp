@@ -19,7 +19,7 @@ class DashboardLocations extends Component {
     this.state = {
       sortingField: 'name',
       ascendingSortOrder: true,
-      filteredSortedLocations: props.data.user.locations.slice()
+      filteredSortedLocations: props.data.user.locations
     }
   }
 
@@ -57,8 +57,33 @@ class DashboardLocations extends Component {
     }
   }
 
-  onUpdateFilter() {
+  onUpdateFilter(e) {
+    let currentList = [];
+    let newList = [];
 
+    if (e.target.value !== "") {
+      currentList = this.state.filteredSortedLocations;
+      newList = currentList.filter(item => {
+        // debugger;
+        const { name, continent, country, yearVisited } = item;
+        const lcName = name.toLowerCase();
+        const lcContinentName = continent.name.toLowerCase();
+        const lcCountryName = country.name.toLowerCase();
+        const lcYearVisited = yearVisited.toLowerCase();
+        const filter = e.target.value.toLowerCase();
+
+        const result = (lcName.includes(filter) ||
+        lcContinentName.includes(filter) ||
+        lcCountryName.includes(filter) ||
+        lcYearVisited.includes(filter));
+        return result;
+      });
+    } else {
+      newList = this.props.data.user.locations;
+    }
+    this.setState({
+      filteredSortedLocations: newList
+    });
   }
 
   render() {
