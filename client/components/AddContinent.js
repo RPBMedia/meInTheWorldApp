@@ -25,7 +25,7 @@ class AddContinent extends Component {
       },
       refetchQueries: [{ query: CurrentUserQuery }]
     })
-    .then(() => hashHistory.push('/dashboard'))
+    .then(() => hashHistory.push('/dashboard/overview'))
     .catch(res => {
       const errors = utils.setErrors(res);
       this.setState({

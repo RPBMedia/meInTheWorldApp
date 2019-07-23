@@ -76,6 +76,7 @@ class Dashboard extends Component {
           label="Total continents: "
           emptyLabel="You have no continents yet"
           units={this.props.data.user.continents}
+          onUpdate={() => this.props.data.refetch()}
         />
         <p className="section-header">
           Your countries
@@ -84,6 +85,7 @@ class Dashboard extends Component {
           label="Total countries: "
           emptyLabel="You have no countries yet"
           units={this.props.data.user.countries}
+          onUpdate={() => this.props.data.refetch()}
         />
         <p className="section-header">
           Your locations
@@ -92,6 +94,7 @@ class Dashboard extends Component {
           label="Total locations: "
           emptyLabel="You have no locations yet"
           units={this.props.data.user.locations}
+          onUpdate={() => this.props.data.refetch()}
         />
       </div>
     );

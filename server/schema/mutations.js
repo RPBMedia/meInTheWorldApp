@@ -11,11 +11,12 @@ const {
 const UserType = require('./types/user_type');
 const ContinentType = require('./types/continent_type');
 const CountryType = require('./types/country_type');
-// const LocationType = require('./types/location_type');
+const LocationType = require('./types/location_type');
 
 const User = mongoose.model('user');
 const Continent = mongoose.model('continent');
 const Country = mongoose.model('country');
+const Location = mongoose.model('location');
 
 
 
@@ -105,6 +106,32 @@ const mutation = new GraphQLObjectType({
         return Country.addLocation(name, userId, continentId, countryId, yearVisited, pictureUrl);
       }
     },
+    deleteLocation: {
+      type: LocationType,
+      args: {
+        id: { type: GraphQLID },
+        countryId: { type: GraphQLID },
+        continentId: { type: GraphQLID },
+      },
+      resolve(parentValue, { id, countryId, continentId }){
+        console.log("Calling DeleteLocation with params: ", id, countryId, continentId);
+        return Continent.findById(continentId)
+          .populate('locations')
+          .then(continent => {
+            Country.findById(countryId)
+            .populate('locations')
+            .then(country => {
+              const indexContinent = continent.locations.map(loc => loc.id).indexOf(id);
+              continent.locations = country.locations.splice(indexContinent, 1)
+
+              const indexCountry = country.locations.map(loc => loc.id).indexOf(id);
+              country.locations = country.locations.splice(indexCountry, 1)
+              return Promise.all([country.save(), continent.save(), Location.remove({ _id: id})])
+                .then(([country, continent, location]) => location);
+            });
+          });
+      }
+    }
   }
 });
 

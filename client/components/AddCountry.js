@@ -4,7 +4,6 @@ import Select from 'react-select';
 import CurrentUserQuery from '../queries/CurrentUser';
 import AddCountryMutation from '../mutations/AddCountry';
 import { hashHistory } from 'react-router';
-import ContinentsByUser from '../queries/ContinentsByUser';
 
 class AddCountry extends Component {
   constructor(props) {
@@ -29,7 +28,7 @@ class AddCountry extends Component {
       },
       refetchQueries: [{ query: CurrentUserQuery }]
     })
-    .then(() => hashHistory.push('/dashboard'))
+    .then(() => hashHistory.push('/dashboard/overview'))
     .catch(res => {
       const errors = utils.setErrors(res);
       this.setState({

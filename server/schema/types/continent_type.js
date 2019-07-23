@@ -9,6 +9,7 @@ const {
 } = graphql;
 
 const CountryType = require('./country_type');
+const LocationType = require('./location_type');
 const Continent = mongoose.model('continent');
 
 const ContinentType = new GraphQLObjectType({
@@ -29,6 +30,12 @@ const ContinentType = new GraphQLObjectType({
       type: new GraphQLList(CountryType),
       resolve(parentValue) {
         return Continent.findCountries(parentValue.id);
+      }
+    },
+    locations: {
+      type: new GraphQLList(LocationType),
+      resolve(parentValue) {
+        return Continent.findLocations(parentValue.id);
       }
     }
   })

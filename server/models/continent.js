@@ -42,4 +42,10 @@ ContinentSchema.statics.findCountries = function (id) {
     .then(continent => continent.countries);
 }
 
+ContinentSchema.statics.findLocations = function (id) {
+  return this.findById(id)
+    .populate('locations')
+    .then(continent => continent.locations);
+}
+
 mongoose.model('continent', ContinentSchema);
