@@ -229,8 +229,9 @@ const mutation = new GraphQLObjectType({
       type: LocationType,
       args: {
         id: { type: GraphQLID },
+        userId: { type: GraphQLID },
       },
-      resolve(parentValue, { id }) {
+      resolve(parentValue, { id, userId }) {
         return User.findById(userId)
             .populate('continents')
             .then(user => {
