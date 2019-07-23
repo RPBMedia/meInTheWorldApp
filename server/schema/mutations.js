@@ -110,47 +110,77 @@ const mutation = new GraphQLObjectType({
       type: LocationType,
       args: {
         id: { type: GraphQLID },
+        userId: { type: GraphQLID },
         countryId: { type: GraphQLID },
         continentId: { type: GraphQLID },
       },
-      resolve(parentValue, { id, countryId, continentId }){
-        console.log("Calling DeleteLocation with params: ", id, countryId, continentId);
+      resolve(parentValue, { id, userId, countryId, continentId }){
+        console.log("Calling DeleteLocation with params: ", id, userId, countryId, continentId);
         if(countryId === null && continentId === null) {
-          return Location.remove({ _id: id });
-        } else if(countryId === null && continentId !== null) {
-          return Continent.findById(continentId)
+          return User.findById(userId)
             .populate('locations')
-            .then(continent => {
-              const indexContinent = continent.locations.map(loc => loc.id).indexOf(id);
-              continent.locations = continent.locations.splice(indexContinent, 1)
+            .then(user => {
+              const indexUser = user.locations.map(loc => loc.id).indexOf(id);
+              user.locations = user.locations.splice(indexUser, 1);
 
-              return Promise.all([continent.save(), Location.remove({ _id: id})])
-                .then(([continent, location]) => location);
+              return Promise.all([user.save(), Location.remove({ _id: id})])
+                .then(([user, location]) => location);
             });
-        } else if (countryId !== null && continentId === null) {
-          return Country.findById(countryId)
-          .populate('locations')
-          .then(country => {
-            const indexCountry = country.locations.map(loc => loc.id).indexOf(id);
-            country.locations = country.locations.splice(indexCountry, 1)
-
-            return Promise.all([country.save(), Location.remove({ _id: id})])
-              .then(([country, location]) => location);
-          });
-        } else {
-          return Continent.findById(continentId)
+        } else if(countryId === null && continentId !== null) {
+          return User.findById(userId)
             .populate('locations')
-            .then(continent => {
-              Country.findById(countryId)
-              .populate('locations')
+            .then(user => {
+              Continent.findById(continentId)
+                .populate('locations')
+                .then(continent => {
+                  const indexUser = user.locations.map(loc => loc.id).indexOf(id);
+                  user.locations = user.locations.splice(indexUser, 1);
+
+                  const indexContinent = continent.locations.map(loc => loc.id).indexOf(id);
+                  continent.locations = continent.locations.splice(indexContinent, 1);
+
+                  return Promise.all([user.save(), continent.save(), Location.remove({ _id: id})])
+                    .then(([user, continent, location]) => location);
+            });
+          });
+        } else if (countryId !== null && continentId === null) {
+          return User.findById(userId)
+            .populate('locations')
+            .then(user => {
+            Country.findById(countryId)
+            .populate('locations')
               .then(country => {
-                const indexContinent = continent.locations.map(loc => loc.id).indexOf(id);
-                continent.locations = continent.locations.splice(indexContinent, 1)
-  
+                const indexUser = user.locations.map(loc => loc.id).indexOf(id);
+                user.locations = user.locations.splice(indexUser, 1);
+
                 const indexCountry = country.locations.map(loc => loc.id).indexOf(id);
                 country.locations = country.locations.splice(indexCountry, 1)
-                return Promise.all([country.save(), continent.save(), Location.remove({ _id: id})])
-                  .then(([country, continent, location]) => location);
+
+                return Promise.all([user.save(), country.save(), Location.remove({ _id: id})])
+                  .then(([user, country, location]) => location);
+            });
+          });
+        } else {
+          return User.findById(userId)
+            .populate('locations')
+            .then(user => {
+            Continent.findById(continentId)
+              .populate('locations')
+              .then(continent => {
+                Country.findById(countryId)
+                .populate('locations')
+                .then(country => {
+                  const indexUser = user.locations.map(loc => loc.id).indexOf(id);
+                  user.locations = user.locations.splice(indexUser, 1);
+
+                  const indexContinent = continent.locations.map(loc => loc.id).indexOf(id);
+                  continent.locations = continent.locations.splice(indexContinent, 1)
+    
+                  const indexCountry = country.locations.map(loc => loc.id).indexOf(id);
+                  country.locations = country.locations.splice(indexCountry, 1)
+                  return Promise.all([user.save(), country.save(), continent.save(), Location.remove({ _id: id})])
+                    .then(([user, country, continent, location]) => location);
+                });
               });
             });
         }
@@ -160,21 +190,37 @@ const mutation = new GraphQLObjectType({
       type: LocationType,
       args: {
         id: { type: GraphQLID },
+        userId: { type: GraphQLID },
         continentId: { type: GraphQLID },
       },
-      resolve(parentValue, { id, continentId }){
+      resolve(parentValue, { id, userId, continentId }){
         console.log("Calling DeleteCountry with params: ", id, continentId);
         if(continentId === null){
-          return Country.remove({ _id: id });
-        } else {
-          return Continent.findById(continentId)
+          return User.findById(userId)
             .populate('countries')
-            .then(continent => {
-              const indexContinent = continent.countries.map(country => country.id).indexOf(id);
-              continent.countries = continent.countries.splice(indexContinent, 1)
-  
-              return Promise.all([continent.save(), Country.remove({ _id: id})])
-                .then(([continent, country]) => country);
+            .then(user => {
+              const indexUser = user.countries.map(country => country.id).indexOf(id);
+              user.countries = user.countries.splice(indexUser, 1);
+
+              return Promise.all([user.save(), Country.remove({ _id: id })])
+                .then(([user, country]) => country);
+            });
+        } else {
+          return User.findById(userId)
+            .populate('countries')
+            .then(user => {
+            Continent.findById(continentId)
+              .populate('countries')
+              .then(continent => {
+                const indexUser = user.countries.map(country => country.id).indexOf(id);
+                user.countries = user.countries.splice(indexUser, 1);
+
+                const indexContinent = continent.countries.map(country => country.id).indexOf(id);
+                continent.countries = continent.countries.splice(indexContinent, 1)
+    
+                return Promise.all([user.save(), continent.save(), Country.remove({ _id: id})])
+                  .then(([user, continent, country]) => country);
+              });
             });
         }
       }
@@ -185,7 +231,15 @@ const mutation = new GraphQLObjectType({
         id: { type: GraphQLID },
       },
       resolve(parentValue, { id }) {
-        return Continent.remove({ _id: id });
+        return User.findById(userId)
+            .populate('continents')
+            .then(user => {
+              const indexUser = user.continents.map(cont => cont.id).indexOf(id);
+              user.continents = user.continents.splice(indexUser, 1);
+
+              return Promise.all([user.save(), Continent.remove({ _id: id })])
+                .then(([user, continent]) => continent);
+            });
       }
     }
   }

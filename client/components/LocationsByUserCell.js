@@ -4,9 +4,11 @@ import LocationsByUser from '../queries/LocationsByUser';
 
 class LocationsByUserCell extends Component {
   render() {
+    debugger;
     if(!this.props.data.locationsByUser) {
       return null;
     }
+
     return (
       <div>
         {this.props.data.locationsByUser.length}
