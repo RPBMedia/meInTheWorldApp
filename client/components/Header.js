@@ -20,7 +20,7 @@ class Header extends Component {
     if(user) {
       return (
         <div className="flex">
-          <Link to="/dashboard">
+          <Link to="/dashboard/overview">
             Dashboard
           </Link>
           <li>
@@ -50,16 +50,16 @@ class Header extends Component {
 
   render() {
     return (
-            <nav>
-              <div className="container nav-wrapper">
-                <Link to="/home" className="brand-logo left">
-                  Home
-                </Link>
-                <ul className="right">
-                  {this.renderButtons()}
-                </ul>
-              </div>
-            </nav>
+      <nav>
+        <div className="container nav-wrapper">
+          <Link to="/home" className="brand-logo left">
+            Home
+          </Link>
+          <ul className="right">
+            {this.renderButtons()}
+          </ul>
+        </div>
+      </nav>
     );
   }
 }

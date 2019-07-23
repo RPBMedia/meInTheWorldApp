@@ -10,6 +10,10 @@ import Home from './components/Home';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import Dashboard from './components/Dashboard';
+import DashboardOverview from './components/DashboardOverview';
+import DashboardLocations from './components/DashboardLocations';
+import DashboardStatistics from './components/DashboardStatistics';
+import DashboardMap from './components/DashboardMap';
 import AddContinent from './components/AddContinent';
 import AddCountry from './components/AddCountry';
 import AddLocation from './components/AddLocation';
@@ -39,7 +43,12 @@ const Root = () => {
           <Route path="home" component={Home} initialState/>
           <Route path="login" component={LoginForm} />
           <Route path="register" component={RegisterForm} />
-          <Route path="dashboard" component={RequireAuth(Dashboard)} />
+          <Route path="dashboard" component={RequireAuth(Dashboard)}>
+            <Route path="overview" component={RequireAuth(DashboardOverview)} />
+            <Route path="locations" component={RequireAuth(DashboardLocations)} />
+            <Route path="statistics" component={RequireAuth(DashboardStatistics)} />
+            <Route path="map" component={RequireAuth(DashboardMap)} />
+          </Route>
           <Route path="continents/add" component={RequireAuth(AddContinent)} />
           <Route path="countries/add" component={RequireAuth(AddCountry)} />
           <Route path="locations/add" component={RequireAuth(AddLocation)} />

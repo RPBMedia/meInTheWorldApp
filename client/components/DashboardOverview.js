@@ -3,8 +3,7 @@ import { graphql } from 'react-apollo';
 import { hashHistory } from 'react-router';
 // import LocationsByUser from '../components/LocationsByUser';
 import CurrentUserQuery from '../queries/CurrentUser';
-// import UnitsByUserTable from '../components/UnitsByUserTable';
-import DashboardNav from './DashboardNav';
+import UnitsByUserTable from '../components/UnitsByUserTable';
 
 
 class Dashboard extends Component {
@@ -67,13 +66,33 @@ class Dashboard extends Component {
     }
     return (
       <div>
-        <h4 className="center margin-vertical-medium">
-          Welcome {this.props.data.user.name}
-        </h4>
-        <DashboardNav />
-        <div className="margin-top-small">
-          {this.props.children}
+        <div className="container nav-wrapper button-nav">
+          {this.renderAddButtons()}
         </div>
+        <p className="section-header">
+          Your continents
+        </p>
+        <UnitsByUserTable
+          label="Total continents: "
+          emptyLabel="You have no continents yet"
+          units={this.props.data.user.continents}
+        />
+        <p className="section-header">
+          Your countries
+        </p>
+        <UnitsByUserTable
+          label="Total countries: "
+          emptyLabel="You have no countries yet"
+          units={this.props.data.user.countries}
+        />
+        <p className="section-header">
+          Your locations
+        </p>
+        <UnitsByUserTable
+          label="Total locations: "
+          emptyLabel="You have no locations yet"
+          units={this.props.data.user.locations}
+        />
       </div>
     );
   }

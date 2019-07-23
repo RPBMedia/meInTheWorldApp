@@ -7,12 +7,25 @@
   margin-top: 60px;
 }
 
+.margin-top-medium {
+  margin-top: 40px;
+}
+
+.margin-top-small {
+  margin-top: 20px;
+}
+
 .margin-bottom-small {
   margin-bottom: 20px;
 }
 
 .margin-bottom-large {
   margin-bottom: 60px;
+}
+
+.margin-vertical-medium {
+  margin-bottom: 40px;
+  margin-top: 40px;
 }
 
 .center-s4 {
@@ -63,4 +76,12 @@
 .section-header {
   font-size: 18;
   font-weight: bold;
+}
+
+.white-nav {
+  background-color: white;
+}
+
+.black-text {
+  color: black;
 }
