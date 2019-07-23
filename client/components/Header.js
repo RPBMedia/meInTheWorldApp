@@ -50,7 +50,7 @@ class Header extends Component {
 
   render() {
     return (
-      <nav>
+      <nav className="main-header">
         <div className="container nav-wrapper">
           <Link to="/home" className="brand-logo left">
             Home
