@@ -84,3 +84,8 @@
 .black-text {
   color: black;
 }
+
+.selected-tab {
+  opacity: 0.6;
+  background-color: lightgray
+}

@@ -8,6 +8,12 @@ import DashboardNav from './DashboardNav';
 
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedHeaderTab: this.getSelectedTab()
+    }
+  }
 
   goToAddContinent() {
     hashHistory.push({
@@ -30,11 +36,35 @@ class Dashboard extends Component {
     });
   }
 
+  getSelectedTab() {
+    console.log('yo: ', this.props.location.pathname);
+    switch (this.props.location.pathname) {
+      case '/dashboard/overview':
+        return 0;
+      case '/dashboard/locations':
+        return 1;
+      case '/dashboard/statistics':
+        return 2;
+      case '/dashboard/map':
+        return 3;
+      default:
+        return 0;
+    }
+  }
+
   renderButtonClasses(setOfData) {
     if(!setOfData || (setOfData && setOfData.length === 0)) {
       return 'btn cell disabled';
     }
     return 'btn cell';
+  }
+
+  onHeaderTabChange(tabNumber) {
+    this.setState({
+      selectedHeaderTab: tabNumber
+    }, () => {
+      console.log('Tab is now: ', this.state.selectedHeaderTab);
+    });
   }
 
   renderAddButtons() {
@@ -70,7 +100,7 @@ class Dashboard extends Component {
         <h4 className="center margin-vertical-medium">
           Welcome {this.props.data.user.name}
         </h4>
-        <DashboardNav />
+        <DashboardNav selectedTab={this.state.selectedHeaderTab} onChange={this.onHeaderTabChange.bind(this)}/>
         <div className="margin-top-small">
           {this.props.children}
         </div>
