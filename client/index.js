@@ -49,9 +49,9 @@ const Root = () => {
             <Route path="statistics" component={RequireAuth(DashboardStatistics)} />
             <Route path="map" component={RequireAuth(DashboardMap)} />
           </Route>
-          <Route path="continents/add" component={RequireAuth(AddContinent)} />
-          <Route path="countries/add" component={RequireAuth(AddCountry)} />
-          <Route path="locations/add" component={RequireAuth(AddLocation)} />
+          <Route path="continents/add" component={AddContinent} />
+          <Route path="countries/add" component={AddCountry} />
+          <Route path="locations/add" component={AddLocation} />
         </Route>
       </Router>
     </ApolloProvider>

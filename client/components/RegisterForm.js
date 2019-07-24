@@ -14,14 +14,12 @@ class RegisterForm extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    console.log(this.props, nextProps)
     if(!this.props.data.user && nextProps.data.user) {
       hashHistory.push('/dashboard/overview')
     }
   }
 
   onRegisterSubmit({ email, password, confirmPassword, name }) {
-    console.log('Register button pressed');
     if(password !== confirmPassword) {
       const errors = ['Passwords do not match. Please try again'];
       this.setState({

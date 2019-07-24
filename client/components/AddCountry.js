@@ -4,6 +4,7 @@ import Select from 'react-select';
 import CurrentUserQuery from '../queries/CurrentUser';
 import AddCountryMutation from '../mutations/AddCountry';
 import { hashHistory } from 'react-router';
+import CheckBox from './CheckBox';
 
 class AddCountry extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class AddCountry extends Component {
     this.state = {
       name: '',
       selectedContinent: null,
-      errors: []
+      errors: [],
+      addAnother: false,
     };
   }
 
@@ -20,21 +22,45 @@ class AddCountry extends Component {
     console.log('Creating new country: ', this.state);
     event.preventDefault();
     this.setState({errors: []});
-    this.props.mutate({
-      variables: {
-        name: this.state.name,
-        userId: this.props.data.user.id,
-        continentId: this.state.selectedContinent.value
-      },
-      refetchQueries: [{ query: CurrentUserQuery }]
-    })
-    .then(() => hashHistory.push('/dashboard/overview'))
-    .catch(res => {
-      const errors = utils.setErrors(res);
+    if(this.state.addAnother) {
       this.setState({
-        errors,
-      });
-     });
+        name: '',
+      })
+    }
+    if(!this.props.data.user) {
+      this.setState({errors: [
+        'User not found. Please logout and log back in',
+      ]});
+    } else {
+      this.props.mutate({
+        variables: {
+          name: this.state.name,
+          userId: this.props.data.user.id,
+          continentId: this.state.selectedContinent.value
+        },
+        refetchQueries: [{ query: CurrentUserQuery }]
+      })
+      .then(() => {
+        if(this.state.addAnother === false) {
+          hashHistory.push('/dashboard/overview');
+        }
+      })
+      .catch(res => {
+        const errors = utils.setErrors(res);
+        this.setState({
+          errors,
+        });
+       });
+    }
+  }
+
+  toggleAddAnother(event) {
+    this.setState({
+      addAnother: event.target.checked
+    }, () => {
+      console.log('Checked: ', this.state.addAnother)
+    })
+    
   }
 
   render() {
@@ -86,6 +112,12 @@ class AddCountry extends Component {
             </div>
             
           }
+          <div className="margin-bottom-small">
+            <CheckBox
+              checked={this.state.addAnother}
+              onChange={this.toggleAddAnother.bind(this)}
+            />
+          </div>  
           <button
             onClick={this.onSubmit.bind(this)} className="btn">
             Create Country

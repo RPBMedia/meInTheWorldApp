@@ -1,5 +1,4 @@
 export const compareByName = (a, b) => {
-  console.log('non-reverse');
   if ( a.name < b.name ){
     return -1;
   }
@@ -10,7 +9,6 @@ export const compareByName = (a, b) => {
 }
 
 export const compareByNameReverse = (a, b) => {
-  console.log('reverse');
   if ( a.name > b.name ){
     return -1;
   }

@@ -14,14 +14,12 @@ class LoginForm extends Component {
   }
   
   componentWillUpdate(nextProps) {
-    console.log(this.props, nextProps)
     if(!this.props.data.user && nextProps.data.user) {
       hashHistory.push('/dashboard/overview')
     }
   }
 
   onLoginSubmit({ email, password }) {
-    console.log('Login button pressed');
     this.props.mutate({
       variables: {
         email,

@@ -3,6 +3,7 @@ import { graphql } from 'react-apollo';
 import CurrentUserQuery from '../queries/CurrentUser';
 import AddContinentMutation from '../mutations/AddContinent';
 import { hashHistory } from 'react-router';
+import CheckBox from './CheckBox';
 
 class AddContinent extends Component {
   constructor(props) {
@@ -10,7 +11,8 @@ class AddContinent extends Component {
     
     this.state = {
       name: '',
-      errors: []
+      errors: [],
+      addAnother: false,
     };
   }
 
@@ -18,20 +20,44 @@ class AddContinent extends Component {
     console.log('Creating new continent: ', this.state.name);
     event.preventDefault();
     this.setState({errors: []});
-    this.props.mutate({
-      variables: {
-        name: this.state.name,
-        userId: this.props.data.user.id
-      },
-      refetchQueries: [{ query: CurrentUserQuery }]
-    })
-    .then(() => hashHistory.push('/dashboard/overview'))
-    .catch(res => {
-      const errors = utils.setErrors(res);
+    if(this.state.addAnother) {
       this.setState({
-        errors,
-      });
-     });
+        name: '',
+      })
+    }
+    if(!this.props.data.user) {
+      this.setState({errors: [
+        'User not found. Please logout and log back in',
+      ]});
+    } else {
+      this.props.mutate({
+        variables: {
+          name: this.state.name,
+          userId: this.props.data.user.id
+        },
+        refetchQueries: [{ query: CurrentUserQuery }]
+      })
+      .then(() => {
+        if(this.state.addAnother === false) {
+          hashHistory.push('/dashboard/overview');
+        }
+      })
+      .catch(res => {
+        const errors = utils.setErrors(res);
+        this.setState({
+          errors,
+        });
+       });
+    }
+  }
+
+  toggleAddAnother(event) {
+    this.setState({
+      addAnother: event.target.checked
+    }, () => {
+      console.log('Checked: ', this.state.addAnother)
+    })
+    
   }
 
   render() {
@@ -54,6 +80,12 @@ class AddContinent extends Component {
             </div>
             
           }
+          <div className="margin-bottom-small">
+            <CheckBox
+              checked={this.state.addAnother}
+              onChange={this.toggleAddAnother.bind(this)}
+            />
+          </div>    
           <button
             onClick={this.onSubmit.bind(this)} className="btn">
             Create Continent
@@ -64,4 +96,6 @@ class AddContinent extends Component {
   }
 }
 
-export default graphql(AddContinentMutation)(AddContinent);
+export default graphql(CurrentUserQuery)(
+  graphql(AddContinentMutation)(AddContinent)
+);

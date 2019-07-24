@@ -26,7 +26,6 @@ class DashboardLocations extends Component {
   changeSortField(field){
     console.log('Sort field is now: ', field);
     let newAscendingSortOrder = true;
-    // debugger;
     if(field === this.state.sortingField){
       newAscendingSortOrder = !this.state.ascendingSortOrder;
     }
@@ -40,7 +39,6 @@ class DashboardLocations extends Component {
   sortLocations() {
     switch(this.state.sortingField) {
       case 'name':
-        debugger;
         return this.state.filteredSortedLocations.slice().sort(this.state.ascendingSortOrder ? compareByName : compareByNameReverse);
       case 'country':
         return this.state.filteredSortedLocations.slice().sort(this.state.ascendingSortOrder ? compareByCountryName : compareByCountryNameReverse);
@@ -60,7 +58,6 @@ class DashboardLocations extends Component {
     if (e.target.value !== "") {
       currentList = this.state.filteredSortedLocations;
       newList = currentList.filter(item => {
-        // debugger;
         const { name, continent, country, yearVisited } = item;
         const lcName = name.toLowerCase();
         const lcContinentName = continent.name.toLowerCase();
