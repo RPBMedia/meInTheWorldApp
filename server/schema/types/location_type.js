@@ -15,6 +15,15 @@ const UserType = new GraphQLObjectType({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     yearVisited: { type: GraphQLString },
+    user: {
+      type: require('./user_type'),
+      resolve(parentValue) {
+        return Location.findById(parentValue).populate('user')
+          .then(location => {
+            return location.user
+          });
+      }
+    },
     continent: {
       type: require('./continent_type'),
       resolve(parentValue) {

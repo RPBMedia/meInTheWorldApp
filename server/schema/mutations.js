@@ -121,7 +121,7 @@ const mutation = new GraphQLObjectType({
             .populate('locations')
             .then(user => {
               const indexUser = user.locations.map(loc => loc.id).indexOf(id);
-              user.locations = user.locations.splice(indexUser, 1);
+              user.locations.splice(indexUser, 1);
 
               return Promise.all([user.save(), Location.remove({ _id: id})])
                 .then(([user, location]) => location);
@@ -134,10 +134,10 @@ const mutation = new GraphQLObjectType({
                 .populate('locations')
                 .then(continent => {
                   const indexUser = user.locations.map(loc => loc.id).indexOf(id);
-                  user.locations = user.locations.splice(indexUser, 1);
+                  user.locations.splice(indexUser, 1);
 
                   const indexContinent = continent.locations.map(loc => loc.id).indexOf(id);
-                  continent.locations = continent.locations.splice(indexContinent, 1);
+                  continent.locations.splice(indexContinent, 1);
 
                   return Promise.all([user.save(), continent.save(), Location.remove({ _id: id})])
                     .then(([user, continent, location]) => location);
@@ -151,10 +151,10 @@ const mutation = new GraphQLObjectType({
             .populate('locations')
               .then(country => {
                 const indexUser = user.locations.map(loc => loc.id).indexOf(id);
-                user.locations = user.locations.splice(indexUser, 1);
+                user.locations.splice(indexUser, 1);
 
                 const indexCountry = country.locations.map(loc => loc.id).indexOf(id);
-                country.locations = country.locations.splice(indexCountry, 1)
+                country.locations.splice(indexCountry, 1)
 
                 return Promise.all([user.save(), country.save(), Location.remove({ _id: id})])
                   .then(([user, country, location]) => location);
@@ -171,13 +171,13 @@ const mutation = new GraphQLObjectType({
                 .populate('locations')
                 .then(country => {
                   const indexUser = user.locations.map(loc => loc.id).indexOf(id);
-                  user.locations = user.locations.splice(indexUser, 1);
+                  user.locations.splice(indexUser, 1);
 
                   const indexContinent = continent.locations.map(loc => loc.id).indexOf(id);
-                  continent.locations = continent.locations.splice(indexContinent, 1)
+                  continent.locations.splice(indexContinent, 1)
     
                   const indexCountry = country.locations.map(loc => loc.id).indexOf(id);
-                  country.locations = country.locations.splice(indexCountry, 1)
+                  country.locations.splice(indexCountry, 1)
                   return Promise.all([user.save(), country.save(), continent.save(), Location.remove({ _id: id})])
                     .then(([user, country, continent, location]) => location);
                 });
@@ -187,7 +187,7 @@ const mutation = new GraphQLObjectType({
       }
     },
     deleteCountry: {
-      type: LocationType,
+      type: CountryType,
       args: {
         id: { type: GraphQLID },
         userId: { type: GraphQLID },
@@ -200,7 +200,7 @@ const mutation = new GraphQLObjectType({
             .populate('countries')
             .then(user => {
               const indexUser = user.countries.map(country => country.id).indexOf(id);
-              user.countries = user.countries.splice(indexUser, 1);
+              user.countries.splice(indexUser, 1);
 
               return Promise.all([user.save(), Country.remove({ _id: id })])
                 .then(([user, country]) => country);
@@ -213,10 +213,10 @@ const mutation = new GraphQLObjectType({
               .populate('countries')
               .then(continent => {
                 const indexUser = user.countries.map(country => country.id).indexOf(id);
-                user.countries = user.countries.splice(indexUser, 1);
+                user.countries.splice(indexUser, 1);
 
                 const indexContinent = continent.countries.map(country => country.id).indexOf(id);
-                continent.countries = continent.countries.splice(indexContinent, 1)
+                continent.countries.splice(indexContinent, 1)
     
                 return Promise.all([user.save(), continent.save(), Country.remove({ _id: id})])
                   .then(([user, continent, country]) => country);
@@ -226,17 +226,21 @@ const mutation = new GraphQLObjectType({
       }
     },
     deleteContinent: {
-      type: LocationType,
+      type: ContinentType,
       args: {
         id: { type: GraphQLID },
         userId: { type: GraphQLID },
       },
       resolve(parentValue, { id, userId }) {
+        console.log("Calling DeleteContinent with params: ", id, userId);
         return User.findById(userId)
             .populate('continents')
             .then(user => {
+              console.log(user.continents)
               const indexUser = user.continents.map(cont => cont.id).indexOf(id);
-              user.continents = user.continents.splice(indexUser, 1);
+              console.log(indexUser);
+              user.continents.splice(indexUser, 1);
+              console.log("New continent list: ", user.continents);
 
               return Promise.all([user.save(), Continent.remove({ _id: id })])
                 .then(([user, continent]) => continent);

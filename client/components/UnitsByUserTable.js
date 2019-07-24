@@ -9,19 +9,20 @@ import DeleteLocationMutation from '../mutations/DeleteLocation';
 class UnitsByUserTable extends Component {
 
   onUnitDelete(unit) {
-    
     //For continents, only id is needed
     const unitId = unit.id;
+    const userId = unit.user.id;
     let continentId = null;
     let countryId = null;
     //If the unit is a country, check it's continent
     if(unit.__typename === 'CountryType') {
       continentId = unit.continent && unit.continent.id
 
-      console.log('Calling deleteCountry with params: ', unitId);
+      console.log('Calling deleteCountry with params: ', unitId, userId);
       this.props.deleteCountryMutation({
         variables: {
           id: unitId,
+          userId,
           continentId
         }
       }).then( () => this.props.onUpdate());
@@ -31,19 +32,21 @@ class UnitsByUserTable extends Component {
       continentId = unit.continent && unit.continent.id
       countryId = unit.country && unit.country.id
 
-      console.log('Calling deleteLocation with params: ', unitId, continentId, countryId);
+      console.log('Calling deleteLocation with params: ', unitId, userId, continentId, countryId);
       this.props.deleteLocationMutation({
         variables: {
           id: unitId,
+          userId,
           countryId,
           continentId
         }
       }).then( () => this.props.onUpdate());
     } else {
-      console.log('Calling deleteContinent with params: ', unitId);
+      console.log('Calling deleteContinent with params: ', unitId, userId);
       this.props.deleteContinentMutation({
         variables: {
-          id: unitId
+          id: unitId,
+          userId
         }
       }).then( () => this.props.onUpdate());
     }
