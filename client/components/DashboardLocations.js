@@ -33,27 +33,23 @@ class DashboardLocations extends Component {
     this.setState({
       sortingField: field,
       ascendingSortOrder: newAscendingSortOrder,
+      filteredSortedLocations: this.sortLocations()
     });
-    this.sortLocations();
   }
 
   sortLocations() {
     switch(this.state.sortingField) {
       case 'name':
-        this.state.filteredSortedLocations.sort(this.state.ascendingSortOrder ? compareByName : compareByNameReverse);
-        break;
+        debugger;
+        return this.state.filteredSortedLocations.slice().sort(this.state.ascendingSortOrder ? compareByName : compareByNameReverse);
       case 'country':
-        this.state.filteredSortedLocations.sort(this.state.ascendingSortOrder ? compareByCountryName : compareByCountryNameReverse);
-        break;
+        return this.state.filteredSortedLocations.slice().sort(this.state.ascendingSortOrder ? compareByCountryName : compareByCountryNameReverse);
       case 'continent':
-        this.state.filteredSortedLocations.sort(this.state.ascendingSortOrder ? compareByContinentName : compareByContinentNameReverse);
-        break;
+        return this.state.filteredSortedLocations.slice().sort(this.state.ascendingSortOrder ? compareByContinentName : compareByContinentNameReverse);
       case 'yearVisited':
-        this.state.filteredSortedLocations.sort(this.state.ascendingSortOrder ? compareByYearVisited : compareByYearVisitedReverse);
-        break;
+        return this.state.filteredSortedLocations.slice().sort(this.state.ascendingSortOrder ? compareByYearVisited : compareByYearVisitedReverse);
       default:
-        this.state.filteredSortedLocations.sort(compareByName);
-        break;
+        return this.state.filteredSortedLocations.slice().sort(compareByName);
     }
   }
 
@@ -93,8 +89,17 @@ class DashboardLocations extends Component {
     
     return (
       <div>
-        Locations
         <SearchBar onUpdate={this.onUpdateFilter.bind(this)} />
+        <div className="flex row">
+          <div className="left margin-right-small total-label">
+            Total:
+          </div>
+          <div> 
+            <div className="left medium-text">
+              <b>{this.state.filteredSortedLocations.length}</b>
+            </div>
+          </div>
+        </div>
         <div>
           <ul className="collection full-width">
             <li className="collection-item-row flex space-around">

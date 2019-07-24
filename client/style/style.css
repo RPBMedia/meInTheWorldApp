@@ -14,6 +14,30 @@
   margin-top: 20px;
 }
 
+.margin-left-large {
+  margin-left: 60px;
+}
+
+.margin-left-medium {
+  margin-left: 40px;
+}
+
+.margin-left-small {
+  margin-left: 20px;
+}
+
+.margin-right-large {
+  margin-right: 60px;
+}
+
+.margin-right-medium {
+  margin-right: 40px;
+}
+
+.margin-right-small {
+  margin-right: 20px;
+}
+
 .margin-bottom-small {
   margin-bottom: 20px;
 }
@@ -123,4 +147,21 @@
 
 .center-text {
   text-align: center;
+}
+
+.total-label {
+  font-size: 16;
+  margin-left: 15px;
+}
+
+.small-text {
+  font-size: 14;
+}
+
+.medium-text {
+  font-size: 18;
+}
+
+.large-text {
+  font-size: 22;
 }
