@@ -11,8 +11,8 @@ import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import Dashboard from './components/Dashboard';
 import DashboardOverview from './components/DashboardOverview';
+import DashboardManager from './components/DashboardManager';
 import DashboardLocations from './components/DashboardLocations';
-import DashboardStatistics from './components/DashboardStatistics';
 import DashboardMap from './components/DashboardMap';
 import AddContinent from './components/AddContinent';
 import AddCountry from './components/AddCountry';
@@ -45,8 +45,8 @@ const Root = () => {
           <Route path="register" component={RegisterForm} />
           <Route path="dashboard" component={RequireAuth(Dashboard)}>
             <Route path="overview" component={RequireAuth(DashboardOverview)} />
+            <Route path="manager" component={RequireAuth(DashboardManager)} />
             <Route path="locations" component={RequireAuth(DashboardLocations)} />
-            <Route path="statistics" component={RequireAuth(DashboardStatistics)} />
             <Route path="map" component={RequireAuth(DashboardMap)} />
           </Route>
           <Route path="continents/add" component={AddContinent} />

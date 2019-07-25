@@ -18,20 +18,20 @@ class DashboardNav extends Component {
             </li>
             <li className={this.props.selectedTab === 1 ? 'selected-tab' : null}> 
               <Link
-                to="/dashboard/locations"
+                to="/dashboard/manager"
                 className="black-text"
                 onClick={() => this.props.onChange(1)}
               >
-                Locations
+                Statistics
               </Link>
             </li>
             <li className={this.props.selectedTab === 2 ? 'selected-tab' : null}> 
               <Link
-                to="/dashboard/statistics"
+                to="/dashboard/locations"
                 className="black-text"
                 onClick={() => this.props.onChange(2)}
               >
-                Statistics
+                Locations
               </Link>
             </li>
             <li className={this.props.selectedTab === 3 ? 'selected-tab' : null}> 

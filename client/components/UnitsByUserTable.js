@@ -54,24 +54,26 @@ class UnitsByUserTable extends Component {
   }
 
   renderUnitList() {
-    const sortedUnits = this.props.units.slice().sort(compareByName);
+    const sortedUnits = this.props.sorted ? this.props.units : this.props.units.slice().sort(compareByName);
     return sortedUnits.map(unit => {
       return (
         <li key={unit.id} className="collection-item row flex">
-          <div className="cell bold col s3">
-            Name:
-          </div>
-          <div className="cell col s6">  
+          <div className="cell col s3">  
             {unit.name}
           </div>
-          <div className="cell col s3">
-            <i
-              className="right clickable material-icons"
-              onClick={() => this.onUnitDelete(unit)}
-            >
-              delete
-            </i>
+          <div className="cell col s3">  
+            {unit.number}
           </div>
+          {this.props.editable && 
+            <div className="cell col s3">
+              <i
+                className="right clickable material-icons"
+                onClick={() => this.onUnitDelete(unit)}
+              >
+                delete
+              </i>
+            </div>
+          }
         </li>
       )
     })

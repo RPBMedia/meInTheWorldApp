@@ -32,6 +32,7 @@ class DashboardMap extends Component {
   }
 
   handleClick(e, countryCode) {
+    e.preventDefault();
     if(this.state.selectedCountry === null) {
       if(this.state.mapData.hasOwnProperty(countryCode)){
         this.setState({
@@ -75,7 +76,7 @@ class DashboardMap extends Component {
           width: "100%",
           height: "520px"
         }}
-        onRegionClick={(e, code) => this.handleClick(e, code)} //gets the country code
+        onRegionClick={(e, code) => this.handleClick(e, code)}
         containerClassName="map"
         regionStyle={{
           initial: {

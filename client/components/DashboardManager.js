@@ -3,17 +3,10 @@ import { graphql } from 'react-apollo';
 import { hashHistory } from 'react-router';
 // import LocationsByUser from '../components/LocationsByUser';
 import CurrentUserQuery from '../queries/CurrentUser';
-// import UnitsByUserTable from '../components/UnitsByUserTable';
-import DashboardNav from './DashboardNav';
+import UnitsByUserTable from './UnitsByUserTable';
 
 
-class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedHeaderTab: this.getSelectedTab()
-    }
-  }
+class DashboardManager extends Component {
 
   goToAddContinent() {
     hashHistory.push({
@@ -36,35 +29,11 @@ class Dashboard extends Component {
     });
   }
 
-  getSelectedTab() {
-    console.log('yo: ', this.props.location.pathname);
-    switch (this.props.location.pathname) {
-      case '/dashboard/overview':
-        return 0;
-      case '/dashboard/manager':
-          return 1;
-      case '/dashboard/locations':
-        return 2;
-      case '/dashboard/map':
-        return 3;
-      default:
-        return 0;
-    }
-  }
-
   renderButtonClasses(setOfData) {
     if(!setOfData || (setOfData && setOfData.length === 0)) {
       return 'btn cell disabled';
     }
     return 'btn cell';
-  }
-
-  onHeaderTabChange(tabNumber) {
-    this.setState({
-      selectedHeaderTab: tabNumber
-    }, () => {
-      console.log('Tab is now: ', this.state.selectedHeaderTab);
-    });
   }
 
   renderAddButtons() {
@@ -97,16 +66,42 @@ class Dashboard extends Component {
     }
     return (
       <div>
-        <h4 className="center margin-vertical-medium">
-          Welcome {this.props.data.user && this.props.data.user.name}
-        </h4>
-        <DashboardNav selectedTab={this.state.selectedHeaderTab} onChange={this.onHeaderTabChange.bind(this)}/>
-        <div className="margin-top-small">
-          {this.props.children}
+        <div className="container nav-wrapper button-nav">
+          {this.renderAddButtons()}
         </div>
+        <p className="section-header">
+          Your continents
+        </p>
+        <UnitsByUserTable
+          label="Total continents: "
+          editable
+          emptyLabel="You have no continents yet"
+          units={this.props.data.user.continents}
+          onUpdate={() => this.props.data.refetch()}
+        />
+        <p className="section-header">
+          Your countries
+        </p>
+        <UnitsByUserTable
+          label="Total countries: "
+          editable
+          emptyLabel="You have no countries yet"
+          units={this.props.data.user.countries}
+          onUpdate={() => this.props.data.refetch()}
+        />
+        <p className="section-header">
+          Your locations
+        </p>
+        <UnitsByUserTable
+          label="Total locations: "
+          editable
+          emptyLabel="You have no locations yet"
+          units={this.props.data.user.locations}
+          onUpdate={() => this.props.data.refetch()}
+        />
       </div>
     );
   }
 }
 
-export default graphql(CurrentUserQuery)(Dashboard);
+export default graphql(CurrentUserQuery)(DashboardManager);
