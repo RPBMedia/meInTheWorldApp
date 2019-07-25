@@ -193,3 +193,9 @@
 .italic {
   font-style: italic;
 }
+
+.statistics-row-container {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}

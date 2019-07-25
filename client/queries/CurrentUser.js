@@ -12,6 +12,14 @@ export default gql`
                 user {
                     id
                 }
+                locations {
+                    id
+                    name
+                }
+                countries {
+                    name
+                    id           
+                }
             }
             countries {
                 name
@@ -22,9 +30,10 @@ export default gql`
                 continent {
                     name
                     id
-                    user {
-                        id
-                    }
+                }
+                locations {
+                    id
+                    name
                 }
             }
             locations {
