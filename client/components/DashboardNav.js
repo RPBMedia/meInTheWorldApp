@@ -22,7 +22,7 @@ class DashboardNav extends Component {
                 className="black-text"
                 onClick={() => this.props.onChange(1)}
               >
-                Statistics
+                Manager
               </Link>
             </li>
             <li className={this.props.selectedTab === 2 ? 'selected-tab' : null}> 

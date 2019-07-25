@@ -23,58 +23,58 @@ class DashboardOverview extends Component {
     }
   }
 
-  renderAddButtons() {
-    const { continents, countries } = this.props.data.user;
-    return (
-      <div className="flex">
-        <button className="btn cell" onClick={() => this.goToAddContinent()}>
-          Create Continent
-        </button>
-        <button
-          className={this.renderButtonClasses(continents)}
-          disabled={!continents || (continents && continents.length === 0)}
-          onClick={() => this.goToAddCountry()}
-        >
-          Create Country
-        </button>
-        <button
-          className={this.renderButtonClasses(countries)}
-          disabled={!countries || (countries && countries.length === 0)}
-          onClick={() => this.goToAddLocation()}
-        >
-          Create Location
-        </button>
-      </div>
-    )
-  }
+  // renderAddButtons() {
+  //   const { continents, countries } = this.props.data.user;
+  //   return (
+  //     <div className="flex">
+  //       <button className="btn cell" onClick={() => this.goToAddContinent()}>
+  //         Create Continent
+  //       </button>
+  //       <button
+  //         className={this.renderButtonClasses(continents)}
+  //         disabled={!continents || (continents && continents.length === 0)}
+  //         onClick={() => this.goToAddCountry()}
+  //       >
+  //         Create Country
+  //       </button>
+  //       <button
+  //         className={this.renderButtonClasses(countries)}
+  //         disabled={!countries || (countries && countries.length === 0)}
+  //         onClick={() => this.goToAddLocation()}
+  //       >
+  //         Create Location
+  //       </button>
+  //     </div>
+  //   )
+  // }
 
-  goToAddContinent() {
-    hashHistory.push({
-      pathname: '/continents/add',
-      state: { user: this.props.data.user }
-    });
-  }
+  // goToAddContinent() {
+  //   hashHistory.push({
+  //     pathname: '/continents/add',
+  //     state: { user: this.props.data.user }
+  //   });
+  // }
 
-  goToAddCountry() {
-    hashHistory.push({
-      pathname: '/countries/add',
-      state: { user: this.props.data.user }
-    });
-  }
+  // goToAddCountry() {
+  //   hashHistory.push({
+  //     pathname: '/countries/add',
+  //     state: { user: this.props.data.user }
+  //   });
+  // }
 
-  goToAddLocation() {
-    hashHistory.push({
-      pathname: '/locations/add',
-      state: { user: this.props.data.user }
-    });
-  }
+  // goToAddLocation() {
+  //   hashHistory.push({
+  //     pathname: '/locations/add',
+  //     state: { user: this.props.data.user }
+  //   });
+  // }
 
-  renderButtonClasses(setOfData) {
-    if(!setOfData || (setOfData && setOfData.length === 0)) {
-      return 'btn cell disabled';
-    }
-    return 'btn cell';
-  }
+  // renderButtonClasses(setOfData) {
+  //   if(!setOfData || (setOfData && setOfData.length === 0)) {
+  //     return 'btn cell disabled';
+  //   }
+  //   return 'btn cell';
+  // }
 
   getTotalContinents() {
     return this.props.currentUserQuery.user.continents.length;
@@ -293,9 +293,9 @@ class DashboardOverview extends Component {
     }
     return (
       <div>
-        <div className="container nav-wrapper button-nav">
+        {/* <div className="container nav-wrapper button-nav">
           {this.renderAddButtons()}
-        </div>
+        </div> */}
         <div className="row">
           <div className="col s4">
             <InfoCard
