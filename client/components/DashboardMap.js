@@ -3,6 +3,7 @@ import { VectorMap } from 'react-jvectormap';
 import { getCode, getName, getData } from 'country-list';
 import { graphql } from 'react-apollo';
 import CurrentUserQuery from '../queries/CurrentUser';
+import Modal from './Modal';
 
 class DashboardMap extends Component {
   constructor(props) {
@@ -10,6 +11,9 @@ class DashboardMap extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.state = {
       mapData: {},
+      modalShowing: false,
+      selectedCountry: null,
+      modalMessage: null,
     }
   }
 
@@ -28,8 +32,27 @@ class DashboardMap extends Component {
   }
 
   handleClick(e, countryCode) {
-    debugger;
-    console.log(countryCode);
+    if(this.state.selectedCountry === null) {
+      if(this.state.mapData.hasOwnProperty(countryCode)){
+        this.setState({
+          modalMessage: `${getName(countryCode)}: ${this.state.mapData[countryCode]} locations visited`,
+          modalShowing: true,
+          selectedCountry: countryCode,
+        })
+      } else {
+        this.setState({
+          modalMessage: ` You haven't visited ${getName(countryCode)} yet`,
+          modalShowing: true,
+          selectedCountry: countryCode,
+        })
+      }
+    } else {
+      this.setState({
+        modalMessage: null,
+        modalShowing: null,
+        selectedCountry: null,
+      })
+    }
   };
 
   render() {
@@ -67,7 +90,7 @@ class DashboardMap extends Component {
             cursor: "pointer"
           },
           selected: {
-            fill: "#2938bc" //color for the clicked country
+            fill: "#ff0000" //color for the clicked country
           },
           selectedHover: {}
         }}
@@ -76,12 +99,17 @@ class DashboardMap extends Component {
           regions: [
             {
               values: this.state.mapData, //this is your data
-              scale: ["#002200", "#004400", "#006600", "#008800"], //your color game's here, 
-              normalizeFunction: "polynomial"
+              scale: ["#001100", "#00ff00"], //your color game's here, 
+              normalizeFunction: 'polynomial',
             }
           ]
         }}
       />
+      {this.state.modalShowing && 
+        <Modal
+          message={this.state.modalMessage}
+        />
+      }
       </div>
     );
   }
