@@ -4,7 +4,7 @@ import Select from 'react-select';
 import CurrentUserQuery from '../queries/CurrentUser';
 import AddLocationMutation from '../mutations/AddLocation';
 import { hashHistory } from 'react-router';
-import ContinentsByUser from '../queries/ContinentsByUser';
+import CheckBox from './CheckBox';
 
 class AddLocation extends Component {
   constructor(props) {
@@ -16,7 +16,8 @@ class AddLocation extends Component {
       pictureUrl: '',
       selectedContinent: null,
       selectedCountry: null,
-      errors: []
+      errors: [],
+      addAnother: false,
     };
   }
 
@@ -24,30 +25,49 @@ class AddLocation extends Component {
     console.log('Creating new location: ', this.state);
     event.preventDefault();
     this.setState({errors: []});
-    // $name: String,
-    // $userId: ID,
-    // $continentId: ID,
-    // $countryId: ID,
-    // $yearVisited,
-    // $pictureUrl,
-    this.props.mutate({
-      variables: {
-        name: this.state.name,
-        userId: this.props.data.user.id,
-        continentId: this.state.selectedContinent.value,
-        countryId: this.state.selectedCountry.value,
-        yearVisited: this.state.yearVisited,
-        pictureUrl: this.state.pictureUrl,
-      },
-      refetchQueries: [{ query: CurrentUserQuery }]
-    })
-    .then(() => hashHistory.push('/dashboard/overview'))
-    .catch(res => {
-      const errors = utils.setErrors(res);
+    
+    if(this.state.addAnother) {
       this.setState({
-        errors,
-      });
-     });
+        name: '',
+        yearVisited: '',
+        pictureUrl: '',
+      })
+    }
+    if(!this.props.data.user) {
+      this.setState({errors: [
+        'User not found. Please logout and log back in',
+      ]});
+    } else {
+      this.props.mutate({
+        variables: {
+          name: this.state.name,
+          userId: this.props.data.user.id,
+          continentId: this.state.selectedContinent.value,
+          countryId: this.state.selectedCountry.value,
+          yearVisited: this.state.yearVisited,
+          pictureUrl: this.state.pictureUrl,
+        },
+        refetchQueries: [{ query: CurrentUserQuery }]
+      })
+      .then(() => {
+        if(this.state.addAnother === false) {
+          hashHistory.push('/dashboard/overview');
+        }
+      })
+      .catch(res => {
+        const errors = utils.setErrors(res);
+        this.setState({
+          errors,
+        });
+       });
+    }
+
+  }
+
+  toggleAddAnother(event) {
+    this.setState({
+      addAnother: event.target.checked
+    })
   }
 
   render() {
@@ -65,13 +85,19 @@ class AddLocation extends Component {
       })
     }
     let countriesOptions = []
-    if(countries) {
-      countriesOptions = countries.map(country => {
-        return {
-          value: country.id,
-          label: country.name
-        }
-      })
+    if(this.state.selectedContinent !== null) {
+      if(countries) {
+        countriesOptions = countries
+        .filter(country => {
+          return country.continent.id === this.state.selectedContinent.value
+        })
+        .map(country => {
+          return {
+            value: country.id,
+            label: country.name
+          }
+        })
+      }
     }
     const { selectedContinent, selectedCountry } = this.state
     return (
@@ -98,6 +124,7 @@ class AddLocation extends Component {
             {countries && 
               <Select
                 // className="select"
+                isDisabled={this.state.selectedContinent === null}
                 placeholder="Select the location's country"
                 value={selectedCountry}
                 options={countriesOptions}
@@ -135,6 +162,12 @@ class AddLocation extends Component {
             </div>
             
           }
+          <div className="margin-bottom-small">
+            <CheckBox
+              checked={this.state.addAnother}
+              onChange={this.toggleAddAnother.bind(this)}
+            />
+          </div>   
           <button
             onClick={this.onSubmit.bind(this)} className="btn">
             Create Location
