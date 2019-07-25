@@ -1,10 +1,10 @@
 {
-  "name": "users",
+  "name": "MeInTheWorldApp",
   "version": "1.0.0",
-  "description": "Starter pack for an auth-included graphql project",
+  "description": "Travel manager app",
   "repository": {
     "type": "git",
-    "url": "github.com/stephengrider"
+    "url": "github.com/RPBMedia/meInTheWorldApp"
   },
   "main": "index.js",
   "scripts": {
@@ -38,7 +38,6 @@
     "react": "^15.4.2",
     "react-apollo": "^0.10.0",
     "react-dom": "^15.4.2",
-    "react-jvectormap": "^0.0.12",
     "react-router": "^3.0.2",
     "react-select": "2.4.4",
     "style-loader": "^0.23.1",

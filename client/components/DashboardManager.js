@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { hashHistory } from 'react-router';
-// import LocationsByUser from '../components/LocationsByUser';
 import CurrentUserQuery from '../queries/CurrentUser';
 import UnitsByUserTable from './UnitsByUserTable';
 

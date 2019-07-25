@@ -1,3 +1,5 @@
+import { getName } from 'country-list';
+
 export const compareByName = (a, b) => {
   if ( a.name < b.name ){
     return -1;
@@ -117,4 +119,13 @@ export const compareByArrayLength = (a, b) => {
     return 1;
   }
   return 0;
+}
+
+export const getCountryName = (countryCode) => {
+  switch (countryCode) {
+    case 'BO':
+      return 'Bolivia';
+    default:
+      return getName(countryCode);
+  }
 }

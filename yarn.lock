@@ -3445,16 +3445,6 @@ iterall@1.0.2:
   resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.0.2.tgz#41a2e96ce9eda5e61c767ee5dc312373bb046e91"
   integrity sha1-QaLpbOntpeYcdn7l3DEjc7sEbpE=
 
-jquery-mousewheel@^3.1.13:
-  version "3.1.13"
-  resolved "https://registry.yarnpkg.com/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz#06f0335f16e353a695e7206bf50503cb523a6ee5"
-  integrity sha1-BvAzXxbjU6aV5yBr9QUDy1I6buU=
-
-jquery@>=1.5, jquery@^3.4.0:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.4.1.tgz#714f1f8d9dde4bdfa55764ba37ef214630d80ef2"
-  integrity sha512-36+AdBzCL+y6qjw5Tx7HgzeGCzC81MDDgaUP8ld2zhx58HdqXGoBd+tHdrBMiyjGQs0Hxs/MLZTu/eHNJJuWPw==
-
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -3539,13 +3529,6 @@ jsx-ast-utils@^2.1.0, jsx-ast-utils@^2.2.1:
   dependencies:
     array-includes "^3.0.3"
     object.assign "^4.1.0"
-
-jvectormap-next@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/jvectormap-next/-/jvectormap-next-3.0.0.tgz#87070dab31ec7e2702de8f52265d2fe0a8fea3f5"
-  integrity sha1-hwcNqzHsficC3o9SJl0v4Kj+o/U=
-  dependencies:
-    jquery ">=1.5"
 
 kareem@1.5.0:
   version "1.5.0"
@@ -4905,16 +4888,6 @@ react-is@^16.8.1, react-is@^16.8.6:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
-
-react-jvectormap@^0.0.12:
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/react-jvectormap/-/react-jvectormap-0.0.12.tgz#74636e365767b32eb686a5674bdce618cb3d0527"
-  integrity sha512-BaY3xCeR1u1iK1KBxa4s5Qq3HRtCYv68u8VOrsDq/MPHLDXjz2yYH34sNJ3IEmP2UhWQ4iip4MAV2eUBub5eyw==
-  dependencies:
-    jquery "^3.4.0"
-    jquery-mousewheel "^3.1.13"
-    jvectormap-next "^3.0.0"
-    prop-types "^15.6.0"
 
 react-lifecycles-compat@^3.0.4:
   version "3.0.4"
