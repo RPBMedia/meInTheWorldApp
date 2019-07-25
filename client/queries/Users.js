@@ -2,11 +2,21 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  {
-    users {
+{
+  users {
+    id
+    name
+    email
+    continents {
       id
-      name
-      email
+    }
+    countries {
+      id
+    }
+    locations {
+      id
     }
   }
+}
+
 `;

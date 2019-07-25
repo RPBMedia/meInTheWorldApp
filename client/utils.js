@@ -78,3 +78,33 @@ export const compareByYearVisitedReverse = (a, b) => {
   }
   return 0;
 }
+
+export const compareByNumberOfContinents = (a, b) => {
+  if ( a.numberOfContinents > b.numberOfContinents ){
+    return -1;
+  }
+  if ( a.numberOfContinents < b.numberOfContinents ){
+    return 1;
+  }
+  return 0;
+}
+
+export const compareByNumberOfCountries = (a, b) => {
+  if ( a.numberOfCountries > b.numberOfCountries ){
+    return -1;
+  }
+  if ( a.numberOfCountries < b.numberOfCountries ){
+    return 1;
+  }
+  return 0;
+}
+
+export const compareByNumberOfLocations = (a, b) => {
+  if ( a.numberOfLocations > b.numberOfLocations ){
+    return -1;
+  }
+  if ( a.numberOfLocations < b.numberOfLocations ){
+    return 1;
+  }
+  return 0;
+}

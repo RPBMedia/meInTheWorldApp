@@ -170,8 +170,26 @@
   font-size: 22;
 }
 
+.super-large-text {
+  font-size: 30;
+}
+
 /* .clean {
   position: static !important;
   left: 0 !important;
   opacity: 1 !important;
 } */
+
+.info-card-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid lightgrey;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+
+.italic {
+  font-style: italic;
+}

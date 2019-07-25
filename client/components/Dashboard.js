@@ -98,7 +98,7 @@ class Dashboard extends Component {
     return (
       <div>
         <h4 className="center margin-vertical-medium">
-          Welcome {this.props.data.user.name}
+          Welcome {this.props.data.user && this.props.data.user.name}
         </h4>
         <DashboardNav selectedTab={this.state.selectedHeaderTab} onChange={this.onHeaderTabChange.bind(this)}/>
         <div className="margin-top-small">
