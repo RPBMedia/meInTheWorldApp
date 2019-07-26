@@ -20,6 +20,86 @@ export const compareByNameReverse = (a, b) => {
   return 0;
 }
 
+export const compareByEmail = (a, b) => {
+  if ( a.email < b.email ){
+    return -1;
+  }
+  if ( a.email > b.email ){
+    return 1;
+  }
+  return 0;
+}
+
+export const compareByEmailReverse = (a, b) => {
+  if ( a.email > b.email ){
+    return -1;
+  }
+  if ( a.email < b.email ){
+    return 1;
+  }
+  return 0;
+}
+
+export const compareByNumberOfUserContinents = (a, b) => {
+  if ( a.continents.length < b.continents.length ){
+    return -1;
+  }
+  if ( a.continents.length > b.continents.length ){
+    return 1;
+  }
+  return 0;
+}
+
+export const compareByNumberOfUserContinentsReverse = (a, b) => {
+  if ( a.continents.length > b.continents.length ){
+    return -1;
+  }
+  if ( a.continents.length < b.continents.length ){
+    return 1;
+  }
+  return 0;
+}
+
+export const compareByNumberOfUserCountries = (a, b) => {
+  if ( a.continents.length < b.continents.length ){
+    return -1;
+  }
+  if ( a.continents.length > b.continents.length ){
+    return 1;
+  }
+  return 0;
+}
+
+export const compareByNumberOfUserCountriesReverse = (a, b) => {
+  if ( a.continents.length > b.continents.length ){
+    return -1;
+  }
+  if ( a.continents.length < b.continents.length ){
+    return 1;
+  }
+  return 0;
+}
+
+export const compareByNumberOfUserLocations = (a, b) => {
+  if ( a.continents.length < b.continents.length ){
+    return -1;
+  }
+  if ( a.continents.length > b.continents.length ){
+    return 1;
+  }
+  return 0;
+}
+
+export const compareByNumberOfUserLocationsReverse = (a, b) => {
+  if ( a.continents.length > b.continents.length ){
+    return -1;
+  }
+  if ( a.continents.length < b.continents.length ){
+    return 1;
+  }
+  return 0;
+}
+
 export const compareByContinentName = (a, b) => {
   if ( a.continent.name < b.continent.name ){
     return -1;
