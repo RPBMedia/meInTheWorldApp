@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getCode, getData } from 'country-list';
+import { getCode } from 'country-list';
 import { graphql } from 'react-apollo';
 import CurrentUserQuery from '../queries/CurrentUser';
 import Modal from './Modal';
@@ -39,13 +39,14 @@ class DashboardMap extends Component {
     if(this.state.selectedCountry === null) {
       if(this.state.mapData.hasOwnProperty(countryCode)){
         this.setState({
-          modalMessage: `${getCountryName(countryCode)}: ${this.state.mapData[countryCode]} locations visited`,
+          modalMessage2: `: ${this.state.mapData[countryCode]} locations visited`,
           modalShowing: true,
           selectedCountry: countryCode,
         })
       } else {
         this.setState({
-          modalMessage: ` You haven't visited ${getCountryName(countryCode)} yet`,
+          modalMessage: 'You haven\'t visited ',
+          modalMessage2: ' yet',
           modalShowing: true,
           selectedCountry: countryCode,
         })
@@ -53,11 +54,21 @@ class DashboardMap extends Component {
     } else {
       this.setState({
         modalMessage: null,
+        modalMessage2: null,
         modalShowing: null,
         selectedCountry: null,
-      })
+      });
     }
   };
+
+  modalClosing() {
+    this.setState({
+      modalMessage: null,
+      modalMessage2: null,
+      modalShowing: null,
+      selectedCountry: null,
+    });
+  }
 
   render() {
     if(this.props.data.loading) {
@@ -78,6 +89,9 @@ class DashboardMap extends Component {
       {this.state.modalShowing && 
         <Modal
           message={this.state.modalMessage}
+          message2={this.state.modalMessage2}
+          countryCode={this.state.selectedCountry}
+          onClose={this.modalClosing.bind(this)}
         />
       }
       </div>
