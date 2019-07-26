@@ -5,6 +5,7 @@ import CurrentUserQuery from '../queries/CurrentUser';
 import AddLocationMutation from '../mutations/AddLocation';
 import { hashHistory } from 'react-router';
 import CheckBox from './CheckBox';
+import { renderButtonClassesByProperties } from '../utils'
 
 class AddLocation extends Component {
   constructor(props) {
@@ -51,7 +52,7 @@ class AddLocation extends Component {
       })
       .then(() => {
         if(this.state.addAnother === false) {
-          hashHistory.push('/dashboard/overview');
+          hashHistory.push('/dashboard/manager');
         }
       })
       .catch(res => {
@@ -144,6 +145,7 @@ class AddLocation extends Component {
           </div>
           <div className="input-field">
             <input
+              type="number"
               placeholder="Year in which the location was visited"
               value={this.state.yearVisited}
               onChange={e => this.setState({ yearVisited: e.target.value })}
@@ -169,7 +171,13 @@ class AddLocation extends Component {
             />
           </div>   
           <button
-            onClick={this.onSubmit.bind(this)} className="btn">
+            className={renderButtonClassesByProperties([
+              this.state.name,
+              this.state.selectedContinent,
+              this.state.selectedCountry,
+              this.state.yearVisited,
+            ])}
+            onClick={this.onSubmit.bind(this)}>
             Create Location
           </button>
         </form>

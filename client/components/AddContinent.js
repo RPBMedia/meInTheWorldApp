@@ -4,6 +4,7 @@ import CurrentUserQuery from '../queries/CurrentUser';
 import AddContinentMutation from '../mutations/AddContinent';
 import { hashHistory } from 'react-router';
 import CheckBox from './CheckBox';
+import { renderButtonClassesByStringProperty } from '../utils';
 
 class AddContinent extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class AddContinent extends Component {
       })
       .then(() => {
         if(this.state.addAnother === false) {
-          hashHistory.push('/dashboard/overview');
+          hashHistory.push('/dashboard/manager');
         }
       })
       .catch(res => {
@@ -87,7 +88,8 @@ class AddContinent extends Component {
             />
           </div>    
           <button
-            onClick={this.onSubmit.bind(this)} className="btn">
+            className={renderButtonClassesByStringProperty(this.state.name)}
+            onClick={this.onSubmit.bind(this)}>
             Create Continent
           </button>
         </form>

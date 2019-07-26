@@ -129,3 +129,21 @@ export const getCountryName = (countryCode) => {
       return getName(countryCode);
   }
 }
+
+export const renderButtonClassesByStringProperty = (stringProperty) => {
+  if(stringProperty.trim().length === 0) {
+    return 'btn disabled';
+  }
+  return 'btn';
+}
+
+export const renderButtonClassesByProperties = (properties) => {
+  let result = 'btn';
+  properties.forEach(prop => {
+    if(prop === null || (prop.trim && prop.trim().length === 0)){
+      result = 'btn disabled';
+    }
+  })
+  
+  return result;
+}
