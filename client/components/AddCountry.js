@@ -5,6 +5,7 @@ import CurrentUserQuery from '../queries/CurrentUser';
 import AddCountryMutation from '../mutations/AddCountry';
 import { hashHistory } from 'react-router';
 import CheckBox from './CheckBox';
+import BackButton from './BackButton';
 import { renderButtonClassesByProperties } from '../utils'
 
 class AddCountry extends Component {
@@ -81,6 +82,9 @@ class AddCountry extends Component {
     const { selectedContinent } = this.state
     return (
       <div className="row margin-top-large">
+        <div className="left"> 
+          <BackButton />
+        </div>
         <form
           onSubmit={this.onSubmit.bind(this)}
           className="col s4 center-s4"

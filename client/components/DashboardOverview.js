@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import CurrentUserQuery from '../queries/CurrentUser';
-import { hashHistory } from 'react-router';
 import UsersQuery from '../queries/Users';
 import UnitsByUserTable from './UnitsByUserTable';
 import {
@@ -240,9 +239,6 @@ class DashboardOverview extends Component {
     }
     return (
       <div>
-        {/* <div className="container nav-wrapper button-nav">
-          {this.renderAddButtons()}
-        </div> */}
         <div className="row">
           <div className="col s4">
             <InfoCard

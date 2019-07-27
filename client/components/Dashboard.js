@@ -5,6 +5,7 @@ import { hashHistory } from 'react-router';
 import CurrentUserQuery from '../queries/CurrentUser';
 // import UnitsByUserTable from '../components/UnitsByUserTable';
 import DashboardNav from './DashboardNav';
+import Loader from 'react-loader-spinner';
 
 
 class Dashboard extends Component {
@@ -93,7 +94,16 @@ class Dashboard extends Component {
   }
   render() {
     if(this.props.data.loading) {
-      return null
+      return (
+        <div className="row center margin-top-large">
+          <Loader
+            type="Oval"
+            color="#26a69a"
+            height="60"	
+            width="60"
+          />
+        </div>
+      );
     }
     return (
       <div>

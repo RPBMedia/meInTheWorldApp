@@ -4,6 +4,7 @@ import CurrentUserQuery from '../queries/CurrentUser';
 import AddContinentMutation from '../mutations/AddContinent';
 import { hashHistory } from 'react-router';
 import CheckBox from './CheckBox';
+import BackButton from './BackButton';
 import { renderButtonClassesByStringProperty } from '../utils';
 
 class AddContinent extends Component {
@@ -64,6 +65,9 @@ class AddContinent extends Component {
   render() {
     return (
       <div className="row margin-top-large">
+        <div className="left"> 
+          <BackButton />
+        </div>
         <form
           onSubmit={this.onSubmit.bind(this)}
           className="col s4 center-s4"
