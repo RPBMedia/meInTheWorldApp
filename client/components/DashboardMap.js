@@ -3,7 +3,7 @@ import { getCode } from 'country-list';
 import { graphql } from 'react-apollo';
 import CurrentUserQuery from '../queries/CurrentUser';
 import Modal from './Modal';
-import { getCountryName } from '../utils'
+import { parseCountryName } from '../utils'
 import Map from './Map';
 
 class DashboardMap extends Component {
@@ -22,8 +22,11 @@ class DashboardMap extends Component {
     let mapData = {}
     if(this.props.data.loading === false) {
       this.props.data.user.countries.forEach(country =>{
-        if(getCode(country.name)){
-          mapData[getCode(country.name)] = country.locations.length
+        if(country.name === 'South Korea'){debugger;}
+        const parsedName = parseCountryName(country.name);
+        // if(parsedName === 'Laos'){debugger;}
+        if(getCode(parsedName)){
+          mapData[getCode(parsedName)] = country.locations.length
         }
       });
       this.setState({
