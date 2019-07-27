@@ -7,7 +7,7 @@ const passport = require('passport');
 const passportConfig = require('./services/auth');
 const MongoStore = require('connect-mongo')(session);
 const schema = require('./schema/schema');
-const secrets = require('./secrets');
+// const secrets = require('./secrets');
 
 // Create a new Express application
 const app = express();
@@ -18,8 +18,8 @@ console.log(process.env.MONGODB_URI);
 console.log(process.env.DATABASE_URI);
 
 
-// const MONGO_URI = process.env.MONGODB_URI;
-const MONGO_URI = process.env.MONGODB_URI || secrets.mongoURISecret;
+const MONGO_URI = process.env.MONGODB_URI;
+// const MONGO_URI = process.env.MONGODB_URI || secrets.mongoURISecret;
 
 // Mongoose's built in promise library is deprecated, replace it with ES2015 Promise
 mongoose.Promise = global.Promise;
