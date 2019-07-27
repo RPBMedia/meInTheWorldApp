@@ -22,9 +22,7 @@ class DashboardMap extends Component {
     let mapData = {}
     if(this.props.data.loading === false) {
       this.props.data.user.countries.forEach(country =>{
-        if(country.name === 'South Korea'){debugger;}
         const parsedName = parseCountryName(country.name);
-        // if(parsedName === 'Laos'){debugger;}
         if(getCode(parsedName)){
           mapData[getCode(parsedName)] = country.locations.length
         }
