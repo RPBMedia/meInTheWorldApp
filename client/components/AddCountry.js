@@ -6,7 +6,10 @@ import AddCountryMutation from '../mutations/AddCountry';
 import { hashHistory } from 'react-router';
 import CheckBox from './CheckBox';
 import BackButton from './BackButton';
-import { renderButtonClassesByProperties } from '../utils'
+import {
+  renderButtonClassesByProperties,
+  compareByName,
+} from '../utils'
 
 class AddCountry extends Component {
   constructor(props) {
@@ -72,7 +75,7 @@ class AddCountry extends Component {
     const {continents} = this.props.data.user;
     let continentsOptions = []
     if(continents) {
-      continentsOptions = continents.map(continent => {
+      continentsOptions = continents.slice().sort(compareByName).map(continent => {
         return {
           value: continent.id,
           label: continent.name
