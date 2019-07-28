@@ -58,11 +58,20 @@ UserSchema.statics.addContinent = function (name, userId) {
   const Continent = mongoose.model('continent');
   console.log('Add continent triggered. Params: ', name, userId);
   return this.findById(userId)
+    .populate('continents')
     .then(user => {
-      const continent = new Continent({ name, user })
-      user.continents.push(continent)
-      return Promise.all([continent.save(), user.save()])
-        .then(([continent, user]) => user);
+      const continentExists = user.continents.find(cont => cont.name.toLowerCase() === name.toLowerCase());
+      if(continentExists) {
+        console.log('continent exists. returning error')
+        return new Promise((resolve, reject) => {
+          reject('Continent with that name already exists');
+        });
+      } else {
+        const continent = new Continent({ name, user })
+        user.continents.push(continent)
+        return Promise.all([continent.save(), user.save()])
+          .then(([continent, user]) => user);
+      }
     });
 }
 

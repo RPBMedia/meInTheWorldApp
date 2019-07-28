@@ -31,7 +31,6 @@ const CountryType = new GraphQLObjectType({
       resolve(parentValue) {
         return Country.findById(parentValue).populate('continent')
           .then(country => {
-            console.log(country)
             return country.continent
           });
       }

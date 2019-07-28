@@ -31,26 +31,35 @@ CountrySchema.statics.addLocation = function (
 
 
   return User.findById(userId)
+    .populate('locations')
     .then(user => {
-      Continent.findById(continentId)
-        .then(continent => {
-          this.findById(countryId)
-          .then(country => {
-            const location = new Location({
-              name,
-              user,
-              continent,
-              country,
-              yearVisited,
-              pictureUrl,
-            });
-            user.locations.push(location);
-            country.locations.push(location);
-            continent.locations.push(location);
-            return Promise.all([user.save(), continent.save(), country.save(), location.save()])
-              .then(([user, continent, country, location]) => country);
-          });
-        })
+      const locationExists = user.locations.find(loc => loc.name.toLowerCase() === name.toLowerCase());
+      if(locationExists) {
+        console.log('location exists. returning error')
+        return new Promise((resolve, reject) => {
+          reject('Location with that name already exists');
+        });
+      } else {
+        Continent.findById(continentId)
+          .then(continent => {
+            this.findById(countryId)
+            .then(country => {
+              const location = new Location({
+                name,
+                user,
+                continent,
+                country,
+                yearVisited,
+                pictureUrl,
+              });
+              user.locations.push(location);
+              country.locations.push(location);
+              continent.locations.push(location);
+              return Promise.all([user.save(), continent.save(), country.save(), location.save()])
+                .then(([user, continent, country, location]) => country);
+              });
+          })
+        }
     }); 
 }
 

@@ -29,7 +29,6 @@ const UserType = new GraphQLObjectType({
       resolve(parentValue) {
         return Location.findById(parentValue).populate('continent')
           .then(location => {
-            console.log(location)
             return location.continent
           });
       }
@@ -39,7 +38,6 @@ const UserType = new GraphQLObjectType({
       resolve(parentValue) {
         return Location.findById(parentValue).populate('country')
           .then(location => {
-            console.log(location)
             return location.country
           });
       }

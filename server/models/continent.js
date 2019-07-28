@@ -24,8 +24,16 @@ ContinentSchema.statics.addCountry = function (name, userId, continentId) {
   const User = mongoose.model('user');
 
   return User.findById(userId)
+  .populate('countries')
   .then(user => {
-    this.findById(continentId)
+    const countryExists = user.countries.find(cont => cont.name.toLowerCase() === name.toLowerCase());
+    if(countryExists) {
+      console.log('country exists. returning error')
+      return new Promise((resolve, reject) => {
+        reject('Country with that name already exists');
+      });
+    } else {
+      this.findById(continentId)
       .then(continent => {
         const country = new Country({ name, continent, user })
         continent.countries.push(country);
@@ -33,6 +41,7 @@ ContinentSchema.statics.addCountry = function (name, userId, continentId) {
         return Promise.all([user.save(), country.save(), continent.save()])
           .then(([user, country, continent]) => continent);
       })
+    }
   }); 
 }
 

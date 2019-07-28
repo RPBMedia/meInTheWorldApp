@@ -61,7 +61,6 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, { email, password }, req) {
         console.log('Back end: Login mutation triggered');
-        console.log(email, password);
         return AuthService.login({ email, password, req })
       }
     },

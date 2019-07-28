@@ -9,7 +9,9 @@ import BackButton from './BackButton';
 import {
   renderButtonClassesByProperties,
   compareByName,
-} from '../utils'
+  setErrors,
+} from '../utils';
+import Fade from 'react-reveal/Fade';
 
 class AddCountry extends Component {
   constructor(props) {
@@ -19,6 +21,7 @@ class AddCountry extends Component {
       name: '',
       selectedContinent: null,
       errors: [],
+      successMessage: null,
       addAnother: false,
     };
   }
@@ -45,13 +48,24 @@ class AddCountry extends Component {
         },
         refetchQueries: [{ query: CurrentUserQuery }]
       })
-      .then(() => {
+      .then((res) => {
+        debugger;
         if(this.state.addAnother === false) {
           hashHistory.push('/dashboard/manager');
+        } else {
+          this.setState({
+            successMessage: 'Country created successfully'
+          });
+          setTimeout(() => {
+            this.setState({
+              successMessage: null,
+            })
+          }, 2000);
         }
       })
       .catch(res => {
-        const errors = utils.setErrors(res);
+        debugger;
+        const errors = setErrors(res);
         this.setState({
           errors,
         });
@@ -114,12 +128,6 @@ class AddCountry extends Component {
               onChange={e => this.setState({ name: e.target.value })}
             />
           </div>
-          {this.state.errors && this.state.errors.length > 0 &&
-            <div className="errors padding-bottom-sides-small">
-              {this.state.errors.map(error => <div key={error}>{error}</div> )}
-            </div>
-            
-          }
           <div className="margin-bottom-small">
             <CheckBox
               checked={this.state.addAnother}
@@ -132,6 +140,16 @@ class AddCountry extends Component {
           >
             Create Country
           </button>
+          <Fade top when={this.state.successMessage}>
+            <div className="success margin-top-small">
+              {this.state.successMessage}
+            </div>
+          </Fade> 
+          <Fade top when={this.state.errors && this.state.errors.length > 0}>
+            <div className="errors margin-top-small"  >
+              {this.state.errors.map(error => <div key={error}>{error}</div> )}
+            </div>
+          </Fade>
         </form>
       </div>
     );

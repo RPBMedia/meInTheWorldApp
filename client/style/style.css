@@ -239,3 +239,8 @@
     display: block !important;
   }
 }
+
+.success {
+  font-weight: bold;
+  color: #26a69a;
+}

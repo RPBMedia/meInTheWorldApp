@@ -5,7 +5,11 @@ import AddContinentMutation from '../mutations/AddContinent';
 import { hashHistory } from 'react-router';
 import CheckBox from './CheckBox';
 import BackButton from './BackButton';
-import { renderButtonClassesByStringProperty } from '../utils';
+import {
+  setErrors,
+  renderButtonClassesByStringProperty
+} from '../utils';
+import Fade from 'react-reveal/Fade';
 
 class AddContinent extends Component {
   constructor(props) {
@@ -14,6 +18,7 @@ class AddContinent extends Component {
     this.state = {
       name: '',
       errors: [],
+      successMessage: null,
       addAnother: false,
     };
   }
@@ -42,10 +47,20 @@ class AddContinent extends Component {
       .then(() => {
         if(this.state.addAnother === false) {
           hashHistory.push('/dashboard/manager');
+        } else {
+          this.setState({
+            successMessage: 'Continent created successfully'
+          });
+          setTimeout(() => {
+            this.setState({
+              successMessage: null,
+            })
+          }, 2000);
         }
       })
       .catch(res => {
-        const errors = utils.setErrors(res);
+        debugger;
+        const errors = setErrors(res);
         this.setState({
           errors,
         });
@@ -79,23 +94,27 @@ class AddContinent extends Component {
               onChange={e => this.setState({ name: e.target.value })}
             />
           </div>
-          {this.state.errors && this.state.errors.length > 0 &&
-            <div className="errors padding-bottom-sides-small">
-              {this.state.errors.map(error => <div key={error}>{error}</div> )}
-            </div>
-            
-          }
           <div className="margin-bottom-small">
             <CheckBox
               checked={this.state.addAnother}
               onChange={this.toggleAddAnother.bind(this)}
-            />
+              />
           </div>    
           <button
             className={renderButtonClassesByStringProperty(this.state.name)}
             onClick={this.onSubmit.bind(this)}>
             Create Continent
           </button>
+          <Fade top when={this.state.successMessage}>
+            <div className="success margin-top-small">
+              {this.state.successMessage}
+            </div>
+          </Fade> 
+          <Fade top when={this.state.errors && this.state.errors.length > 0}>
+            <div className="errors margin-top-small"  >
+              {this.state.errors.map(error => <div key={error}>{error}</div> )}
+            </div>
+          </Fade>
         </form>
       </div>
     );

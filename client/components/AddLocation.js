@@ -9,7 +9,9 @@ import BackButton from './BackButton';
 import {
   renderButtonClassesByProperties,
   compareByName,
+  setErrors,
 } from '../utils'
+import Fade from 'react-reveal/Fade';
 
 class AddLocation extends Component {
   constructor(props) {
@@ -57,10 +59,19 @@ class AddLocation extends Component {
       .then(() => {
         if(this.state.addAnother === false) {
           hashHistory.push('/dashboard/manager');
+        } else {
+          this.setState({
+            successMessage: 'Location created successfully'
+          });
+          setTimeout(() => {
+            this.setState({
+              successMessage: null,
+            })
+          }, 2000);
         }
       })
       .catch(res => {
-        const errors = utils.setErrors(res);
+        const errors = setErrors(res);
         this.setState({
           errors,
         });
@@ -165,12 +176,6 @@ class AddLocation extends Component {
               onChange={e => this.setState({ pictureUrl: e.target.value })}
             />
           </div>
-          {this.state.errors && this.state.errors.length > 0 &&
-            <div className="errors padding-bottom-sides-small">
-              {this.state.errors.map(error => <div key={error}>{error}</div> )}
-            </div>
-            
-          }
           <div className="margin-bottom-small">
             <CheckBox
               checked={this.state.addAnother}
@@ -187,6 +192,16 @@ class AddLocation extends Component {
             onClick={this.onSubmit.bind(this)}>
             Create Location
           </button>
+          <Fade top when={this.state.successMessage}>
+            <div className="success margin-top-small">
+              {this.state.successMessage}
+            </div>
+          </Fade> 
+          <Fade top when={this.state.errors && this.state.errors.length > 0}>
+            <div className="errors margin-top-small"  >
+              {this.state.errors.map(error => <div key={error}>{error}</div> )}
+            </div>
+          </Fade>
         </form>
       </div>
     );

@@ -1,40 +1,47 @@
 import { getName } from 'country-list';
 
+export const setErrors = (response) => {
+  if(response.graphQLErrors) {
+    return response.graphQLErrors.map(error => error.message);
+  }
+  return ['request failed. Unknown error'];
+} 
+
 export const compareByName = (a, b) => {
-  if ( a.name < b.name ){
+  if ( a.name.toLowerCase() < b.name.toLowerCase() ){
     return -1;
   }
-  if ( a.name > b.name ){
+  if ( a.name.toLowerCase() > b.name.toLowerCase() ){
     return 1;
   }
   return 0;
 }
 
 export const compareByNameReverse = (a, b) => {
-  if ( a.name > b.name ){
+  if ( a.name.toLowerCase() > b.name.toLowerCase() ){
     return -1;
   }
-  if ( a.name < b.name ){
+  if ( a.name.toLowerCase() < b.name.toLowerCase() ){
     return 1;
   }
   return 0;
 }
 
 export const compareByEmail = (a, b) => {
-  if ( a.email < b.email ){
+  if ( a.email.toLowerCase < b.email.toLowerCase ){
     return -1;
   }
-  if ( a.email > b.email ){
+  if ( a.email.toLowerCase > b.email.toLowerCase ){
     return 1;
   }
   return 0;
 }
 
 export const compareByEmailReverse = (a, b) => {
-  if ( a.email > b.email ){
+  if ( a.email.toLowerCase() > b.email.toLowerCase() ){
     return -1;
   }
-  if ( a.email < b.email ){
+  if ( a.email.toLowerCase() < b.email.toLowerCase() ){
     return 1;
   }
   return 0;
@@ -101,20 +108,20 @@ export const compareByNumberOfUserLocationsReverse = (a, b) => {
 }
 
 export const compareByContinentName = (a, b) => {
-  if ( a.continent.name < b.continent.name ){
+  if ( a.continent.name.toLowerCase() < b.continent.name.toLowerCase() ){
     return -1;
   }
-  if ( a.continent.name > b.continent.name ){
+  if ( a.continent.name.toLowerCase() > b.continent.name.toLowerCase() ){
     return 1;
   }
   return 0;
 }
 
 export const compareByContinentNameReverse = (a, b) => {
-  if ( a.continent.name > b.continent.name ){
+  if ( a.continent.name.toLowerCase() > b.continent.name.toLowerCase() ){
     return -1;
   }
-  if ( a.continent.name < b.continent.name ){
+  if ( a.continent.name.toLowerCase() < b.continent.name.toLowerCase() ){
     return 1;
   }
   return 0;
@@ -122,20 +129,20 @@ export const compareByContinentNameReverse = (a, b) => {
 
 
 export const compareByCountryName = (a, b) => {
-  if ( a.country.name < b.country.name ){
+  if ( a.country.name.toLowerCase() < b.country.name.toLowerCase() ){
     return -1;
   }
-  if ( a.country.name > b.country.name ){
+  if ( a.country.name.toLowerCase() > b.country.name.toLowerCase() ){
     return 1;
   }
   return 0;
 }
 
 export const compareByCountryNameReverse = (a, b) => {
-  if ( a.country.name > b.country.name ){
+  if ( a.country.name.toLowerCase() > b.country.name.toLowerCase() ){
     return -1;
   }
-  if ( a.country.name < b.country.name ){
+  if ( a.country.name.toLowerCase() < b.country.name.toLowerCase() ){
     return 1;
   }
   return 0;
