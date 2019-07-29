@@ -7,7 +7,9 @@ import CheckBox from './CheckBox';
 import BackButton from './BackButton';
 import {
   setErrors,
-  renderButtonClassesByStringProperty
+  renderButtonClassesByStringProperty,
+  isValidContinentName,
+  toTitleCase,
 } from '../utils';
 import Fade from 'react-reveal/Fade';
 
@@ -36,10 +38,22 @@ class AddContinent extends Component {
       this.setState({errors: [
         'User not found. Please logout and log back in',
       ]});
+    } else if(!isValidContinentName(this.state.name)){
+      this.setState({errors: [
+        'Please pick one of the following:',
+        '',
+        'Africa',
+        'Antarctica',
+        'Asia',
+        'Europe',
+        'Oceania',
+        'North America',
+        'South America',
+      ]});
     } else {
       this.props.mutate({
         variables: {
-          name: this.state.name,
+          name: toTitleCase(this.state.name),
           userId: this.props.data.user.id
         },
         refetchQueries: [{ query: CurrentUserQuery }]
