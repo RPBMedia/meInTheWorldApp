@@ -72,7 +72,7 @@ class Home extends Component {
         return this.props.data.users.slice().sort(this.state.ascendingSortOrder ? compareByName : compareByNameReverse);
       case 'continents':
         return this.props.data.users.slice().sort(this.state.ascendingSortOrder ? compareByNumberOfUserContinents : compareByNumberOfUserContinentsReverse);
-      case 'contries':
+      case 'countries':
         return this.props.data.users.slice().sort(this.state.ascendingSortOrder ? compareByNumberOfUserCountries : compareByNumberOfUserCountriesReverse);
         case 'locations':
             return this.props.data.users.slice().sort(this.state.ascendingSortOrder ? compareByNumberOfUserLocations : compareByNumberOfUserLocationsReverse);
@@ -107,7 +107,7 @@ class Home extends Component {
             </Fade>
           }
           {this.props.data.users && this.props.data.users.length > 0 &&
-          <Fade top>
+          <Fade left>
             <div>
               <ul className="collection full-width">
                 <li className="collection-item flex full-width">
