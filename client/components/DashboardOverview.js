@@ -4,9 +4,6 @@ import CurrentUserQuery from '../queries/CurrentUser';
 import UsersQuery from '../queries/Users';
 import UnitsByUserTable from './UnitsByUserTable';
 import {
-  compareByNumberOfContinents,
-  compareByNumberOfCountries,
-  compareByNumberOfLocations,
   compareByArrayLength,
 } from '../utils';
 import InfoCard from './InfoCard';
@@ -40,9 +37,9 @@ class DashboardOverview extends Component {
     const rankedArray = this.props.usersQuery.users.map(({id, continents}) => {
       return {
         id,
-        numberOfContinents: continents.length
+        number: continents.length
       }
-    }).sort(compareByNumberOfContinents);
+    }).sort(compareByArrayLength);
 
     let result = null;
     for(let i = 0; i < rankedArray.length; i++) {
@@ -58,9 +55,9 @@ class DashboardOverview extends Component {
     const rankedArray = this.props.usersQuery.users.map(({id, countries}) => {
       return {
         id,
-        numberOfCountries: countries.length
+        number: countries.length
       }
-    }).sort(compareByNumberOfCountries);
+    }).sort(compareByArrayLength);
 
     let result = null;
     for(let i = 0; i < rankedArray.length; i++) {
@@ -76,9 +73,9 @@ class DashboardOverview extends Component {
     const rankedArray = this.props.usersQuery.users.map(({id, locations}) => {
       return {
         id,
-        numberOfLocations: locations.length
+        number: locations.length
       }
-    }).sort(compareByNumberOfLocations);
+    }).sort(compareByArrayLength);
 
     let result = null;
     for(let i = 0; i < rankedArray.length; i++) {
@@ -206,9 +203,9 @@ class DashboardOverview extends Component {
         id: country.id,
         name: country.name,
         number: country.locations.length,
-        numberOfLocations: country.locations.length
       }
-    }).sort(compareByNumberOfLocations);
+    }).sort(compareByArrayLength);
+    
     return result;
   }
 
@@ -221,6 +218,26 @@ class DashboardOverview extends Component {
       }
     }).sort(compareByArrayLength);
     return result;
+  }
+
+  getYearsRankedByLocation() {
+    let results = [];
+    this.props.currentUserQuery.user.locations.forEach(location => {
+      const found = results.find(element => {
+        return element.name === location.yearVisited
+      });
+      if(!found) {
+        results.push({
+          id: location.id,
+          name: location.yearVisited,
+          number: 1
+        });
+      } else {
+        found.number++;
+      }
+    });
+    
+    return results.sort(compareByArrayLength);
   }
 
   getContinentsRankedByCountry() {
@@ -377,17 +394,17 @@ class DashboardOverview extends Component {
         </Fade>
         }
         {countries.length > 0 &&
-          <Fade left>
-            <div className="margin-top-medium">
-              <UnitsByUserTable
-                label="Countries ranked by location"
-                emptyLabel="You have no countries yet"
-                units={this.getCountriesRanked()}
-                sorted
-                onUpdate={() => this.props.data.refetch()}
-              />
-            </div>
-          </Fade>
+          
+          <div className="margin-top-medium">
+            <UnitsByUserTable
+              label="Countries ranked by location"
+              emptyLabel="You have no countries yet"
+              units={this.getCountriesRanked()}
+              sorted
+              onUpdate={() => this.props.data.refetch()}
+            />
+          </div>
+          
         }
         {continents.length > 0 &&
           <div>
@@ -414,6 +431,19 @@ class DashboardOverview extends Component {
               </div>
             </Fade>
           </div>
+        }
+        {locations.length > 0 &&
+          <Fade left>
+            <div className="margin-top-medium">
+              <UnitsByUserTable
+                label="Years ranked by location"
+                emptyLabel="You have no locations yet"
+                units={this.getYearsRankedByLocation()}
+                sorted
+                onUpdate={() => this.props.data.refetch()}
+              />
+            </div>
+          </Fade>
         }
       </div>
     );

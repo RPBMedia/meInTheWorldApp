@@ -91,29 +91,25 @@ class DashboardManager extends Component {
             Your countries
           </p>
         </Fade>
-        <Fade left>
-          <UnitsByUserTable
-            label="Total countries: "
-            editable
-            emptyLabel="You have no countries yet"
-            units={this.props.data.user.countries}
-            onUpdate={() => this.props.data.refetch()}
-          />
-        </Fade>
+        <UnitsByUserTable
+          label="Total countries: "
+          editable
+          emptyLabel="You have no countries yet"
+          units={this.props.data.user.countries}
+          onUpdate={() => this.props.data.refetch()}
+        />
         <Fade top>
           <p className="section-header">
             Your locations
           </p>
         </Fade>
-        <Fade left>
-          <UnitsByUserTable
-            label="Total locations: "
-            editable
-            emptyLabel="You have no locations yet"
-            units={this.props.data.user.locations}
-            onUpdate={() => this.props.data.refetch()}
-          />
-        </Fade>
+        <UnitsByUserTable
+          label="Total locations: "
+          editable
+          emptyLabel="You have no locations yet"
+          units={this.props.data.user.locations}
+          onUpdate={() => this.props.data.refetch()}
+        />
       </div>
     );
   }
