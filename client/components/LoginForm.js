@@ -15,8 +15,8 @@ class LoginForm extends Component {
     }
   }
   
-  componentWillUpdate(nextProps) {
-    if(!this.props.data.user && nextProps.data.user) {
+  componentDidUpdate(prevProps) {
+    if(!prevProps.data.user && this.props.data.user) {
       hashHistory.push('/dashboard/overview')
     }
   }

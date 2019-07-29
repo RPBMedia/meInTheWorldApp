@@ -11,6 +11,12 @@ export default (WrappedComponent) => {
         hashHistory.push('/login');
       }
     }
+    // componentDidUpdate(prevProps) {
+    //   debugger;
+    //   if(!this.props.data.loading && !this.props.data.user) {
+    //     hashHistory.push('/dashboard/overview')
+    //   }
+    // }
 
     render() {
       return <WrappedComponent {...this.props} />;
