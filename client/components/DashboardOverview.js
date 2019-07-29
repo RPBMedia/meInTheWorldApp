@@ -327,44 +327,54 @@ class DashboardOverview extends Component {
           </Fade>
         }
         {countries.length > 0 &&
-          <StatisticsRow
-            type="country"
-            title="Most visited country"
-            byType="Locations"
-            data={this.getMostVisitedCountries()}
-          />
+          <Fade top>
+            <StatisticsRow
+              type="country"
+              title="Most visited country"
+              byType="Locations"
+              data={this.getMostVisitedCountries()}
+            />
+          </Fade>
         }
         {continents.length > 0 &&
           <div>
-            <StatisticsRow
-              type="continent"
-              title="Most visited continent (by locations)"
-              byType="Locations"
-              data={this.getMostVisitedContinentsByLocation()}
-            />
-            <StatisticsRow
-              type="continent"
-              title="Most visited continent (by countries)"
-              byType="Countries"
-              data={this.getMostVisitedContinentsByCountry()}
-            />
+            <Fade top>
+              <StatisticsRow
+                type="continent"
+                title="Most visited continent (by locations)"
+                byType="Locations"
+                data={this.getMostVisitedContinentsByLocation()}
+              />
+            </Fade>
+            <Fade top>
+              <StatisticsRow
+                type="continent"
+                title="Most visited continent (by countries)"
+                byType="Countries"
+                data={this.getMostVisitedContinentsByCountry()}
+              />
+            </Fade>
           </div>
         }
         {locations.length > 0 &&
-          <StatisticsRow
-            type="location"
-            title="Most traveled year (by locations)"
-            byType="Locations"
-            data={this.getMostTraveledYearByLocation()}
-          />
+          <Fade top>
+            <StatisticsRow
+              type="location"
+              title="Most traveled year (by locations)"
+              byType="Locations"
+              data={this.getMostTraveledYearByLocation()}
+            />
+          </Fade>
         }
         {locations.length > 0 &&
-          <StatisticsRow
-            type="country"
-            title="Most traveled year (by countries)"
-            byType="Countries"
-            data={this.getMostTraveledYearByCountry()}
-          />
+          <Fade top>
+            <StatisticsRow
+              type="country"
+              title="Most traveled year (by countries)"
+              byType="Countries"
+              data={this.getMostTraveledYearByCountry()}
+            />
+        </Fade>
         }
         {countries.length > 0 &&
           <Fade left>

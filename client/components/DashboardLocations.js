@@ -34,7 +34,10 @@ class DashboardLocations extends Component {
     this.setState({
       sortingField: field,
       ascendingSortOrder: newAscendingSortOrder,
-      filteredSortedLocations: this.sortLocations()
+    }, () => {
+      this.setState({
+        filteredSortedLocations: this.sortLocations()
+      });
     });
   }
 

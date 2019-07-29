@@ -4,8 +4,6 @@ import Users from '../queries/Users';
 import {
   compareByName,
   compareByNameReverse,
-  compareByEmail,
-  compareByEmailReverse,
   compareByNumberOfUserContinents,
   compareByNumberOfUserContinentsReverse,
   compareByNumberOfUserCountries,
@@ -32,24 +30,20 @@ class Home extends Component {
       return null
     }
   
-    const list = this.state.sortedList ? this.state.sortedList : this.props.data.users; 
-
+    const list = this.state.sortedList ? this.state.sortedList : this.props.data.users.slice().sort(compareByName); 
     return list.map(user => {
       return (
         <li key={user.id} className="collection-item flex full-width">
-          <div className="center-text fifth-width">
+          <div className="center-text quarter-width">
             {user.name}
           </div>
-          <div className="center-text fifth-width">
-            {user.email}
-          </div>
-          <div className="center-text fifth-width">
+          <div className="center-text quarter-width">
             {user.continents.length}
           </div>
-          <div className="center-text fifth-width">
+          <div className="center-text quarter-width">
             {user.countries.length}
           </div>
-          <div className="center-text fifth-width">
+          <div className="center-text quarter-width">
             {user.locations.length}
           </div>
         </li>
@@ -58,6 +52,7 @@ class Home extends Component {
   }
 
   changeSortField(field){
+    debugger;
     let newAscendingSortOrder = true;
     if(field === this.state.sortingField){
       newAscendingSortOrder = !this.state.ascendingSortOrder;
@@ -65,16 +60,18 @@ class Home extends Component {
     this.setState({
       sortingField: field,
       ascendingSortOrder: newAscendingSortOrder,
-      sortedList: this.sortUsers()
+    }, () => {
+      this.setState({
+        sortedList: this.sortUsers()
+      });
     });
   }
 
   sortUsers() {
+    debugger;
     switch(this.state.sortingField) {
       case 'name':
         return this.props.data.users.slice().sort(this.state.ascendingSortOrder ? compareByName : compareByNameReverse);
-      case 'email':
-        return this.props.data.users.slice().sort(this.state.ascendingSortOrder ? compareByEmail : compareByEmailReverse);
       case 'continents':
         return this.props.data.users.slice().sort(this.state.ascendingSortOrder ? compareByNumberOfUserContinents : compareByNumberOfUserContinentsReverse);
       case 'contries':
@@ -117,31 +114,25 @@ class Home extends Component {
               <ul className="collection full-width">
                 <li className="collection-item flex full-width">
                   <div
-                    className="center-text fifth-width table-header no-border clickable"
+                    className="center-text quarter-width table-header no-border clickable"
                     onClick={() => this.changeSortField('name')}
                   >
                     Name
                   </div>
                   <div
-                    className="center-text fifth-width table-header no-border clickable"
-                    onClick={() => this.changeSortField('email')}
-                  >
-                    Email
-                  </div>
-                  <div
-                    className="center-text fifth-width table-header no-border clickable"
+                    className="center-text quarter-width table-header no-border clickable"
                     onClick={() => this.changeSortField('continents')}
                   >
                     Continents
                   </div>
                   <div
-                    className="center-text fifth-width table-header no-border clickable"
+                    className="center-text quarter-width table-header no-border clickable"
                     onClick={() => this.changeSortField('countries')}
                   >
                     Countries
                   </div>
                   <div
-                    className="center-text fifth-width table-header no-border clickable"
+                    className="center-text quarter-width table-header no-border clickable"
                     onClick={() => this.changeSortField('locations')}
                   >
                     Locations
