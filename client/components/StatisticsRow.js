@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Fade from 'react-reveal/Fade';
 
 class StatisticsRow extends Component {
   renderData(data) {
@@ -11,9 +12,10 @@ class StatisticsRow extends Component {
     })
   }
   render() {
-    const {title, data } = this.props;
+    const {title, data, type } = this.props;
     return (
-      <div className="statistics-row-container">
+      <Fade top>
+        <div className="statistics-row-container">
           <div className="row">
             <div className="col s6">
               <p className="bold medium-text">{title}</p>
@@ -25,6 +27,7 @@ class StatisticsRow extends Component {
             </div>
           </div>
         </div>
+      </Fade>
     );
   }
 }

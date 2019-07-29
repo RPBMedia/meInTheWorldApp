@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Fade from 'react-reveal/Fade';
 
 class AuthForm extends Component {
   constructor(props) {
@@ -72,12 +73,11 @@ class AuthForm extends Component {
               />
             </div>
           }
-          {this.props.errors && this.props.errors.length > 0 &&
+          <Fade top when={this.props.errors && this.props.errors.length > 0}>
             <div className="errors padding-bottom-sides-small">
               {this.props.errors.map(error => <div key={error}>{error}</div> )}
             </div>
-            
-          }
+          </Fade>
           <button
             onClick={this.onSubmit.bind(this)} className="btn">
             {this.props.register ? 'Register' : 'Login'}

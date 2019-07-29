@@ -239,6 +239,7 @@ class DashboardOverview extends Component {
     if(this.props.currentUserQuery.loading || this.props.usersQuery.loading) {
       return null;
     }
+    const {continents, countries, locations} = this.props.currentUserQuery.user;
     return (
       <div>
         <Flip top>
@@ -269,74 +270,141 @@ class DashboardOverview extends Component {
             </div> 
           </div>
         </Flip>
-        <Fade top>
+        {continents.length === 0 &&
+          <Fade clear>
+            <div className="margin-bottom-large">
+              <div className="statistics-row-container">
+                <p className="bold medium-text">
+                  You have no continents
+                </p>
+                <div className="medium-text">
+                  To add a new continent, follow these steps:<br/><br/>
+                  <b>1 - </b>Select the "Manager" tab<br/>
+                  <b>2 - </b>Add your continent by pressing the "Add continent" button<br/>
+                </div>
+              </div>
+            </div>
+          </Fade>
+        }
+        {countries.length === 0 &&
+          <Fade clear>
+            <div className="margin-bottom-large">
+              <div className="statistics-row-container">
+                <p className="bold medium-text">
+                  You have no countries
+                </p>
+                <div className="medium-text">
+                  To add a new country, follow these steps:<br/><br/>
+                  <b>1 - </b>Select the "Manager" tab<br/>
+                  <b>2 - </b>If your country has no continent, add your country's continent<br/>
+                    by pressing the "Add continent" button<br/>
+                  <b>3 - </b>Add your country by pressing the "Add country" button.<br/>
+                  You can either use the continent you just created or select an already existing continent<br/>
+                </div>
+              </div>
+            </div>
+          </Fade>
+        }
+        {locations.length === 0 &&
+          <Fade clear>
+            <div className="margin-bottom-large">
+              <div className="statistics-row-container">
+                <p className="bold medium-text">
+                  You have no locations
+                </p>
+                <div className="medium-text">
+                  To add a new country, follow these steps:<br/><br/>
+                  <b>1 - </b>Select the "Manager" tab<br/>
+                  <b>2 - </b>If you have no continents and no countries, add your country's continent<br/>
+                    by pressing the "Add continent" button<br/>
+                  <b>3 - </b>Add your location's country by pressing the "Add country" button.<br/>
+                  You can either use the continent you just created or select an already existing continent<br/>
+                  <b>3 - </b>Add your location by pressing the "Add location" button.<br/>
+                  You can either use the continent you just created or select an already existing continent<br/>
+                </div>
+              </div>
+            </div>
+          </Fade>
+        }
+        {countries.length > 0 &&
           <StatisticsRow
+            type="country"
             title="Most visited country"
             byType="Locations"
             data={this.getMostVisitedCountries()}
           />
-        </Fade>
-        <Fade top>
+        }
+        {continents.length > 0 &&
+          <div>
+            <StatisticsRow
+              type="continent"
+              title="Most visited continent (by locations)"
+              byType="Locations"
+              data={this.getMostVisitedContinentsByLocation()}
+            />
+            <StatisticsRow
+              type="continent"
+              title="Most visited continent (by countries)"
+              byType="Countries"
+              data={this.getMostVisitedContinentsByCountry()}
+            />
+          </div>
+        }
+        {locations.length > 0 &&
           <StatisticsRow
-            title="Most visited continent (by locations)"
-            byType="Locations"
-            data={this.getMostVisitedContinentsByLocation()}
-          />
-        </Fade>
-        <Fade top>
-          <StatisticsRow
-            title="Most visited continent (by countries)"
-            byType="Countries"
-            data={this.getMostVisitedContinentsByCountry()}
-          />
-        </Fade>
-        <Fade top>
-          <StatisticsRow
+            type="location"
             title="Most traveled year (by locations)"
             byType="Locations"
             data={this.getMostTraveledYearByLocation()}
           />
-        </Fade>
-        <Fade top>
+        }
+        {locations.length > 0 &&
           <StatisticsRow
+            type="country"
             title="Most traveled year (by countries)"
             byType="Countries"
             data={this.getMostTraveledYearByCountry()}
           />
-        </Fade>
-        <Fade top>
-          <div className="margin-top-medium">
-            <UnitsByUserTable
-              label="Countries ranked by location"
-              emptyLabel="You have no countries yet"
-              units={this.getCountriesRanked()}
-              sorted
-              onUpdate={() => this.props.data.refetch()}
-            />
+        }
+        {countries.length > 0 &&
+          <Fade top>
+            <div className="margin-top-medium">
+              <UnitsByUserTable
+                label="Countries ranked by location"
+                emptyLabel="You have no countries yet"
+                units={this.getCountriesRanked()}
+                sorted
+                onUpdate={() => this.props.data.refetch()}
+              />
+            </div>
+          </Fade>
+        }
+        {continents.length > 0 &&
+          <div>
+            <Fade top>
+              <div className="margin-top-medium">
+                <UnitsByUserTable
+                  label="Continents ranked by location"
+                  emptyLabel="You have no continents yet"
+                  units={this.getContinentsRankedByLocation()}
+                  sorted
+                  onUpdate={() => this.props.data.refetch()}
+                />
+              </div>
+            </Fade>
+            <Fade top>
+              <div className="margin-top-medium">
+                <UnitsByUserTable
+                  label="Continents ranked by country"
+                  emptyLabel="You have no continents yet"
+                  units={this.getContinentsRankedByCountry()}
+                  sorted
+                  onUpdate={() => this.props.data.refetch()}
+                />
+              </div>
+            </Fade>
           </div>
-        </Fade>
-        <Fade top>
-          <div className="margin-top-medium">
-            <UnitsByUserTable
-              label="Continents ranked by location"
-              emptyLabel="You have no continents yet"
-              units={this.getContinentsRankedByLocation()}
-              sorted
-              onUpdate={() => this.props.data.refetch()}
-            />
-          </div>
-        </Fade>
-        <Fade top>
-          <div className="margin-top-medium">
-            <UnitsByUserTable
-              label="Continents ranked by country"
-              emptyLabel="You have no continents yet"
-              units={this.getContinentsRankedByCountry()}
-              sorted
-              onUpdate={() => this.props.data.refetch()}
-            />
-          </div>
-        </Fade>
+        }
       </div>
     );
   }
