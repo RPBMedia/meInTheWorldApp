@@ -367,7 +367,7 @@ class DashboardOverview extends Component {
           />
         }
         {countries.length > 0 &&
-          <Fade top>
+          <Fade left>
             <div className="margin-top-medium">
               <UnitsByUserTable
                 label="Countries ranked by location"
@@ -381,7 +381,7 @@ class DashboardOverview extends Component {
         }
         {continents.length > 0 &&
           <div>
-            <Fade top>
+            <Fade left>
               <div className="margin-top-medium">
                 <UnitsByUserTable
                   label="Continents ranked by location"
@@ -392,7 +392,7 @@ class DashboardOverview extends Component {
                 />
               </div>
             </Fade>
-            <Fade top>
+            <Fade left>
               <div className="margin-top-medium">
                 <UnitsByUserTable
                   label="Continents ranked by country"
