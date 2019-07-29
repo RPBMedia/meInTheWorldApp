@@ -59,7 +59,6 @@ class AddContinent extends Component {
         }
       })
       .catch(res => {
-        debugger;
         const errors = setErrors(res);
         this.setState({
           errors,

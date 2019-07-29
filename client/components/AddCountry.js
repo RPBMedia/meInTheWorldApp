@@ -49,7 +49,6 @@ class AddCountry extends Component {
         refetchQueries: [{ query: CurrentUserQuery }]
       })
       .then((res) => {
-        debugger;
         if(this.state.addAnother === false) {
           hashHistory.push('/dashboard/manager');
         } else {
@@ -64,7 +63,6 @@ class AddCountry extends Component {
         }
       })
       .catch(res => {
-        debugger;
         const errors = setErrors(res);
         this.setState({
           errors,
