@@ -98,14 +98,18 @@ class Home extends Component {
           </h4>
           </Zoom>
         <div>
-          <p className="center table-title">
-            Registered Users
-          </p>
-          {
-            this.props.data.users && this.props.data.users.length === 0 && 
-            <p className="center">
-              There are no registered users yet
+          <Fade top>
+            <p className="center table-title">
+              Registered Users
             </p>
+          </Fade>
+          {
+            this.props.data.users && this.props.data.users.length === 0 &&
+            <Fade top>
+              <p className="center">
+                There are no registered users yet
+              </p>
+            </Fade>
           }
           {this.props.data.users && this.props.data.users.length > 0 &&
           <Fade top>
