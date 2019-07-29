@@ -4,6 +4,12 @@ import { compareByName } from '../utils';
 import UnitRow from './UnitRow';
 
 class UnitsByUserTable extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      minimized: true
+    };
+  }
 
   onRowUpdate() {
     this.props.onUpdate();
@@ -36,9 +42,41 @@ class UnitsByUserTable extends Component {
         <div>
           <b>{label}</b> {this.props.units.length}
         </div>
-        <ul className="collection">
-          {this.renderUnitList()}
-        </ul>
+        {this.state.minimized && 
+          <div>
+            <i
+              className="left small clickable material-icons"
+              onClick={() => this.setState({
+                minimized: false
+              })}
+            >
+              arrow_drop_down
+            </i>
+            <ul className="collection">
+              <UnitRow
+                editable={this.props.editable}
+                key={this.props.units[0].id}
+                unit={this.props.units[0]}
+                onUpdate={() => this.onRowUpdate(this.props.units[0])}
+              />
+            </ul>
+          </div>
+        }
+        {this.state.minimized === false &&
+          <div>
+            <i
+              className="left small clickable material-icons"
+              onClick={() => this.setState({
+                minimized: true
+              })}
+            >
+              arrow_drop_up
+            </i>
+            <ul className="collection">
+              {this.renderUnitList()}
+            </ul>
+          </div>
+        }
       </div>
     );
   }

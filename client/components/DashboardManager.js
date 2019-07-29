@@ -5,6 +5,7 @@ import CurrentUserQuery from '../queries/CurrentUser';
 import UnitsByUserTable from './UnitsByUserTable';
 import Fade from 'react-reveal/Fade';
 import Flip from 'react-reveal/Flip';
+import { compareByName } from '../utils';
 
 
 class DashboardManager extends Component {
@@ -82,7 +83,7 @@ class DashboardManager extends Component {
             label="Total continents: "
             editable
             emptyLabel="You have no continents yet"
-            units={this.props.data.user.continents}
+            units={this.props.data.user.continents.slice().sort(compareByName)}
             onUpdate={() => this.props.data.refetch()}
           />
         </Fade>
@@ -95,7 +96,7 @@ class DashboardManager extends Component {
           label="Total countries: "
           editable
           emptyLabel="You have no countries yet"
-          units={this.props.data.user.countries}
+          units={this.props.data.user.countries.slice().sort(compareByName)}
           onUpdate={() => this.props.data.refetch()}
         />
         <Fade top>
@@ -107,7 +108,7 @@ class DashboardManager extends Component {
           label="Total locations: "
           editable
           emptyLabel="You have no locations yet"
-          units={this.props.data.user.locations}
+          units={this.props.data.user.locations.slice().sort(compareByName)}
           onUpdate={() => this.props.data.refetch()}
         />
       </div>
