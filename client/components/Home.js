@@ -52,7 +52,6 @@ class Home extends Component {
   }
 
   changeSortField(field){
-    debugger;
     let newAscendingSortOrder = true;
     if(field === this.state.sortingField){
       newAscendingSortOrder = !this.state.ascendingSortOrder;
@@ -68,7 +67,6 @@ class Home extends Component {
   }
 
   sortUsers() {
-    debugger;
     switch(this.state.sortingField) {
       case 'name':
         return this.props.data.users.slice().sort(this.state.ascendingSortOrder ? compareByName : compareByNameReverse);
