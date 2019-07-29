@@ -12,7 +12,7 @@ To run:<br/>
 <b>yarn run dev</b>
 
 
-<b>Production app running on heroku:</b>
+<b>Production app running on heroku:</b><br/>
 https://me-in-the-world-app.herokuapp.com
 
 To clone repo and customize the database connection:
