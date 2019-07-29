@@ -12,7 +12,6 @@ export default (WrappedComponent) => {
       }
     }
     // componentDidUpdate(prevProps) {
-    //   debugger;
     //   if(!this.props.data.loading && !this.props.data.user) {
     //     hashHistory.push('/dashboard/overview')
     //   }
