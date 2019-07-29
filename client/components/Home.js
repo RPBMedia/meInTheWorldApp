@@ -13,6 +13,8 @@ import {
   compareByNumberOfUserLocations,
   compareByNumberOfUserLocationsReverse,
  } from '../utils';
+ import Fade from 'react-reveal/Fade';
+ import Zoom from 'react-reveal/Zoom';
 
 class Home extends Component {
   constructor(props) {
@@ -87,12 +89,14 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h2 className="center">
-          Me In The World
-        </h2>
-        <h4 className="center margin-bottom-large">
-          My travel locations manager
-        </h4>
+        <Zoom clear>
+          <h2 className="center">
+            Me In The World
+          </h2>
+          <h4 className="center margin-bottom-large">
+            My travel locations manager
+          </h4>
+          </Zoom>
         <div>
           <p className="center table-title">
             Registered Users
@@ -104,45 +108,47 @@ class Home extends Component {
             </p>
           }
           {this.props.data.users && this.props.data.users.length > 0 &&
-          <div>
-            <ul className="collection full-width">
-              <li className="collection-item flex full-width">
-                <div
-                  className="center-text fifth-width table-header no-border clickable"
-                  onClick={() => this.changeSortField('name')}
-                >
-                  Name
-                </div>
-                <div
-                  className="center-text fifth-width table-header no-border clickable"
-                  onClick={() => this.changeSortField('email')}
-                >
-                  Email
-                </div>
-                <div
-                  className="center-text fifth-width table-header no-border clickable"
-                  onClick={() => this.changeSortField('continents')}
-                >
-                  Continents
-                </div>
-                <div
-                  className="center-text fifth-width table-header no-border clickable"
-                  onClick={() => this.changeSortField('countries')}
-                >
-                  Countries
-                </div>
-                <div
-                  className="center-text fifth-width table-header no-border clickable"
-                  onClick={() => this.changeSortField('locations')}
-                >
-                  Locations
-                </div>
-              </li>
-            </ul>
-            <ul className="collection full-width">
-              {this.renderUserList()}
-            </ul>
-          </div>
+          <Fade top>
+            <div>
+              <ul className="collection full-width">
+                <li className="collection-item flex full-width">
+                  <div
+                    className="center-text fifth-width table-header no-border clickable"
+                    onClick={() => this.changeSortField('name')}
+                  >
+                    Name
+                  </div>
+                  <div
+                    className="center-text fifth-width table-header no-border clickable"
+                    onClick={() => this.changeSortField('email')}
+                  >
+                    Email
+                  </div>
+                  <div
+                    className="center-text fifth-width table-header no-border clickable"
+                    onClick={() => this.changeSortField('continents')}
+                  >
+                    Continents
+                  </div>
+                  <div
+                    className="center-text fifth-width table-header no-border clickable"
+                    onClick={() => this.changeSortField('countries')}
+                  >
+                    Countries
+                  </div>
+                  <div
+                    className="center-text fifth-width table-header no-border clickable"
+                    onClick={() => this.changeSortField('locations')}
+                  >
+                    Locations
+                  </div>
+                </li>
+              </ul>
+              <ul className="collection full-width">
+                {this.renderUserList()}
+              </ul>
+            </div>
+          </Fade>
           }
         </div>
       </div>

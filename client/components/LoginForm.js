@@ -4,6 +4,8 @@ import { graphql } from 'react-apollo';
 import CurrentUserQuery from '../queries/CurrentUser';
 import LoginMutation from '../mutations/Login';
 import { hashHistory } from 'react-router';
+import Fade from 'react-reveal/Fade';
+import Flip from 'react-reveal/Flip';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -41,11 +43,15 @@ class LoginForm extends Component {
   render() {
     return (
       <div>
-        <h3 className="margin-top-large center">Login</h3>
-        <AuthForm
-          errors={this.state.errors}
-          onSubmit={this.onLoginSubmit.bind(this)}
-        />
+        <Flip top>
+          <h3 className="margin-top-large center">Login</h3>
+        </Flip>
+        <Fade top>
+          <AuthForm
+            errors={this.state.errors}
+            onSubmit={this.onLoginSubmit.bind(this)}
+          />
+        </Fade>
       </div>
     );
   }

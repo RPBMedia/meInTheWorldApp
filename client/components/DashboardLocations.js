@@ -12,6 +12,8 @@ import {
   compareByYearVisited,
   compareByYearVisitedReverse
  } from '../utils';
+import Fade from 'react-reveal/Fade';
+import Flip from 'react-reveal/Flip';
 
 class DashboardLocations extends Component {
   constructor(props) {
@@ -86,68 +88,74 @@ class DashboardLocations extends Component {
     
     return (
       <div>
-        <SearchBar onUpdate={this.onUpdateFilter.bind(this)} />
-        <div className="flex row">
-          <div className="left margin-right-small total-label">
-            Total:
-          </div>
-          <div> 
-            <div className="left medium-text">
-              <b>{this.state.filteredSortedLocations.length}</b>
+        <Flip top>
+          <SearchBar onUpdate={this.onUpdateFilter.bind(this)} />
+        </Flip>
+        <Fade top>
+          <div className="flex row">
+            <div className="left margin-right-small total-label">
+              Total:
+            </div>
+            <div> 
+              <div className="left medium-text">
+                <b>{this.state.filteredSortedLocations.length}</b>
+              </div>
             </div>
           </div>
-        </div>
-        <div>
-          <ul className="collection full-width">
-            <li className="collection-item-row flex space-around">
-              <div
-                className="center-text quarter-width table-header no-border clickable"
-                onClick={() => this.changeSortField('name')}
-              >
-                Name
-              </div>
-              <div
-                className="center-text quarter-width table-header no-border clickable"
-                onClick={() => this.changeSortField('country')}
-              >
-                Country
-              </div>
-              <div
-                className="center-text quarter-width table-header no-border clickable"
-                onClick={() => this.changeSortField('continent')}
-              >
-                Continent
-              </div>
-              <div
-                className="center-text quarter-width table-header no-border clickable"
-                onClick={() => this.changeSortField('yearVisited')}
-              >
-                Year
-              </div>
-            </li>
-          </ul>
-          <ul className="collection full-width">
-            {this.state.filteredSortedLocations.map(location => (
-              <li
-                className="collection-item flex"
-                key={location.id}
-              >
-                <div className="center-text quarter-width">
-                  {location.name}
+        </Fade>
+        <Fade left>
+          <div>
+            <ul className="collection full-width">
+              <li className="collection-item-row flex space-around">
+                <div
+                  className="center-text quarter-width table-header no-border clickable"
+                  onClick={() => this.changeSortField('name')}
+                >
+                  Name
                 </div>
-                <div className="center-text quarter-width">
-                  {location.country.name}
+                <div
+                  className="center-text quarter-width table-header no-border clickable"
+                  onClick={() => this.changeSortField('country')}
+                >
+                  Country
                 </div>
-                <div className="center-text quarter-width">
-                {location.continent.name}
+                <div
+                  className="center-text quarter-width table-header no-border clickable"
+                  onClick={() => this.changeSortField('continent')}
+                >
+                  Continent
                 </div>
-                <div className="center-text quarter-width">
-                {location.yearVisited}
+                <div
+                  className="center-text quarter-width table-header no-border clickable"
+                  onClick={() => this.changeSortField('yearVisited')}
+                >
+                  Year
                 </div>
               </li>
-            ))}
-          </ul>
-        </div>
+            </ul>
+            <ul className="collection full-width">
+              {this.state.filteredSortedLocations.map(location => (
+                <li
+                  className="collection-item flex"
+                  key={location.id}
+                >
+                  <div className="center-text quarter-width">
+                    {location.name}
+                  </div>
+                  <div className="center-text quarter-width">
+                    {location.country.name}
+                  </div>
+                  <div className="center-text quarter-width">
+                  {location.continent.name}
+                  </div>
+                  <div className="center-text quarter-width">
+                  {location.yearVisited}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Fade>
       </div>
     );
   }

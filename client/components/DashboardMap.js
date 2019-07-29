@@ -5,6 +5,7 @@ import CurrentUserQuery from '../queries/CurrentUser';
 import Modal from './Modal';
 import { parseCountryName } from '../utils'
 import Map from './Map';
+import Fade from 'react-reveal/Fade';
 
 class DashboardMap extends Component {
   constructor(props) {
@@ -83,11 +84,13 @@ class DashboardMap extends Component {
 
     return (
       <div>
-        <Map
-          mapData={this.state.mapData}
-          handleClick={this.handleClick.bind(this)}
-        />
-      {this.state.modalShowing && 
+        <Fade top>
+          <Map
+            mapData={this.state.mapData}
+            handleClick={this.handleClick.bind(this)}
+          />
+        </Fade>
+      {this.state.modalShowing &&
         <Modal
           message={this.state.modalMessage}
           message2={this.state.modalMessage2}

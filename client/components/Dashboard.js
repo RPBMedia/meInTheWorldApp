@@ -6,6 +6,7 @@ import CurrentUserQuery from '../queries/CurrentUser';
 // import UnitsByUserTable from '../components/UnitsByUserTable';
 import DashboardNav from './DashboardNav';
 import Loader from 'react-loader-spinner';
+import Fade from 'react-reveal/Fade';
 
 
 class Dashboard extends Component {
@@ -107,10 +108,14 @@ class Dashboard extends Component {
     }
     return (
       <div>
-        <h4 className="center margin-vertical-medium">
-          Welcome {this.props.data.user && this.props.data.user.name}
-        </h4>
-        <DashboardNav selectedTab={this.state.selectedHeaderTab} onChange={this.onHeaderTabChange.bind(this)}/>
+        <Fade top>
+          <h4 className="center margin-vertical-medium">
+            Welcome {this.props.data.user && this.props.data.user.name}
+          </h4>
+        </Fade>
+        <Fade left>
+          <DashboardNav selectedTab={this.state.selectedHeaderTab} onChange={this.onHeaderTabChange.bind(this)}/>
+        </Fade>
         <div className="margin-top-small">
           {this.props.children}
         </div>

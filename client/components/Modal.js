@@ -1,35 +1,35 @@
 import React, { Component } from 'react';
-import { getCountryName } from '../utils'
+import { getCountryName } from '../utils';
+import Flip from 'react-reveal/Flip';
 
 class Modal extends Component {
   render() {
     return (
-      <div className="modal-container">
-        <div className="modal-header">
-          <i
-            className="right clickable material-icons"
-            onClick={() => this.props.onClose()}
-          >
-            close
-          </i>
-        </div>
-        <div className="modal-body">
-          {this.props.message &&
-            <span>
-              {this.props.message}
+      <Flip top>
+        <div className="modal-container">
+          <div className="modal-header">
+            <i
+              className="right clickable material-icons"
+              onClick={() => this.props.onClose()}
+            >
+              close
+            </i>
+          </div>
+          <div className="modal-body">
+            {this.props.message &&
+              <span>
+                {this.props.message}
+              </span>
+            }
+            <span className="bold">
+              {getCountryName(this.props.countryCode)}
             </span>
-          }
-          <span className="bold">
-            {getCountryName(this.props.countryCode)}
-          </span>
-          <span>
-            {this.props.message2}
-          </span>
+            <span>
+              {this.props.message2}
+            </span>
+          </div>
         </div>
-
-        
-        
-      </div>
+      </Flip>
     );
   }
 }

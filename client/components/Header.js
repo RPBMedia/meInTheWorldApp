@@ -3,6 +3,7 @@ import { graphql } from 'react-apollo';
 import { Link } from 'react-router';
 import CurrentUserQuery from '../queries/CurrentUser';
 import LogoutMutation from '../mutations/Logout';
+import Fade from 'react-reveal/Fade';
 
 class Header extends Component {
 
@@ -50,16 +51,18 @@ class Header extends Component {
 
   render() {
     return (
-      <nav className="main-header">
-        <div className="container nav-wrapper">
-          <Link to="/home" className="brand-logo left">
-            Home
-          </Link>
-          <ul className="right">
-            {this.renderButtons()}
-          </ul>
-        </div>
-      </nav>
+      <Fade top>
+        <nav className="main-header">
+          <div className="container nav-wrapper">
+            <Link to="/home" className="brand-logo left">
+              Home
+            </Link>
+            <ul className="right">
+              {this.renderButtons()}
+            </ul>
+          </div>
+        </nav>
+      </Fade>
     );
   }
 }

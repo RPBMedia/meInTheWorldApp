@@ -3,6 +3,8 @@ import { graphql } from 'react-apollo';
 import { hashHistory } from 'react-router';
 import CurrentUserQuery from '../queries/CurrentUser';
 import UnitsByUserTable from './UnitsByUserTable';
+import Fade from 'react-reveal/Fade';
+import Flip from 'react-reveal/Flip';
 
 
 class DashboardManager extends Component {
@@ -65,39 +67,53 @@ class DashboardManager extends Component {
     }
     return (
       <div>
-        <div className="container nav-wrapper button-nav">
-          {this.renderAddButtons()}
-        </div>
-        <p className="section-header">
-          Your continents
-        </p>
-        <UnitsByUserTable
-          label="Total continents: "
-          editable
-          emptyLabel="You have no continents yet"
-          units={this.props.data.user.continents}
-          onUpdate={() => this.props.data.refetch()}
-        />
-        <p className="section-header">
-          Your countries
-        </p>
-        <UnitsByUserTable
-          label="Total countries: "
-          editable
-          emptyLabel="You have no countries yet"
-          units={this.props.data.user.countries}
-          onUpdate={() => this.props.data.refetch()}
-        />
-        <p className="section-header">
-          Your locations
-        </p>
-        <UnitsByUserTable
-          label="Total locations: "
-          editable
-          emptyLabel="You have no locations yet"
-          units={this.props.data.user.locations}
-          onUpdate={() => this.props.data.refetch()}
-        />
+        <Flip top>
+          <div className="container nav-wrapper button-nav">
+            {this.renderAddButtons()}
+          </div>
+        </Flip>
+        <Fade top>
+          <p className="section-header">
+            Your continents
+          </p>
+        </Fade>
+        <Fade left>
+          <UnitsByUserTable
+            label="Total continents: "
+            editable
+            emptyLabel="You have no continents yet"
+            units={this.props.data.user.continents}
+            onUpdate={() => this.props.data.refetch()}
+          />
+        </Fade>
+        <Fade top>
+          <p className="section-header">
+            Your countries
+          </p>
+        </Fade>
+        <Fade left>
+          <UnitsByUserTable
+            label="Total countries: "
+            editable
+            emptyLabel="You have no countries yet"
+            units={this.props.data.user.countries}
+            onUpdate={() => this.props.data.refetch()}
+          />
+        </Fade>
+        <Fade top>
+          <p className="section-header">
+            Your locations
+          </p>
+        </Fade>
+        <Fade left>
+          <UnitsByUserTable
+            label="Total locations: "
+            editable
+            emptyLabel="You have no locations yet"
+            units={this.props.data.user.locations}
+            onUpdate={() => this.props.data.refetch()}
+          />
+        </Fade>
       </div>
     );
   }

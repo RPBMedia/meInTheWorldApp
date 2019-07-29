@@ -4,6 +4,8 @@ import { graphql } from 'react-apollo';
 import CurrentUserQuery from '../queries/CurrentUser';
 import RegisterMutation from '../mutations/Register';
 import { hashHistory } from 'react-router';
+import Fade from 'react-reveal/Fade';
+import Flip from 'react-reveal/Flip';
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -49,13 +51,17 @@ class RegisterForm extends Component {
   render() {
     return (
       <div>
-        <h3 className="margin-top-large center">Welcome to Me In The World</h3>
-        <h4 className="center">Please fill in your personal info</h4>
-        <AuthForm
-          register
-          errors={this.state.errors}
-          onSubmit={this.onRegisterSubmit.bind(this)}
-        />
+        <Flip top>
+          <h3 className="margin-top-large center">Welcome to Me In The World</h3>
+          <h4 className="center">Please fill in your personal info</h4>
+        </Flip>
+        <Fade top>
+          <AuthForm
+            register
+            errors={this.state.errors}
+            onSubmit={this.onRegisterSubmit.bind(this)}
+          />
+        </Fade>
       </div>
     );
   }

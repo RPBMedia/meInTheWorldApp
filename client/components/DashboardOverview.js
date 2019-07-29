@@ -11,6 +11,8 @@ import {
 } from '../utils';
 import InfoCard from './InfoCard';
 import StatisticsRow from './StatisticsRow';
+import Fade from 'react-reveal/Fade';
+import Flip from 'react-reveal/Flip';
 
 class DashboardOverview extends Component {
   constructor(props) {
@@ -239,84 +241,102 @@ class DashboardOverview extends Component {
     }
     return (
       <div>
-        <div className="row">
-          <div className="col s4">
-            <InfoCard
-              title="Continents"
-              header={this.getTotalContinents()}
-              subHeader="Ranked # "
-              subHeaderOptions={this.getContinentRanking()}
+        <Flip top>
+          <div className="row">
+            <div className="col s4">
+              <InfoCard
+                title="Continents"
+                header={this.getTotalContinents()}
+                subHeader="Ranked # "
+                subHeaderOptions={this.getContinentRanking()}
+              />
+            </div>
+            <div className="col s4">
+              <InfoCard
+                title="Countries"
+                header={this.getTotalCountries()}
+                subHeader="Ranked # "
+                subHeaderOptions={this.getCountryRanking()}
+              />
+            </div>
+            <div className="col s4">
+              <InfoCard
+                title="Locations"
+                header={this.getTotalLocations()}
+                subHeader="Ranked # "
+                subHeaderOptions={this.getLocationRanking()}
+              />
+            </div> 
+          </div>
+        </Flip>
+        <Fade top>
+          <StatisticsRow
+            title="Most visited country"
+            byType="Locations"
+            data={this.getMostVisitedCountries()}
+          />
+        </Fade>
+        <Fade top>
+          <StatisticsRow
+            title="Most visited continent (by locations)"
+            byType="Locations"
+            data={this.getMostVisitedContinentsByLocation()}
+          />
+        </Fade>
+        <Fade top>
+          <StatisticsRow
+            title="Most visited continent (by countries)"
+            byType="Countries"
+            data={this.getMostVisitedContinentsByCountry()}
+          />
+        </Fade>
+        <Fade top>
+          <StatisticsRow
+            title="Most traveled year (by locations)"
+            byType="Locations"
+            data={this.getMostTraveledYearByLocation()}
+          />
+        </Fade>
+        <Fade top>
+          <StatisticsRow
+            title="Most traveled year (by countries)"
+            byType="Countries"
+            data={this.getMostTraveledYearByCountry()}
+          />
+        </Fade>
+        <Fade top>
+          <div className="margin-top-medium">
+            <UnitsByUserTable
+              label="Countries ranked by location"
+              emptyLabel="You have no countries yet"
+              units={this.getCountriesRanked()}
+              sorted
+              onUpdate={() => this.props.data.refetch()}
             />
           </div>
-          <div className="col s4">
-            <InfoCard
-              title="Countries"
-              header={this.getTotalCountries()}
-              subHeader="Ranked # "
-              subHeaderOptions={this.getCountryRanking()}
+        </Fade>
+        <Fade top>
+          <div className="margin-top-medium">
+            <UnitsByUserTable
+              label="Continents ranked by location"
+              emptyLabel="You have no continents yet"
+              units={this.getContinentsRankedByLocation()}
+              sorted
+              onUpdate={() => this.props.data.refetch()}
             />
           </div>
-          <div className="col s4">
-            <InfoCard
-              title="Locations"
-              header={this.getTotalLocations()}
-              subHeader="Ranked # "
-              subHeaderOptions={this.getLocationRanking()}
+        </Fade>
+        <Fade top>
+          <div className="margin-top-medium">
+            <UnitsByUserTable
+              label="Continents ranked by country"
+              emptyLabel="You have no continents yet"
+              units={this.getContinentsRankedByCountry()}
+              sorted
+              onUpdate={() => this.props.data.refetch()}
             />
-          </div> 
-        </div>
-        <StatisticsRow
-          title="Most visited country"
-          byType="Locations"
-          data={this.getMostVisitedCountries()}
-        />
-        <StatisticsRow
-          title="Most visited continent (by locations)"
-          byType="Locations"
-          data={this.getMostVisitedContinentsByLocation()}
-        />
-        <StatisticsRow
-          title="Most visited continent (by countries)"
-          byType="Countries"
-          data={this.getMostVisitedContinentsByCountry()}
-        />
-        <StatisticsRow
-          title="Most traveled year (by locations)"
-          byType="Locations"
-          data={this.getMostTraveledYearByLocation()}
-        />
-        <StatisticsRow
-          title="Most traveled year (by countries)"
-          byType="Countries"
-          data={this.getMostTraveledYearByCountry()}
-        />
-        <div className="margin-top-medium">
-          <UnitsByUserTable
-            label="Countries ranked by location"
-            emptyLabel="You have no countries yet"
-            units={this.getCountriesRanked()}
-            sorted
-            onUpdate={() => this.props.data.refetch()}
-          />
-        </div>
-        <div className="margin-top-medium">
-          <UnitsByUserTable
-            label="Continents ranked by location"
-            emptyLabel="You have no continents yet"
-            units={this.getContinentsRankedByLocation()}
-            sorted
-            onUpdate={() => this.props.data.refetch()}
-          />
-        </div>
-        <div className="margin-top-medium">
-          <UnitsByUserTable
-            label="Continents ranked by country"
-            emptyLabel="You have no continents yet"
-            units={this.getContinentsRankedByCountry()}
-            sorted
-            onUpdate={() => this.props.data.refetch()}
-          />
-        </div>
+          </div>
+        </Fade>
       </div>
     );
   }
