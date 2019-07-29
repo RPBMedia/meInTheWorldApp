@@ -68,40 +68,40 @@ export const compareByNumberOfUserContinentsReverse = (a, b) => {
 }
 
 export const compareByNumberOfUserCountries = (a, b) => {
-  if ( a.continents.length < b.continents.length ){
+  if ( a.countries.length < b.countries.length ){
     return -1;
   }
-  if ( a.continents.length > b.continents.length ){
+  if ( a.countries.length > b.countries.length ){
     return 1;
   }
   return 0;
 }
 
 export const compareByNumberOfUserCountriesReverse = (a, b) => {
-  if ( a.continents.length > b.continents.length ){
+  if ( a.countries.length > b.countries.length ){
     return -1;
   }
-  if ( a.continents.length < b.continents.length ){
+  if ( a.countries.length < b.countries.length ){
     return 1;
   }
   return 0;
 }
 
 export const compareByNumberOfUserLocations = (a, b) => {
-  if ( a.continents.length < b.continents.length ){
+  if ( a.locations.length < b.locations.length ){
     return -1;
   }
-  if ( a.continents.length > b.continents.length ){
+  if ( a.locations.length > b.locations.length ){
     return 1;
   }
   return 0;
 }
 
 export const compareByNumberOfUserLocationsReverse = (a, b) => {
-  if ( a.continents.length > b.continents.length ){
+  if ( a.locations.length > b.locations.length ){
     return -1;
   }
-  if ( a.continents.length < b.continents.length ){
+  if ( a.locations.length < b.locations.length ){
     return 1;
   }
   return 0;
