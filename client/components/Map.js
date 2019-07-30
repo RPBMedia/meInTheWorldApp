@@ -43,8 +43,8 @@ class Map extends Component {
             regions: [
               {
                 values: this.props.mapData, //this is your data
-                scale: ["#00ff00", "#009900"], //your color game's here, 
-                normalizeFunction: 'polynomial',
+                scale: ["#00ff00", "#005500"], //your color game's here, 
+                normalizeFunction: 'linear',
               }
             ]
           }}
