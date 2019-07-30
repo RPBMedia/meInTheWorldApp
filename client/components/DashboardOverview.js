@@ -5,6 +5,7 @@ import UsersQuery from '../queries/Users';
 import UnitsByUserTable from './UnitsByUserTable';
 import {
   compareByArrayLength,
+  rankArray,
 } from '../utils';
 import InfoCard from './InfoCard';
 import StatisticsRow from './StatisticsRow';
@@ -198,15 +199,14 @@ class DashboardOverview extends Component {
 
   getCountriesRanked() {
     
-    const result = this.props.currentUserQuery.user.countries.map(country => {
+    let result = this.props.currentUserQuery.user.countries.map(country => {
       return {
         id: country.id,
         name: country.name,
         number: country.locations.length,
       }
     }).sort(compareByArrayLength);
-    
-    return result;
+    return rankArray(result);
   }
 
   getContinentsRankedByLocation() {
@@ -217,7 +217,7 @@ class DashboardOverview extends Component {
         number: continent.locations.length,
       }
     }).sort(compareByArrayLength);
-    return result;
+    return rankArray(result);
   }
 
   getYearsRankedByLocation() {
@@ -236,8 +236,8 @@ class DashboardOverview extends Component {
         found.number++;
       }
     });
-    
-    return results.sort(compareByArrayLength);
+    const sortedResults = results.sort(compareByArrayLength);
+    return rankArray(sortedResults);
   }
 
   getContinentsRankedByCountry() {
@@ -248,7 +248,7 @@ class DashboardOverview extends Component {
         number: continent.countries.length,
       }
     }).sort(compareByArrayLength);
-    return result;
+    return rankArray(result);
   }
 
 
@@ -401,6 +401,7 @@ class DashboardOverview extends Component {
               emptyLabel="You have no countries yet"
               units={this.getCountriesRanked()}
               sorted
+              ranked
               onUpdate={() => this.props.data.refetch()}
             />
           </div>
@@ -415,6 +416,7 @@ class DashboardOverview extends Component {
                   emptyLabel="You have no continents yet"
                   units={this.getContinentsRankedByLocation()}
                   sorted
+                  ranked
                   onUpdate={() => this.props.data.refetch()}
                 />
               </div>
@@ -426,6 +428,7 @@ class DashboardOverview extends Component {
                   emptyLabel="You have no continents yet"
                   units={this.getContinentsRankedByCountry()}
                   sorted
+                  ranked
                   onUpdate={() => this.props.data.refetch()}
                 />
               </div>
@@ -440,6 +443,7 @@ class DashboardOverview extends Component {
                 emptyLabel="You have no locations yet"
                 units={this.getYearsRankedByLocation()}
                 sorted
+                ranked
                 onUpdate={() => this.props.data.refetch()}
               />
             </div>

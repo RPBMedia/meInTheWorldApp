@@ -372,3 +372,23 @@ export const toTitleCase = (str) => {
   return splitStr.join(' '); 
  
 }
+
+export const rankArray = (array) => {
+  const result = array.map((sortedUnit, index) => {
+    let rank = 1;
+    
+    if(index === 0){
+      sortedUnit.ranking = rank;
+    } else {
+      if(array[index-1].number === sortedUnit.number){
+        rank = array[index-1].ranking;
+        sortedUnit.ranking = rank;
+      } else {
+        rank = array[index-1].ranking + 1;
+        sortedUnit.ranking = rank;
+      }
+    }
+    return sortedUnit;
+  });
+  return result;
+}

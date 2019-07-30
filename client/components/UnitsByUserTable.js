@@ -20,6 +20,7 @@ class UnitsByUserTable extends Component {
     return sortedUnits.map(unit => {
       return (
         <UnitRow
+          ranked={this.props.ranked}
           editable={this.props.editable}
           key={unit.id}
           unit={unit}
@@ -54,6 +55,7 @@ class UnitsByUserTable extends Component {
             </i>
             <ul className="collection">
               <UnitRow
+                ranked={this.props.ranked}
                 editable={this.props.editable}
                 key={this.props.units[0].id}
                 unit={this.props.units[0]}

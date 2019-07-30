@@ -77,6 +77,11 @@ class UnitRow extends Component {
     const {unit} = this.props;
     return (
       <li className="collection-item row flex">
+          {this.props.ranked && 
+            <div className="cell col s3 medium-text">  
+              #<b>{unit.ranking}</b>
+            </div>
+          }
           <div className="cell col s3">  
             {unit.name}
           </div>
