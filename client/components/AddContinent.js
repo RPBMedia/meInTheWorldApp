@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import Select from 'react-select';
 import CurrentUserQuery from '../queries/CurrentUser';
 import AddContinentMutation from '../mutations/AddContinent';
 import { hashHistory } from 'react-router';
@@ -7,53 +8,41 @@ import CheckBox from './CheckBox';
 import BackButton from './BackButton';
 import {
   setErrors,
-  renderButtonClassesByStringProperty,
-  isValidContinentName,
+  renderButtonClassesByObject,
   toTitleCase,
 } from '../utils';
 import Fade from 'react-reveal/Fade';
+import { continents as continentsOptions } from '../data/continents';
 
 class AddContinent extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      name: '',
       errors: [],
       successMessage: null,
       addAnother: false,
+      selectedContinent: null,
     };
   }
 
   onSubmit(event) {
-    console.log('Creating new continent: ', this.state.name);
+    console.log('Creating new continent: ', this.state.selectedContinent.label);
     event.preventDefault();
     this.setState({errors: []});
     if(this.state.addAnother) {
       this.setState({
-        name: '',
+        selectedContinent: null,
       })
     }
     if(!this.props.data.user) {
       this.setState({errors: [
         'User not found. Please logout and log back in',
       ]});
-    } else if(!isValidContinentName(this.state.name)){
-      this.setState({errors: [
-        'Please pick one of the following:',
-        '',
-        'Africa',
-        'Antarctica',
-        'Asia',
-        'Europe',
-        'Oceania',
-        'North America',
-        'South America',
-      ]});
     } else {
       this.props.mutate({
         variables: {
-          name: toTitleCase(this.state.name),
+          name: toTitleCase(this.state.selectedContinent.label),
           userId: this.props.data.user.id
         },
         refetchQueries: [{ query: CurrentUserQuery }]
@@ -100,11 +89,16 @@ class AddContinent extends Component {
           onSubmit={this.onSubmit.bind(this)}
           className="col s4 center-s4"
         >
-          <div className="input-field">
-            <input
-              placeholder="Continent Name"
-              value={this.state.name}
-              onChange={e => this.setState({ name: e.target.value })}
+          <div className="input-field margin-bottom-small">
+            <Select
+              // className="select"
+              placeholder="Select the continent name"
+              value={this.state.selectedContinent}
+              options={continentsOptions}
+              onChange={selectedContinent => {
+                console.log(selectedContinent);
+                this.setState({selectedContinent}); 
+              }}
             />
           </div>
           <div className="margin-bottom-small">
@@ -114,7 +108,7 @@ class AddContinent extends Component {
               />
           </div>    
           <button
-            className={renderButtonClassesByStringProperty(this.state.name)}
+            className={renderButtonClassesByObject(this.state.selectedContinent)}
             onClick={this.onSubmit.bind(this)}>
             Create Continent
           </button>

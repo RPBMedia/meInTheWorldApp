@@ -9,17 +9,19 @@ import BackButton from './BackButton';
 import {
   renderButtonClassesByProperties,
   compareByName,
+  compareByLabel,
   setErrors,
 } from '../utils';
 import Fade from 'react-reveal/Fade';
+import { countries as countriesOptions } from '../data/countries';
 
 class AddCountry extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      name: '',
       selectedContinent: null,
+      selectedCountry: null,
       errors: [],
       successMessage: null,
       addAnother: false,
@@ -32,7 +34,7 @@ class AddCountry extends Component {
     this.setState({errors: []});
     if(this.state.addAnother) {
       this.setState({
-        name: '',
+        selectedCountry: null,
       })
     }
     if(!this.props.data.user) {
@@ -42,7 +44,7 @@ class AddCountry extends Component {
     } else {
       this.props.mutate({
         variables: {
-          name: this.state.name,
+          name: this.state.selectedCountry.label,
           userId: this.props.data.user.id,
           continentId: this.state.selectedContinent.value
         },
@@ -94,7 +96,14 @@ class AddCountry extends Component {
         }
       })
     }
-    const { selectedContinent } = this.state
+    let countriesOptionsArray = []
+    if(this.state.selectedContinent !== null) {
+      countriesOptionsArray = countriesOptions.slice().sort(compareByLabel)
+      .filter(country => {
+        return country.continent === this.state.selectedContinent.label
+      });
+    }
+    const { selectedContinent, selectedCountry } = this.state
     return (
       <div className="row margin-top-large">
         <div className="left"> 
@@ -107,23 +116,24 @@ class AddCountry extends Component {
           <div className="input-field">
             {continents && 
               <Select
-                // className="select"
                 placeholder="Select the country's continent"
                 value={selectedContinent}
                 options={continentsOptions}
                 onChange={selectedContinent => {
-                  console.log(selectedContinent);
                   this.setState({selectedContinent});
-                  console.log(this.state);
                 }}
               />
             }
           </div>
-          <div className="input-field">
-            <input
-              placeholder="Country Name"
-              value={this.state.name}
-              onChange={e => this.setState({ name: e.target.value })}
+          <div className="input-field margin-bottom-small">
+            <Select
+              isDisabled={this.state.selectedContinent === null}
+              placeholder="Select the country's name"
+              value={selectedCountry}
+              options={countriesOptionsArray}
+              onChange={selectedCountry => {
+                this.setState({selectedCountry});
+              }}
             />
           </div>
           <div className="margin-bottom-small">
@@ -133,7 +143,7 @@ class AddCountry extends Component {
             />
           </div>  
           <button
-            className={renderButtonClassesByProperties([this.state.name, this.state.selectedContinent])}
+            className={renderButtonClassesByProperties([this.state.selectedContinent, this.state.selectedCountry])}
             onClick={this.onSubmit.bind(this)}
           >
             Create Country

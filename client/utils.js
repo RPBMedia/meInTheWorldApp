@@ -17,6 +17,18 @@ export const compareByName = (a, b) => {
   return 0;
 }
 
+export const compareByLabel = (a, b) => {
+  if ( a.label.toLowerCase() < b.label.toLowerCase() ){
+    return -1;
+  }
+  if ( a.label.toLowerCase() > b.label.toLowerCase() ){
+    return 1;
+  }
+  return 0;
+}
+
+
+
 export const compareByNameReverse = (a, b) => {
   if ( a.name.toLowerCase() > b.name.toLowerCase() ){
     return -1;
@@ -181,6 +193,13 @@ export const compareByArrayLength = (a, b) => {
 
 export const renderButtonClassesByStringProperty = (stringProperty) => {
   if(stringProperty.trim().length === 0) {
+    return 'btn disabled';
+  }
+  return 'btn';
+}
+
+export const renderButtonClassesByObject = (objectProperty) => {
+  if(objectProperty === null || objectProperty === undefined) {
     return 'btn disabled';
   }
   return 'btn';
