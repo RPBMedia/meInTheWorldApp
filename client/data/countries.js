@@ -50,7 +50,7 @@ export const countries = [
     label: "Antigua and Barbuda"
   },
   {
-    continent: "Europe",
+    continent: "South America",
     value: "AR",
     label: "Argentina"
   },
@@ -66,7 +66,7 @@ export const countries = [
     label: "Aruba"
   },
   {
-    continent: "Europe",
+    continent: "Oceania",
     value: "AU",
     label: "Australia"
   },
@@ -81,7 +81,7 @@ export const countries = [
     label: "Azerbaijan"
   },
   {
-    continent: "Europe",
+    continent: "North America",
     value: "BS",
     label: "Bahamas"
   },
@@ -111,7 +111,7 @@ export const countries = [
     label: "Belgium"
   },
   {
-    continent: "Europe",
+    continent: "North America",
     value: "BZ",
     label: "Belize"
   },
@@ -131,7 +131,7 @@ export const countries = [
     label: "Bhutan"
   },
   {
-    continent: "Europe",
+    continent: "South America",
     value: "BO",
     label: "Bolivia"
   },
@@ -156,7 +156,7 @@ export const countries = [
     label: "Bouvet Island"
   },
   {
-    continent: "Europe",
+    continent: "South America",
     value: "BR",
     label: "Brazil"
   },
@@ -221,7 +221,7 @@ export const countries = [
     label: "Chad"
   },
   {
-    continent: "Europe",
+    continent: "South America",
     value: "CL",
     label: "Chile"
   },
@@ -241,7 +241,7 @@ export const countries = [
     label: "Cocos Islands"
   },
   {
-    continent: "Europe",
+    continent: "South America",
     value: "CO",
     label: "Colombia"
   },
@@ -266,7 +266,7 @@ export const countries = [
     label: "Cook Islands"
   },
   {
-    continent: "Europe",
+    continent: "North America",
     value: "CR",
     label: "Costa Rica"
   },
@@ -281,7 +281,7 @@ export const countries = [
     label: "Croatia"
   },
   {
-    continent: "Europe",
+    continent: "North America",
     value: "CU",
     label: "Cuba"
   },
@@ -316,12 +316,12 @@ export const countries = [
     label: "Dominica"
   },
   {
-    continent: "Europe",
+    continent: "North America",
     value: "DO",
     label: "Dominican Republic"
   },
   {
-    continent: "Europe",
+    continent: "South America",
     value: "EC",
     label: "Ecuador"
   },
@@ -331,7 +331,7 @@ export const countries = [
     label: "Egypt"
   },
   {
-    continent: "Europe",
+    continent: "North America",
     value: "SV",
     label: "El Salvador"
   },
@@ -381,7 +381,7 @@ export const countries = [
     label: "France"
   },
   {
-    continent: "Europe",
+    continent: "South America",
     value: "GF",
     label: "French Guiana"
   },
@@ -406,7 +406,7 @@ export const countries = [
     label: "Gambia"
   },
   {
-    continent: "Europe",
+    continent: "Asia",
     value: "GE",
     label: "Georgia"
   },
@@ -451,7 +451,7 @@ export const countries = [
     label: "Guam"
   },
   {
-    continent: "Europe",
+    continent: "North America",
     value: "GT",
     label: "Guatemala"
   },
@@ -471,7 +471,7 @@ export const countries = [
     label: "Guinea-Bissau"
   },
   {
-    continent: "Europe",
+    continent: "South America",
     value: "GY",
     label: "Guyana"
   },
@@ -551,7 +551,7 @@ export const countries = [
     label: "Italy"
   },
   {
-    continent: "Europe",
+    continent: "North America",
     value: "JM",
     label: "Jamaica"
   },
@@ -716,7 +716,7 @@ export const countries = [
     label: "Mayotte"
   },
   {
-    continent: "Europe",
+    continent: "North America",
     value: "MX",
     label: "Mexico"
   },
@@ -786,7 +786,7 @@ export const countries = [
     label: "Netherlands"
   },
   {
-    continent: "Europe",
+    continent: "Oceania",
     value: "NC",
     label: "New Caledonia"
   },
@@ -796,7 +796,7 @@ export const countries = [
     label: "New Zealand"
   },
   {
-    continent: "Europe",
+    continent: "North America",
     value: "NI",
     label: "Nicaragua"
   },
@@ -821,7 +821,7 @@ export const countries = [
     label: "Norfolk Island"
   },
   {
-    continent: "Europe",
+    continent: "Oceania",
     value: "MP",
     label: "Northern Mariana Islands"
   },
@@ -851,7 +851,7 @@ export const countries = [
     label: "Palestine"
   },
   {
-    continent: "Europe",
+    continent: "North America",
     value: "PA",
     label: "Panama"
   },
@@ -861,12 +861,12 @@ export const countries = [
     label: "Papua New Guinea"
   },
   {
-    continent: "Europe",
+    continent: "South America",
     value: "PY",
     label: "Paraguay"
   },
   {
-    continent: "Europe",
+    continent: "South America",
     value: "PE",
     label: "Peru"
   },
@@ -891,7 +891,7 @@ export const countries = [
     label: "Portugal"
   },
   {
-    continent: "Europe",
+    continent: "North America",
     value: "PR",
     label: "Puerto Rico"
   },
@@ -1178,7 +1178,7 @@ export const countries = [
   {
     continent: "North America",
     value: "US",
-    label: "United States"
+    label: "United States of America"
   },
   {
     continent: "North America",
@@ -1186,7 +1186,7 @@ export const countries = [
     label: "United States Minor Outlying Islands"
   },
   {
-    continent: "Europe",
+    continent: "South America",
     value: "UY",
     label: "Uruguay"
   },
@@ -1201,7 +1201,7 @@ export const countries = [
     label: "Vanuatu"
   },
   {
-    continent: "Europe",
+    continent: "South America",
     value: "VE",
     label: "Venezuela"
   },
