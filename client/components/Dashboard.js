@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
 import { hashHistory } from 'react-router';
-// import LocationsByUser from '../components/LocationsByUser';
+import { graphql } from 'react-apollo';
 import CurrentUserQuery from '../queries/CurrentUser';
-// import UnitsByUserTable from '../components/UnitsByUserTable';
 import DashboardNav from './DashboardNav';
 import Loader from 'react-loader-spinner';
 import Fade from 'react-reveal/Fade';

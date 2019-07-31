@@ -107,7 +107,7 @@ class AddCountry extends Component {
     return (
       <div className="row margin-top-large">
         <div className="left"> 
-          <BackButton />
+          <BackButton to="dashboard/manager"/>
         </div>
         <form
           onSubmit={this.onSubmit.bind(this)}

@@ -18,6 +18,8 @@ import AddContinent from './components/AddContinent';
 import AddCountry from './components/AddCountry';
 import AddLocation from './components/AddLocation';
 import RequireAuth from './components/RequireAuth';
+import ProfileView from './components/ProfileView';
+import ProfileEdit from './components/ProfileEdit';
 
 const networkInterface = createNetworkInterface({
   uri: '/graphql',
@@ -49,6 +51,8 @@ const Root = () => {
             <Route path="locations" component={RequireAuth(DashboardLocations)} />
             <Route path="map" component={RequireAuth(DashboardMap)} />
           </Route>
+          <Route path="profile/view" component={RequireAuth(ProfileView)} />
+          <Route path="profile/edit" component={RequireAuth(ProfileEdit)} />
           <Route path="continents/add" component={AddContinent} />
           <Route path="countries/add" component={AddCountry} />
           <Route path="locations/add" component={AddLocation} />

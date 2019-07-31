@@ -93,4 +93,14 @@ UserSchema.statics.findLocations = function (id) {
     .then(user => user.locations);
 }
 
+UserSchema.statics.updateProfile = function(id, name, email) {
+  return this.findOneAndUpdate({_id: id}, {
+    name,
+    email
+  })
+  .then(() => {
+    return this.findById(id);
+  })
+}
+
 mongoose.model('user', UserSchema);

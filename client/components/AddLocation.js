@@ -119,7 +119,7 @@ class AddLocation extends Component {
     return (
       <div className="row margin-top-large full-width">
         <div> 
-          <BackButton />
+          <BackButton to="dashboard/manager"/>
         </div>
         <form
           onSubmit={this.onSubmit.bind(this)}

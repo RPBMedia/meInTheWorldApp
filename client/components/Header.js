@@ -21,12 +21,30 @@ class Header extends Component {
     if(user) {
       return (
         <div className="flex">
+          <Link to="/profile/view">
+            <i
+              className="clickable material-icons"
+              title="Profile"
+            >
+              person
+            </i>
+          </Link>
           <Link to="/dashboard/overview">
-            Dashboard
+            <i
+              className="clickable material-icons"
+              title="Dashboard"
+            >
+              dashboard
+            </i>
           </Link>
           <li>
             <a onClick={this.onLogoutClick.bind(this)}>
-              Logout
+              <i
+                className="clickable material-icons"
+                title="Logout"
+              >
+                exit_to_app
+              </i>
             </a>
           </li>
         </div>  
@@ -36,12 +54,22 @@ class Header extends Component {
         <div>
           <li>
             <Link to="/register">
-              Register
+              <i
+                className="clickable material-icons"
+                title="Register"
+              >
+                person_add
+              </i>
             </Link>
           </li>
           <li>
           <Link to="/login">
-            Login
+            <i
+                className="clickable material-icons"
+                title="Login"
+              >
+                lock
+              </i>
           </Link>
           </li>
         </div>
@@ -55,7 +83,11 @@ class Header extends Component {
         <nav className="main-header">
           <div className="container nav-wrapper">
             <Link to="/home" className="brand-logo left">
-              Home
+              <i
+                className="right clickable material-icons"
+              >
+                home
+              </i>
             </Link>
             <ul className="right">
               {this.renderButtons()}

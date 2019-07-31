@@ -245,6 +245,18 @@ const mutation = new GraphQLObjectType({
                 .then(([user, continent]) => continent);
             });
       }
+    },
+    updateUser: {
+      type: UserType,
+      args: {
+        id: { type: GraphQLID },
+        name: {type: GraphQLString },
+        email: {type: GraphQLString },
+      },
+      resolve(parentValue, {id, name, email}) {
+        console.log("Calling updateUser with params: ", id, name, email);
+        return User.updateProfile(id, name, email);
+      }
     }
   }
 });

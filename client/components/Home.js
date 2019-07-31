@@ -91,7 +91,7 @@ class Home extends Component {
           <h4 className="center margin-bottom-large">
             My travel locations manager
           </h4>
-          </Zoom>
+        </Zoom>
         <div>
           <Fade top>
             <p className="center table-title">
