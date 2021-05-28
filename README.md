@@ -16,6 +16,7 @@ To run:<br/>
 https://me-in-the-world-app.herokuapp.com
 
 To clone repo and customize the database connection:
+
 1 - In the server folder, create a secrets.js file (which is not checked in for security reasons)
 
 2 - Add the following code to that file:
